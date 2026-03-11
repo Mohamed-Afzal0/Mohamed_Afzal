@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useMemo, createContext } from 'react';
+import Header from './components/header';
+import Home from './Pages/Home';
+import About from './Pages/About';
+import { Box, CssBaseline, ThemeProvider, useTheme } from '@mui/material';
+import { lightTheme, darkTheme } from './theme';
 
-function App() {
-  const [count, setCount] = useState(0)
+// Create a context so the header can access the toggle function
+export const ColorModeContext = createContext({ toggleColorMode: () => { } });
 
+// We break the App into two components to use useTheme inside the inner one
+function MainContent() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header />
+
+      {/* Main Content Area - All sections will stack here for single page scrolling */}
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        <Home />
+        <About />
+      </Box>
+    </Box>
+  );
 }
 
-export default App
+function App() {
+  const [mode, setMode] = useState('light');
+
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [],
+  );
+
+  const theme = useMemo(
+    () => (mode === 'light' ? lightTheme : darkTheme),
+    [mode],
+  );
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <MainContent />
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+}
+
+export default App;
