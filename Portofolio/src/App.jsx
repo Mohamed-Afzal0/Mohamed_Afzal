@@ -2,6 +2,7 @@ import React, { useState, useMemo, createContext } from 'react';
 import Header from './components/header';
 import Home from './Pages/Home';
 import About from './Pages/About';
+import Project from './Pages/Project';
 import { Box, CssBaseline, ThemeProvider, useTheme } from '@mui/material';
 import { lightTheme, darkTheme } from './theme';
 
@@ -18,6 +19,7 @@ function MainContent() {
       <Box component="main" sx={{ flexGrow: 1 }}>
         <Home />
         <About />
+        <Project />
       </Box>
     </Box>
   );
