@@ -4,6 +4,7 @@ import Home from './Pages/Home';
 import About from './Pages/About';
 import Project from './Pages/Project';
 import Contact from './Pages/Contact';
+import Footer from './components/footer';
 import { Box, CssBaseline, ThemeProvider, useTheme } from '@mui/material';
 import { lightTheme, darkTheme } from './theme';
 
@@ -23,6 +24,9 @@ function MainContent() {
         <Project />
         <Contact />
       </Box>
+
+      {/* Footer Area - Pinned to the very bottom */}
+      <Footer />
     </Box>
   );
 }

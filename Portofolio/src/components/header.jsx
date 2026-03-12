@@ -42,9 +42,15 @@ function Header() {
 
                     {/* Desktop Navigation */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 3, alignItems: 'center' }}>
-                        {['Home', 'About', 'Projects', 'Contact'].map((item) => (
+                        {[
+                            { name: 'Home', href: '#home' },
+                            { name: 'About', href: '#about' },
+                            { name: 'Projects', href: '#projects' },
+                            { name: 'Contact', href: '#contact' }
+                        ].map((item) => (
                             <Button
-                                key={item}
+                                key={item.name}
+                                href={item.href}
                                 sx={{
                                     color: 'text.secondary',
                                     fontWeight: 600,
@@ -58,7 +64,7 @@ function Header() {
                                     }
                                 }}
                             >
-                                {item}
+                                {item.name}
                             </Button>
                         ))}
                     </Box>
