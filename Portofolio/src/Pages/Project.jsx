@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Box, Typography, useTheme, Container, Grid, Card, CardMedia, CardContent, CardActionArea } from '@mui/material';
+import { motion } from 'framer-motion';
+import AnimatedGrid from '../components/animated/AnimatedGrid';
+import { useReducedMotion } from '../animations/hooks/useReducedMotion';
+import { staggerChild } from '../animations/variants/stagger';
 
 // Sample data for projects, can be replaced with real data later
 const projectData = [
@@ -41,81 +45,194 @@ const projectData = [
     }
 ];
 
+// Project Card Component with 3D tilt effect
+function ProjectCard({ project, index }) {
+    const theme = useTheme();
+    const prefersReducedMotion = useReducedMotion();
+    const cardRef = useRef(null);
+    const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseMove = (e) => {
+        if (prefersReducedMotion || !cardRef.current) return;
+
+        const rect = cardRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+
+        setTilt({ rotateX, rotateY });
+    };
+
+    const handleMouseLeave = () => {
+        setTilt({ rotateX: 0, rotateY: 0 });
+        setIsHovered(false);
+    };
+
+    return (
+        <motion.div
+            variants={staggerChild}
+            style={{ height: '100%' }}
+        >
+            <Card
+                ref={cardRef}
+                component={motion.div}
+                sx={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    background: theme.palette.mode === 'light'
+                        ? 'rgba(255,255,255,0.8)'
+                        : 'rgba(15,23,42,0.8)',
+                    backdropFilter: 'blur(10px)',
+                    border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)'}`,
+                    boxShadow: theme.palette.mode === 'light'
+                        ? '0 10px 30px rgba(0,0,0,0.05)'
+                        : '0 10px 30px rgba(0,0,0,0.3)',
+                    transform: prefersReducedMotion
+                        ? 'none'
+                        : `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+                    transition: 'transform 0.2s ease-out, box-shadow 0.3s ease',
+                }}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={handleMouseLeave}
+                whileHover={!prefersReducedMotion ? { y: -8 } : {}}
+            >
+                <CardActionArea sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <Box sx={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
+                        <CardMedia
+                            component="img"
+                            height="220"
+                            image={project.image}
+                            alt={project.title}
+                            sx={{
+                                objectFit: 'cover',
+                                width: '100%',
+                                transition: 'transform 0.4s ease',
+                                transform: isHovered && !prefersReducedMotion ? 'scale(1.1)' : 'scale(1)',
+                            }}
+                        />
+                        {/* Overlay on hover */}
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                background: `linear-gradient(135deg, ${theme.palette.primary.main}80, transparent)`,
+                                opacity: isHovered ? 1 : 0,
+                                transition: 'opacity 0.3s ease',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <Typography
+                                variant="button"
+                                sx={{
+                                    color: '#fff',
+                                    fontWeight: 600,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: 1,
+                                    opacity: isHovered ? 1 : 0,
+                                    transform: isHovered ? 'translateY(0)' : 'translateY(10px)',
+                                    transition: 'all 0.3s ease 0.1s',
+                                }}
+                            >
+                                View Project
+                            </Typography>
+                        </Box>
+                    </Box>
+                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                        <Typography
+                            gutterBottom
+                            variant="h5"
+                            component="h3"
+                            fontWeight="bold"
+                            sx={{
+                                transition: 'color 0.3s ease',
+                                color: isHovered ? 'primary.main' : 'text.primary',
+                            }}
+                        >
+                            {project.title}
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{ lineHeight: 1.6 }}
+                        >
+                            {project.description}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </motion.div>
+    );
+}
+
 function Project() {
     const theme = useTheme();
+    const prefersReducedMotion = useReducedMotion();
 
     return (
         <Box
             component="section"
             id="projects"
             sx={{
-                py: { xs: 10, md: 15 }, // Use generous padding top/bottom instead of vh to allow content to flow naturally
+                py: { xs: 10, md: 15 },
                 backgroundColor: theme.palette.mode === 'light' ? theme.palette.background.default : theme.palette.background.paper,
-                // Alternating background colors between sections helps break them up
+                position: 'relative',
+                overflow: 'hidden',
             }}
         >
             <Container maxWidth="lg">
-                <Box sx={{ mb: 8, textAlign: 'center' }}>
-                    <Typography
-                        variant="h6"
-                        color="primary"
-                        fontWeight="bold"
-                        gutterBottom
-                        sx={{ textTransform: 'uppercase', letterSpacing: 1.5 }}
-                    >
-                        Portfolio
-                    </Typography>
-                    <Typography
-                        variant="h3"
-                        component="h2"
-                        fontWeight="800"
-                        sx={{ color: 'text.primary', fontSize: { xs: '2rem', md: '2.5rem' } }}
-                    >
-                        My Recent Work
-                    </Typography>
-                </Box>
+                {/* Section Header */}
+                <motion.div
+                    initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <Box sx={{ mb: 8, textAlign: 'center' }}>
+                        <Typography
+                            variant="h6"
+                            color="primary"
+                            fontWeight="bold"
+                            gutterBottom
+                            sx={{ textTransform: 'uppercase', letterSpacing: 1.5 }}
+                        >
+                            Portfolio
+                        </Typography>
+                        <Typography
+                            variant="h3"
+                            component="h2"
+                            fontWeight="800"
+                            sx={{ color: 'text.primary', fontSize: { xs: '2rem', md: '2.5rem' } }}
+                        >
+                            My Recent Work
+                        </Typography>
+                    </Box>
+                </motion.div>
 
-                <Grid container spacing={4}>
-                    {projectData.map((project) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} key={project.id}>
-                            <Card
-                                sx={{
-                                    height: '100%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    borderRadius: '16px',
-                                    overflow: 'hidden',
-                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                                    boxShadow: theme.palette.mode === 'light' ? '0 10px 30px rgba(0,0,0,0.05)' : '0 10px 30px rgba(0,0,0,0.3)',
-                                    '&:hover': {
-                                        transform: 'translateY(-8px)',
-                                        boxShadow: theme.palette.mode === 'light' ? '0 20px 40px rgba(0,0,0,0.1)' : '0 20px 40px rgba(0,0,0,0.4)',
-                                    }
-                                }}
-                            >
-                                <CardActionArea sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                                    <CardMedia
-                                        component="img"
-                                        height="220"
-                                        image={project.image}
-                                        alt={project.title}
-                                        sx={{
-                                            objectFit: 'cover',
-                                        }}
-                                    />
-                                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                                        <Typography gutterBottom variant="h5" component="h3" fontWeight="bold">
-                                            {project.title}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                                            {project.description}
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
+                {/* Projects Grid */}
+                <AnimatedGrid
+                    staggerDelay={0.1}
+                    delay={0.2}
+                    style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}
+                >
+                    {projectData.map((project, index) => (
+                        <ProjectCard key={project.id} project={project} index={index} />
                     ))}
-                </Grid>
+                </AnimatedGrid>
             </Container>
         </Box>
     );
