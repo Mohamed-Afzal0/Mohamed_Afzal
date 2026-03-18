@@ -9,30 +9,31 @@ import meImage from '../assets/me.png';
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const softSkills = [
-    { label: 'UI/UX Design',        icon: '🎨' },
-    { label: 'Responsive Design',   icon: '📐' },
-    { label: 'REST APIs',           icon: '🔗' },
-    { label: 'OOP',                 icon: '🧩' },
-    { label: 'Problem Solving',     icon: '💡' },
-    { label: 'Team Collaboration',  icon: '🤝' },
-    { label: 'Git Workflow',        icon: '🌿' },
-    { label: 'Agile / Scrum',       icon: '⚡' },
-    { label: 'Clean Code',          icon: '✨' },
+    { label: 'UI/UX Design', icon: '🎨' },
+    { label: 'Responsive Design', icon: '📐' },
+    { label: 'REST APIs', icon: '🔗' },
+    { label: 'OOP', icon: '🧩' },
+    { label: 'Problem Solving', icon: '💡' },
+    { label: 'Team Collaboration', icon: '🤝' },
+    { label: 'Git Workflow', icon: '🌿' },
+    { label: 'Agile / Scrum', icon: '⚡' },
+    { label: 'Clean Code', icon: '✨' },
 ];
 
 const technologies = [
-    { name: 'React',        category: 'Frontend',  color: '#61DAFB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-    { name: 'JavaScript',   category: 'Language',  color: '#F7DF1E', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
-    { name: 'Node.js',      category: 'Backend',   color: '#339933', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-    { name: 'Java',         category: 'Language',  color: '#ED8B00', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
-    { name: 'Python',       category: 'Language',  color: '#3776AB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-    { name: 'MySQL',        category: 'Database',  color: '#4479A1', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
-    { name: 'React Native', category: 'Mobile',    color: '#61DAFB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-    { name: 'HTML / CSS',   category: 'Frontend',  color: '#E34F26', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
-    { name: 'Material UI',  category: 'UI Lib',    color: '#007FFF', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg' },
-    { name: 'Git',          category: 'DevOps',    color: '#F05032', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-    { name: 'Expo',         category: 'Mobile',    color: '#9b59b6', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/expo/expo-original.svg' },
-    { name: 'VS Code',      category: 'Tool',      color: '#007ACC', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
+    { name: 'React', category: 'Frontend', color: '#61DAFB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'JavaScript', category: 'Language', color: '#F7DF1E', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+    { name: 'Node.js', category: 'Backend', color: '#339933', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+    { name: 'Java', category: 'Language', color: '#ED8B00', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+    { name: 'Python', category: 'Language', color: '#3776AB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+    { name: 'MySQL', category: 'Database', color: '#4479A1', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+    { name: 'React Native', category: 'Mobile', color: '#61DAFB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'HTML / CSS', category: 'Frontend', color: '#E34F26', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+    { name: 'Material UI', category: 'UI Lib', color: '#007FFF', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg' },
+    { name: 'Git', category: 'DevOps', color: '#F05032', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+    { name: 'Github', category: 'DevOps', color: '#F05032', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+    { name: 'Expo', category: 'Mobile', color: '#9b59b6', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/expo/expo-original.svg' },
+    { name: 'VS Code', category: 'Tool', color: '#007ACC', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
 ];
 
 // ─── Easing ───────────────────────────────────────────────────────────────────
@@ -170,7 +171,7 @@ function About() {
 
     // Hero refs
     const { ref: imageRef, isInView: imageInView } = useScrollAnimation({ threshold: 0.3, once: true });
-    const { ref: textRef,  isInView: textInView  } = useScrollAnimation({ threshold: 0.2, once: true });
+    const { ref: textRef, isInView: textInView } = useScrollAnimation({ threshold: 0.2, once: true });
 
     // Skills & Tech section ref
     const skillsPageRef = useRef(null);

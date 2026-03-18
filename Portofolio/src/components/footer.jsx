@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { MagneticIcon } from '../components/animated/MagneticButton';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
@@ -49,7 +48,6 @@ function Footer() {
     const socialLinks = [
         { icon: <LinkedInIcon fontSize="small" />, href: '#', label: 'LinkedIn' },
         { icon: <GitHubIcon fontSize="small" />, href: '#', label: 'GitHub' },
-        { icon: <TwitterIcon fontSize="small" />, href: '#', label: 'Twitter' },
         { icon: <InstagramIcon fontSize="small" />, href: '#', label: 'Instagram' },
     ];
 
