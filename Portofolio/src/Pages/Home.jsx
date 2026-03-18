@@ -136,7 +136,7 @@ function Home() {
                                     lineHeight: 1.8,
                                 }}
                             >
-                                Hi, I'm Mohamed Afzal. I design and build beautiful, responsive, and user-centric web applications.
+                                Hi, I'm Mohamed Afzal — a Full Stack Developer who designs and builds beautiful, performant, and user-centric web applications from backend to browser.
                             </Typography>
                         </AnimatedSection>
                     )}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, useTheme, Container, Grid, TextField, Button, Paper, IconButton, Link as MuiLink } from '@mui/material';
+import { Box, Typography, useTheme, Container, Grid, TextField, Button, Paper, IconButton, Link as MuiLink, Divider } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -9,6 +9,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import AnimatedSection from '../components/animated/AnimatedSection';
 import { FloatingOrb } from '../components/animated/FloatingElement';
 import { MagneticIcon } from '../components/animated/MagneticButton';
@@ -45,44 +46,53 @@ function Contact() {
 
     // Social links data
     const socialLinks = [
-        { icon: <LinkedInIcon />, href: 'https://www.linkedin.com/in/mohamed-afzal-0b7372305/', label: 'LinkedIn' },
-        { icon: <InstagramIcon />, href: 'https://www.instagram.com/_mohamed_afzal_/', label: 'Instagram' },
-        { icon: <GitHubIcon />, href: 'https://github.com/Mohamed-Afzal0', label: 'GitHub' },
+        { icon: <LinkedInIcon />, href: 'https://www.linkedin.com/in/mohamed-afzal-0b7372305/', label: 'LinkedIn', color: '#0077B5' },
+        { icon: <InstagramIcon />, href: 'https://www.instagram.com/_mohamed_afzal_/', label: 'Instagram', color: '#E4405F' },
+        { icon: <GitHubIcon />, href: 'https://github.com/Mohamed-Afzal0', label: 'GitHub', color: '#333' },
     ];
 
     // Contact info data
     const contactInfo = [
-        { icon: <EmailIcon fontSize="large" />, label: 'Email', value: 'afzalsfm@gmail.com', href: 'mailto:afzalsfm@gmail.com' },
-        { icon: <LocationOnIcon fontSize="large" />, label: 'Location', value: 'Colombo, Sri Lanka' },
-        { icon: <PhoneIcon fontSize="large" />, label: 'Phone', value: '+94 76 422 3404' },
+        { icon: <EmailIcon />, label: 'Email', value: 'afzalsfm@gmail.com', href: 'mailto:afzalsfm@gmail.com', description: 'Drop me a line anytime' },
+        { icon: <LocationOnIcon />, label: 'Location', value: 'Colombo, Sri Lanka', description: 'Available for remote work' },
+        { icon: <PhoneIcon />, label: 'Phone', value: '+94 76 422 3404', description: 'Mon-Fri, 9am-6pm' },
     ];
 
     // Styling for the glassy text inputs
     const textFieldStyles = {
         '& .MuiOutlinedInput-root': {
-            backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.6)',
-            borderRadius: '12px',
+            backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.03)' : 'rgba(255, 255, 255, 0.7)',
+            borderRadius: '16px',
             backdropFilter: 'blur(10px)',
             transition: 'all 0.3s ease',
             color: 'text.primary',
             '& fieldset': {
-                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)',
                 borderWidth: '1px',
             },
-            '&:hover fieldset': {
-                borderColor: theme.palette.primary.main,
+            '&:hover': {
+                backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(255, 255, 255, 0.9)',
+                '& fieldset': {
+                    borderColor: theme.palette.primary.main,
+                },
             },
-            '&.Mui-focused fieldset': {
-                borderColor: theme.palette.primary.main,
-                borderWidth: '2px',
-                boxShadow: `0 0 10px ${theme.palette.primary.main}40`,
+            '&.Mui-focused': {
+                backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 1)',
+                '& fieldset': {
+                    borderColor: theme.palette.primary.main,
+                    borderWidth: '2px',
+                },
             },
         },
         '& .MuiInputLabel-root': {
             color: 'text.secondary',
+            fontWeight: 500,
             '&.Mui-focused': {
                 color: theme.palette.primary.main,
             }
+        },
+        '& .MuiOutlinedInput-input': {
+            padding: '16px 14px',
         }
     };
 
@@ -95,143 +105,243 @@ function Contact() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                py: { xs: 8, md: 10 },
+                py: { xs: 10, md: 12 },
                 position: 'relative',
                 overflow: 'hidden',
                 background: theme.palette.mode === 'light'
-                    ? `linear-gradient(135deg, ${theme.palette.background.default} 0%, #e2e8f0 100%)`
-                    : `linear-gradient(135deg, ${theme.palette.background.default} 0%, #0f172a 100%)`,
+                    ? `linear-gradient(180deg, ${theme.palette.background.default} 0%, #f1f5f9 50%, ${theme.palette.background.default} 100%)`
+                    : `linear-gradient(180deg, ${theme.palette.background.default} 0%, #0c1222 50%, ${theme.palette.background.default} 100%)`,
             }}
         >
             {/* Floating Background Elements */}
             <FloatingOrb
                 color="primary"
-                size={400}
-                blur={150}
-                opacity={0.2}
-                position={{ top: '-10%', left: '-5%' }}
-                duration={6}
+                size={500}
+                blur={180}
+                opacity={0.12}
+                position={{ top: '-15%', left: '-10%' }}
+                duration={8}
                 delay={0}
                 theme={theme}
             />
             <FloatingOrb
                 color="secondary"
-                size={300}
-                blur={120}
-                opacity={0.15}
+                size={400}
+                blur={150}
+                opacity={0.1}
                 position={{ bottom: '-10%', right: '-5%' }}
-                duration={8}
-                delay={1}
+                duration={10}
+                delay={2}
                 theme={theme}
             />
 
-            <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+            <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
                 {/* Section Header */}
                 <AnimatedSection>
-                    <Box sx={{ mb: { xs: 5, md: 6 }, textAlign: 'center' }}>
+                    <Box sx={{ mb: { xs: 6, md: 8 }, textAlign: 'center' }}>
                         <Typography
-                            variant="h6"
-                            color="primary"
-                            fontWeight="bold"
-                            gutterBottom
-                            sx={{ textTransform: 'uppercase', letterSpacing: 1.5 }}
+                            variant="overline"
+                            sx={{
+                                color: 'primary.main',
+                                fontWeight: 700,
+                                letterSpacing: 3,
+                                display: 'inline-block',
+                                mb: 2,
+                                px: 2,
+                                py: 0.5,
+                                borderRadius: '20px',
+                                bgcolor: theme.palette.mode === 'dark' ? 'rgba(37, 99, 235, 0.1)' : 'rgba(37, 99, 235, 0.08)',
+                            }}
                         >
                             Get In Touch
                         </Typography>
                         <Typography
-                            variant="h3"
+                            variant="h2"
                             component="h2"
                             fontWeight="800"
-                            sx={{ color: 'text.primary', fontSize: { xs: '2rem', md: '2.5rem' } }}
+                            sx={{
+                                color: 'text.primary',
+                                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                                lineHeight: 1.2,
+                            }}
                         >
-                            Let's Create Together
+                            Let's Work Together
+                        </Typography>
+                        <Typography
+                            variant="h6"
+                            color="text.secondary"
+                            sx={{ mt: 2, fontWeight: 400, maxWidth: '600px', mx: 'auto' }}
+                        >
+                            Have a project in mind? Let's create something amazing together.
                         </Typography>
                     </Box>
                 </AnimatedSection>
 
-                {/* Main Card */}
+                {/* Main Content — Single unified card */}
                 <AnimatedSection delay={0.2}>
-                    <Paper
-                        elevation={0}
-                        sx={{
-                            borderRadius: '24px',
-                            overflow: 'hidden',
-                            background: theme.palette.mode === 'dark'
-                                ? 'linear-gradient(145deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.7) 100%)'
-                                : 'linear-gradient(145deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%)',
-                            backdropFilter: 'blur(20px)',
-                            border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)'}`,
-                            boxShadow: theme.palette.mode === 'light'
-                                ? '0 30px 60px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(255,255,255,0.5)'
-                                : '0 30px 60px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.05)',
-                            p: { xs: 3, md: 6 },
-                        }}
+                    <motion.div
+                        initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
                     >
-                        <Grid container spacing={6} alignItems="center">
-                            {/* Left Side: Contact Information */}
-                            <Grid item xs={12} md={5}>
-                                <motion.div
-                                    initial={prefersReducedMotion ? {} : "hidden"}
-                                    whileInView="visible"
-                                    viewport={{ once: true }}
-                                    variants={staggerContainer}
-                                >
-                                    <motion.div variants={staggerChild}>
-                                        <Typography variant="h4" fontWeight="800" gutterBottom>
-                                            Let's Talk
+                        <Paper
+                            elevation={0}
+                            sx={{
+                                borderRadius: '28px',
+                                background: theme.palette.mode === 'dark'
+                                    ? 'linear-gradient(145deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.92) 100%)'
+                                    : 'linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.96) 100%)',
+                                backdropFilter: 'blur(24px)',
+                                border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.9)'}`,
+                                boxShadow: theme.palette.mode === 'light'
+                                    ? '0 24px 60px rgba(0,0,0,0.07), inset 0 0 0 1px rgba(255,255,255,0.6)'
+                                    : '0 24px 60px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04)',
+                                position: 'relative',
+                                overflow: 'hidden',
+                            }}
+                        >
+                            {/* Top gradient accent bar */}
+                            <Box sx={{
+                                position: 'absolute', top: 0, left: 0, right: 0, height: '3px',
+                                background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary?.main || theme.palette.primary.dark})`,
+                            }} />
+
+                            {/* Success Overlay */}
+                            <AnimatePresence>
+                                {isSuccess && (
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        style={{
+                                            position: 'absolute', inset: 0, zIndex: 10,
+                                            display: 'flex', flexDirection: 'column',
+                                            alignItems: 'center', justifyContent: 'center',
+                                            background: theme.palette.mode === 'dark' ? 'rgba(15,23,42,0.98)' : 'rgba(255,255,255,0.98)',
+                                            borderRadius: '28px',
+                                        }}
+                                    >
+                                        <motion.div
+                                            initial={{ scale: 0, rotate: -180 }}
+                                            animate={{ scale: 1, rotate: 0 }}
+                                            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+                                        >
+                                            <Box sx={{
+                                                width: 80, height: 80, borderRadius: '50%', mb: 3,
+                                                background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            }}>
+                                                <CheckCircleOutlineIcon sx={{ fontSize: 48, color: '#fff' }} />
+                                            </Box>
+                                        </motion.div>
+                                        <Typography variant="h4" fontWeight="800" sx={{ mb: 1, background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                                            Message Sent!
+                                        </Typography>
+                                        <Typography color="text.secondary" sx={{ textAlign: 'center', maxWidth: 300 }}>
+                                            Thank you for reaching out. I'll get back to you as soon as possible.
                                         </Typography>
                                     </motion.div>
+                                )}
+                            </AnimatePresence>
 
-                                    <motion.div variants={staggerChild}>
-                                        <Typography variant="body1" color="text.secondary" sx={{ mb: 5, lineHeight: 1.7 }}>
-                                            Have a project in mind, need a frontend developer, or just want to say hi? I'd love to hear from you.
+                            {/* Inner layout: left info + divider + right form */}
+                            <Box sx={{
+                                display: 'flex',
+                                flexDirection: { xs: 'column', md: 'row' },
+                                minHeight: { md: 560 },
+                            }}>
+
+                                {/* ── Left: Contact Details ── */}
+                                <Box sx={{
+                                    flex: '0 0 auto',
+                                    width: { xs: '100%', md: '42%' },
+                                    p: { xs: 3, sm: 4, md: 5 },
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                }}>
+                                    <Box sx={{ mb: 3 }}>
+                                        <Typography variant="h5" fontWeight="800" sx={{
+                                            mb: 1,
+                                            background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+                                            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                                        }}>
+                                            Let's Connect
                                         </Typography>
-                                    </motion.div>
+                                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                                            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                                        </Typography>
+                                    </Box>
 
-                                    {/* Contact Info */}
-                                    <motion.div variants={staggerChild}>
-                                        <Grid container spacing={3} sx={{ mb: 5 }}>
-                                            {contactInfo.map((info, index) => (
-                                                <Grid item xs={12} sm={6} key={index}>
-                                                    <motion.div
-                                                        initial={prefersReducedMotion ? {} : { opacity: 0, x: -20 }}
-                                                        whileInView={{ opacity: 1, x: 0 }}
-                                                        viewport={{ once: true }}
-                                                        transition={{ delay: 0.3 + index * 0.1 }}
-                                                    >
-                                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                                                            <Box sx={{ color: 'primary.main', display: 'flex' }}>{info.icon}</Box>
-                                                            <Box>
-                                                                <Typography variant="caption" color="text.secondary" display="block">
-                                                                    {info.label}
-                                                                </Typography>
-                                                                {info.href ? (
-                                                                    <MuiLink href={info.href} target="_blank" rel="noopener noreferrer" sx={{ color: 'text.primary', textDecoration: 'none', '&:hover': { color: 'primary.main' } }}>
-                                                                        {info.value}
-                                                                    </MuiLink>
-                                                                ) : (
-                                                                    <Typography variant="body2" fontWeight="700">{info.value}</Typography>
-                                                                )}
-                                                            </Box>
-                                                        </Box>
-                                                    </motion.div>
-                                                </Grid>
-                                            ))}
-                                        </Grid>
-                                    </motion.div>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, flexGrow: 1 }}>
+                                        {contactInfo.map((info, index) => (
+                                            <motion.div
+                                                key={index}
+                                                initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{ delay: 0.2 + index * 0.1 }}
+                                            >
+                                                <Box
+                                                    component={info.href ? MuiLink : Box}
+                                                    href={info.href}
+                                                    target={info.href ? '_blank' : undefined}
+                                                    rel={info.href ? 'noopener noreferrer' : undefined}
+                                                    sx={{
+                                                        display: 'flex', alignItems: 'flex-start', gap: 2,
+                                                        p: 2, borderRadius: '14px', textDecoration: 'none',
+                                                        background: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                                                        border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)'}`,
+                                                        cursor: info.href ? 'pointer' : 'default',
+                                                        transition: 'all 0.25s ease',
+                                                        '&:hover': {
+                                                            background: theme.palette.mode === 'dark' ? 'rgba(37,99,235,0.1)' : 'rgba(37,99,235,0.05)',
+                                                            borderColor: theme.palette.primary.main,
+                                                            transform: 'translateX(6px)',
+                                                            '& .contact-icon': { bgcolor: 'primary.main', color: '#fff', transform: 'scale(1.1)' },
+                                                        },
+                                                    }}
+                                                >
+                                                    <Box className="contact-icon" sx={{
+                                                        width: 42, height: 42, borderRadius: '10px', flexShrink: 0,
+                                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                        bgcolor: theme.palette.mode === 'dark' ? 'rgba(37,99,235,0.15)' : 'rgba(37,99,235,0.1)',
+                                                        color: 'primary.main', transition: 'all 0.25s ease',
+                                                    }}>
+                                                        {info.icon}
+                                                    </Box>
+                                                    <Box>
+                                                        <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600 }}>
+                                                            {info.label}
+                                                        </Typography>
+                                                        <Typography variant="body2" fontWeight="700" sx={{ color: 'text.primary', mt: 0.3, wordBreak: 'break-word' }}>
+                                                            {info.value}
+                                                        </Typography>
+                                                        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.3 }}>
+                                                            {info.description}
+                                                        </Typography>
+                                                    </Box>
+                                                </Box>
+                                            </motion.div>
+                                        ))}
+                                    </Box>
 
-                                    {/* Social Icons */}
-                                    <motion.div variants={staggerChild}>
-                                        <Box sx={{ display: 'flex', gap: 2 }}>
+                                    <Divider sx={{ my: 2.5, borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)' }} />
+
+                                    <Box>
+                                        <Typography variant="caption" color="text.secondary" sx={{ mb: 1.5, display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
+                                            Follow Me
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', gap: 1.2 }}>
                                             {socialLinks.map((social, index) => (
                                                 <motion.div
                                                     key={index}
-                                                    initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
+                                                    initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8 }}
+                                                    whileInView={{ opacity: 1, scale: 1 }}
                                                     viewport={{ once: true }}
                                                     transition={{ delay: 0.5 + index * 0.1 }}
                                                 >
-                                                    <MagneticIcon strength={0.15} radius={60}>
+                                                    <MagneticIcon strength={0.2} radius={60}>
                                                         <IconButton
                                                             component={MuiLink}
                                                             href={social.href}
@@ -239,13 +349,15 @@ function Contact() {
                                                             rel="noopener noreferrer"
                                                             aria-label={social.label}
                                                             sx={{
+                                                                width: 44, height: 44, borderRadius: '12px',
                                                                 bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
-                                                                transition: 'all 0.3s',
+                                                                color: 'text.secondary', transition: 'all 0.28s ease',
+                                                                border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
                                                                 '&:hover': {
-                                                                    bgcolor: 'primary.main',
-                                                                    color: '#fff',
-                                                                    transform: 'translateY(-3px)',
-                                                                }
+                                                                    bgcolor: social.color, color: '#fff',
+                                                                    borderColor: social.color, transform: 'translateY(-4px)',
+                                                                    boxShadow: `0 8px 20px ${social.color}40`,
+                                                                },
                                                             }}
                                                         >
                                                             {social.icon}
@@ -254,177 +366,83 @@ function Contact() {
                                                 </motion.div>
                                             ))}
                                         </Box>
-                                    </motion.div>
-                                </motion.div>
-                            </Grid>
+                                    </Box>
+                                </Box>
 
-                            {/* Right Side: Form */}
-                            <Grid item xs={12} md={7}>
-                                <motion.div
-                                    initial={prefersReducedMotion ? {} : { opacity: 0, x: 30 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.3, duration: 0.5 }}
-                                >
-                                    <Box
-                                        component="form"
-                                        onSubmit={handleSubmit}
-                                        sx={{
-                                            background: theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.5)',
-                                            p: { xs: 3, sm: 4 },
-                                            borderRadius: '20px',
-                                            border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,1)'}`,
-                                            position: 'relative',
-                                            overflow: 'hidden',
-                                        }}
-                                    >
-                                        {/* Success Overlay */}
-                                        <AnimatePresence>
-                                            {isSuccess && (
-                                                <motion.div
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: 1 }}
-                                                    exit={{ opacity: 0 }}
-                                                    style={{
-                                                        position: 'absolute',
-                                                        top: 0,
-                                                        left: 0,
-                                                        right: 0,
-                                                        bottom: 0,
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        background: theme.palette.mode === 'dark'
-                                                            ? 'rgba(15, 23, 42, 0.95)'
-                                                            : 'rgba(255, 255, 255, 0.95)',
-                                                        zIndex: 10,
-                                                        borderRadius: '20px',
-                                                    }}
-                                                >
-                                                    <motion.div
-                                                        initial={{ scale: 0 }}
-                                                        animate={{ scale: 1 }}
-                                                        transition={{ type: 'spring', stiffness: 300 }}
-                                                    >
-                                                        <CheckCircleOutlineIcon sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
-                                                    </motion.div>
-                                                    <Typography variant="h5" fontWeight="bold" color="primary">
-                                                        Message Sent!
-                                                    </Typography>
-                                                    <Typography color="text.secondary" sx={{ mt: 1 }}>
-                                                        Thank you for reaching out. I'll get back to you soon.
-                                                    </Typography>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
+                                {/* ── Vertical Divider ── */}
+                                <Box sx={{
+                                    display: { xs: 'none', md: 'block' },
+                                    width: '1px',
+                                    alignSelf: 'stretch',
+                                    my: 4,
+                                    background: theme.palette.mode === 'dark'
+                                        ? 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.1) 20%, rgba(255,255,255,0.1) 80%, transparent)'
+                                        : 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.08) 20%, rgba(0,0,0,0.08) 80%, transparent)',
+                                }} />
 
-                                        <Grid container spacing={3}>
-                                            <Grid item xs={12} sm={6}>
-                                                <motion.div
-                                                    initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    viewport={{ once: true }}
-                                                    transition={{ delay: 0.4 }}
-                                                >
-                                                    <TextField
-                                                        required
-                                                        fullWidth
-                                                        label="Your Name"
-                                                        name="name"
-                                                        value={formData.name}
-                                                        onChange={handleChange}
-                                                        variant="outlined"
-                                                        sx={textFieldStyles}
-                                                    />
+                                {/* Horizontal Divider (mobile) */}
+                                <Divider sx={{
+                                    display: { xs: 'block', md: 'none' },
+                                    mx: 3,
+                                    borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)',
+                                }} />
+
+                                {/* ── Right: Form ── */}
+                                <Box sx={{
+                                    flex: 1,
+                                    p: { xs: 3, sm: 4, md: 5 },
+                                }}>
+                                    <Box component="form" onSubmit={handleSubmit}>
+                                        <Typography variant="h5" fontWeight="800" sx={{ mb: 3, color: 'text.primary' }}>
+                                            Send a Message
+                                        </Typography>
+
+                                        <Grid container spacing={2.5} sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                                            <Grid size={{ xs: 12, sm: 6 }}>
+                                                <motion.div initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+                                                    <TextField required fullWidth label="Your Name" name="name" value={formData.name} onChange={handleChange} variant="outlined" sx={textFieldStyles} />
                                                 </motion.div>
                                             </Grid>
-                                            <Grid item xs={12} sm={6}>
-                                                <motion.div
-                                                    initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    viewport={{ once: true }}
-                                                    transition={{ delay: 0.5 }}
-                                                >
-                                                    <TextField
-                                                        required
-                                                        fullWidth
-                                                        type="email"
-                                                        label="Your Email"
-                                                        name="email"
-                                                        value={formData.email}
-                                                        onChange={handleChange}
-                                                        variant="outlined"
-                                                        sx={textFieldStyles}
-                                                    />
+                                            <Grid size={{ xs: 12, sm: 6 }}>
+                                                <motion.div initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}>
+                                                    <TextField required fullWidth type="email" label="Your Email" name="email" value={formData.email} onChange={handleChange} variant="outlined" sx={textFieldStyles} />
                                                 </motion.div>
                                             </Grid>
-                                            <Grid item xs={12}>
-                                                <motion.div
-                                                    initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    viewport={{ once: true }}
-                                                    transition={{ delay: 0.6 }}
-                                                >
-                                                    <TextField
-                                                        required
-                                                        fullWidth
-                                                        label="Subject"
-                                                        name="subject"
-                                                        value={formData.subject}
-                                                        onChange={handleChange}
-                                                        variant="outlined"
-                                                        sx={textFieldStyles}
-                                                    />
+                                            <Grid size={12}>
+                                                <motion.div initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+                                                    <TextField required fullWidth label="Subject" name="subject" value={formData.subject} onChange={handleChange} variant="outlined" sx={textFieldStyles} />
                                                 </motion.div>
                                             </Grid>
-                                            <Grid item xs={12}>
-                                                <motion.div
-                                                    initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    viewport={{ once: true }}
-                                                    transition={{ delay: 0.7 }}
-                                                >
-                                                    <TextField
-                                                        required
-                                                        fullWidth
-                                                        multiline
-                                                        rows={4}
-                                                        label="Your Message"
-                                                        name="message"
-                                                        value={formData.message}
-                                                        onChange={handleChange}
-                                                        variant="outlined"
-                                                        sx={textFieldStyles}
-                                                    />
+                                            <Grid size={12}>
+                                                <motion.div initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.25 }}>
+                                                    <TextField required fullWidth multiline rows={4} label="Your Message" name="message" value={formData.message} onChange={handleChange} variant="outlined" sx={textFieldStyles} />
                                                 </motion.div>
                                             </Grid>
-                                            <Grid item xs={12}>
-                                                <motion.div
-                                                    initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    viewport={{ once: true }}
-                                                    transition={{ delay: 0.8 }}
-                                                >
+                                            <Grid size={12}>
+                                                <motion.div initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
                                                     <Button
-                                                        type="submit"
-                                                        variant="contained"
-                                                        color="primary"
-                                                        fullWidth
-                                                        size="large"
-                                                        disabled={isSubmitting}
-                                                        endIcon={isSubmitting ? null : <SendIcon />}
+                                                        type="submit" variant="contained" color="primary"
+                                                        fullWidth size="large" disabled={isSubmitting}
+                                                        endIcon={isSubmitting ? null : <ArrowOutwardIcon />}
                                                         sx={{
-                                                            py: 2,
-                                                            borderRadius: '12px',
-                                                            fontWeight: 'bold',
-                                                            letterSpacing: 1,
-                                                            background: `linear-gradient(45deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
-                                                            boxShadow: `0 8px 20px ${theme.palette.primary.main}50`,
-                                                            '&:hover': {
-                                                                boxShadow: `0 12px 25px ${theme.palette.primary.main}80`,
+                                                            py: 1.8, borderRadius: '14px', fontWeight: 700,
+                                                            fontSize: '1rem', letterSpacing: 0.5,
+                                                            background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+                                                            boxShadow: `0 10px 30px ${theme.palette.primary.main}35`,
+                                                            position: 'relative', overflow: 'hidden', transition: 'all 0.3s ease',
+                                                            '&::before': {
+                                                                content: '""', position: 'absolute', top: 0, left: '-100%',
+                                                                width: '100%', height: '100%',
+                                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                                                                transition: 'left 0.5s ease',
                                                             },
-                                                            transition: 'all 0.3s ease',
+                                                            '&:hover': {
+                                                                boxShadow: `0 15px 40px ${theme.palette.primary.main}50`,
+                                                                transform: 'translateY(-2px)',
+                                                                '&::before': { left: '100%' },
+                                                            },
+                                                            '&:active': { transform: 'translateY(0)' },
+                                                            '&:disabled': { background: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' },
                                                         }}
                                                     >
                                                         {isSubmitting ? 'Sending...' : 'Send Message'}
@@ -433,10 +451,11 @@ function Contact() {
                                             </Grid>
                                         </Grid>
                                     </Box>
-                                </motion.div>
-                            </Grid>
-                        </Grid>
-                    </Paper>
+                                </Box>
+
+                            </Box>
+                        </Paper>
+                    </motion.div>
                 </AnimatedSection>
             </Container>
         </Box>

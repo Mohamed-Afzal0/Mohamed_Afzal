@@ -6,6 +6,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { ColorModeContext } from '../App';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import MagneticButton from '../components/animated/MagneticButton';
+import Logo from '../components/Logo';
 
 function Header() {
     const theme = useTheme();
@@ -36,50 +37,29 @@ function Header() {
             sx={{
                 background: scrolled
                     ? theme.palette.mode === 'light'
-                        ? 'rgba(255, 255, 255, 0.95)'
-                        : 'rgba(15, 23, 42, 0.95)'
+                        ? 'rgba(255, 255, 255, 0.92)'
+                        : 'rgba(15, 23, 42, 0.92)'
                     : theme.palette.mode === 'light'
-                        ? 'rgba(255, 255, 255, 0.8)'
-                        : 'rgba(15, 23, 42, 0.8)',
-                backdropFilter: 'blur(10px)',
-                borderBottom: `1px solid ${theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)'}`,
+                        ? 'rgba(255, 255, 255, 0.75)'
+                        : 'rgba(15, 23, 42, 0.75)',
+                backdropFilter: 'blur(16px)',
+                borderBottom: `1px solid ${theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.06)' : 'rgba(255, 255, 255, 0.06)'}`,
                 color: 'text.primary',
-                boxShadow: scrolled ? '2px 2px 10px 0px rgba(0,0,0,0.1)' : '2px 2px 5px 0px rgba(0,0,0,0.3)',
-                transition: 'all 0.3s ease',
+                boxShadow: scrolled
+                    ? theme.palette.mode === 'light'
+                        ? '0 4px 20px rgba(0,0,0,0.06)'
+                        : '0 4px 20px rgba(0,0,0,0.3)'
+                    : 'none',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', minHeight: '70px' }}>
                     {/* Logo / Brand Name */}
-                    <motion.div
-                        initial={prefersReducedMotion ? {} : { opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <Typography
-                            variant="h5"
-                            noWrap
-                            component="a"
-                            href="#home"
-                            sx={{
-                                fontFamily: 'monospace',
-                                fontWeight: 800,
-                                letterSpacing: '.15rem',
-                                color: 'primary.main',
-                                textDecoration: 'none',
-                                display: 'inline-block',
-                                transition: 'transform 0.3s ease',
-                                '&:hover': {
-                                    transform: prefersReducedMotion ? 'none' : 'scale(1.05)',
-                                },
-                            }}
-                        >
-                            AFZAL.
-                        </Typography>
-                    </motion.div>
+                    <Logo size="sm" href="#home" showName={false} />
 
                     {/* Desktop Navigation */}
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 3, alignItems: 'center' }}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, alignItems: 'center' }}>
                         {navItems.map((item, index) => (
                             <motion.div
                                 key={item.name}
@@ -92,27 +72,30 @@ function Header() {
                                     sx={{
                                         color: 'text.secondary',
                                         fontWeight: 600,
-                                        fontSize: '0.95rem',
+                                        fontSize: '0.9rem',
                                         textTransform: 'none',
                                         position: 'relative',
-                                        transition: '0.2s',
+                                        px: 2,
+                                        py: 1,
+                                        borderRadius: '12px',
+                                        transition: 'all 0.25s ease',
                                         '&::after': {
                                             content: '""',
                                             position: 'absolute',
-                                            bottom: 2,
+                                            bottom: '4px',
                                             left: '50%',
                                             width: 0,
                                             height: '2px',
-                                            background: theme.palette.primary.main,
-                                            transition: prefersReducedMotion ? 'none' : 'all 0.3s ease',
+                                            background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+                                            transition: prefersReducedMotion ? 'none' : 'all 0.25s ease',
                                             transform: 'translateX(-50%)',
+                                            borderRadius: '1px',
                                         },
                                         '&:hover': {
                                             color: 'primary.main',
-                                            backgroundColor: 'transparent',
-                                            transform: prefersReducedMotion ? 'none' : 'translateY(-2px)',
+                                            backgroundColor: theme.palette.mode === 'dark' ? 'rgba(37, 99, 235, 0.08)' : 'rgba(37, 99, 235, 0.05)',
                                             '&::after': {
-                                                width: '60%',
+                                                width: '50%',
                                             },
                                         },
                                     }}
@@ -124,7 +107,7 @@ function Header() {
                     </Box>
 
                     {/* Right side actions */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                         {/* Theme Toggle Button */}
                         <motion.div
                             initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8 }}
@@ -136,8 +119,11 @@ function Header() {
                                 color="inherit"
                                 sx={{
                                     transition: 'all 0.3s ease',
+                                    borderRadius: '12px',
+                                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
                                     '&:hover': {
-                                        transform: prefersReducedMotion ? 'none' : 'rotate(180deg)',
+                                        transform: prefersReducedMotion ? 'none' : 'rotate(180deg) scale(1.1)',
+                                        bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)',
                                     },
                                 }}
                             >
@@ -172,13 +158,17 @@ function Header() {
                                         color="primary"
                                         href="#contact"
                                         sx={{
-                                            borderRadius: '24px',
+                                            borderRadius: '14px',
                                             textTransform: 'none',
                                             fontWeight: 600,
                                             px: 3,
-                                            boxShadow: '0 4px 14px 0 rgba(37, 99, 235, 0.39)',
+                                            py: 1,
+                                            fontSize: '0.9rem',
+                                            background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+                                            boxShadow: `0 4px 20px ${theme.palette.primary.main}30`,
                                             position: 'relative',
                                             overflow: 'hidden',
+                                            transition: 'all 0.3s ease',
                                             '&::before': {
                                                 content: '""',
                                                 position: 'absolute',
@@ -186,11 +176,12 @@ function Header() {
                                                 left: '-100%',
                                                 width: '100%',
                                                 height: '100%',
-                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)',
                                                 transition: prefersReducedMotion ? 'none' : 'left 0.5s ease',
                                             },
                                             '&:hover': {
-                                                boxShadow: '0 6px 20px rgba(37, 99, 235, 0.23)',
+                                                boxShadow: `0 6px 25px ${theme.palette.primary.main}45`,
+                                                transform: prefersReducedMotion ? 'none' : 'translateY(-1px)',
                                                 '&::before': {
                                                     left: '100%',
                                                 },

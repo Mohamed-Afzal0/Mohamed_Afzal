@@ -5,10 +5,12 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { MagneticIcon } from '../components/animated/MagneticButton';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import { useScrollAnimation } from '../animations/hooks/useScrollAnimation';
 import { staggerContainer, staggerChild } from '../animations/variants/stagger';
+import Logo from '../components/Logo';
 
 function Footer() {
     const theme = useTheme();
@@ -18,22 +20,26 @@ function Footer() {
     const footerLinkStyle = {
         color: 'text.secondary',
         textDecoration: 'none',
-        transition: 'all 0.3s ease',
-        display: 'inline-block',
+        transition: 'all 0.25s ease',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 0.5,
         position: 'relative',
+        fontWeight: 500,
         '&::after': {
             content: '""',
             position: 'absolute',
             bottom: -2,
             left: 0,
             width: 0,
-            height: '1px',
-            background: theme.palette.primary.main,
-            transition: prefersReducedMotion ? 'none' : 'width 0.3s ease',
+            height: '2px',
+            background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+            transition: prefersReducedMotion ? 'none' : 'width 0.25s ease',
+            borderRadius: '1px',
         },
         '&:hover': {
             color: 'primary.main',
-            transform: 'translateX(5px)',
+            transform: 'translateX(4px)',
             '&::after': {
                 width: '100%',
             },
@@ -55,9 +61,9 @@ function Footer() {
     ];
 
     const specialties = [
-        'Frontend Development',
+        'Full Stack Development',
         'UX/UI Design',
-        'Responsive Layouts',
+        'API Development',
         'Web Animations',
     ];
 
@@ -66,10 +72,22 @@ function Footer() {
             component="footer"
             ref={ref}
             sx={{
-                bgcolor: theme.palette.mode === 'dark' ? '#0b1120' : '#f1f5f9',
-                pt: { xs: 8, md: 10 },
+                bgcolor: theme.palette.mode === 'dark' ? '#0a0f1a' : '#f8fafc',
+                pt: { xs: 10, md: 12 },
                 pb: 4,
-                borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}`,
+                position: 'relative',
+                overflow: 'hidden',
+                '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '1px',
+                    background: theme.palette.mode === 'dark'
+                        ? 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)'
+                        : 'linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent)',
+                }
             }}
         >
             <Container maxWidth="lg">
@@ -81,37 +99,21 @@ function Footer() {
                     <Grid container spacing={6} sx={{ mb: 6 }}>
                         {/* Brand & Description */}
                         <Grid item xs={12} md={4}>
-                            <motion.div variants={staggerChild}>
-                                <Typography
-                                    variant="h5"
-                                    component="a"
-                                    href="#home"
-                                    sx={{
-                                        fontFamily: 'monospace',
-                                        fontWeight: 800,
-                                        letterSpacing: '.15rem',
-                                        color: 'primary.main',
-                                        textDecoration: 'none',
-                                        display: 'inline-block',
-                                        mb: 2,
-                                        transition: 'transform 0.3s ease',
-                                        '&:hover': {
-                                            transform: prefersReducedMotion ? 'none' : 'scale(1.05)',
-                                        },
-                                    }}
-                                >
-                                    AFZAL.
-                                </Typography>
+                            <motion.div variants={staggerChild} style={{ marginBottom: '16px' }}>
+                                <Logo size="md" href="#home" />
                             </motion.div>
 
                             <motion.div variants={staggerChild}>
-                                <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.8, maxWidth: '300px' }}>
+                                <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.8, maxWidth: '320px' }}>
                                     A passionate digital creator crafting beautiful and scalable web applications, blurring the lines between design and engineering.
                                 </Typography>
                             </motion.div>
 
                             {/* Social Icons */}
                             <motion.div variants={staggerChild}>
+                                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
+                                    Follow Me
+                                </Typography>
                                 <Box sx={{ display: 'flex', gap: 1.5 }}>
                                     {socialLinks.map((social, index) => (
                                         <motion.div
@@ -127,12 +129,16 @@ function Footer() {
                                                     aria-label={social.label}
                                                     sx={{
                                                         color: 'text.secondary',
-                                                        bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
-                                                        transition: 'all 0.3s',
+                                                        bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+                                                        transition: 'all 0.25s ease',
+                                                        borderRadius: '12px',
+                                                        border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)'}`,
                                                         '&:hover': {
                                                             bgcolor: 'primary.main',
                                                             color: '#fff',
-                                                            transform: prefersReducedMotion ? 'none' : 'translateY(-3px) rotate(5deg)',
+                                                            transform: prefersReducedMotion ? 'none' : 'translateY(-3px)',
+                                                            boxShadow: `0 6px 20px ${theme.palette.primary.main}30`,
+                                                            borderColor: 'primary.main',
                                                         }
                                                     }}
                                                 >
@@ -146,9 +152,9 @@ function Footer() {
                         </Grid>
 
                         {/* Quick Links */}
-                        <Grid item xs={12} sm={4} md={3}>
+                        <Grid item xs={6} sm={4} md={2}>
                             <motion.div variants={staggerChild}>
-                                <Typography variant="subtitle1" color="text.primary" fontWeight="bold" gutterBottom sx={{ mb: 3 }}>
+                                <Typography variant="subtitle2" color="text.primary" fontWeight="700" sx={{ mb: 3, textTransform: 'uppercase', letterSpacing: 1 }}>
                                     Explore
                                 </Typography>
                             </motion.div>
@@ -172,9 +178,9 @@ function Footer() {
                         </Grid>
 
                         {/* Services/Expertise */}
-                        <Grid item xs={12} sm={4} md={3}>
+                        <Grid item xs={6} sm={4} md={3}>
                             <motion.div variants={staggerChild}>
-                                <Typography variant="subtitle1" color="text.primary" fontWeight="bold" gutterBottom sx={{ mb: 3 }}>
+                                <Typography variant="subtitle2" color="text.primary" fontWeight="700" sx={{ mb: 3, textTransform: 'uppercase', letterSpacing: 1 }}>
                                     Specialties
                                 </Typography>
                             </motion.div>
@@ -188,7 +194,7 @@ function Footer() {
                                             animate={isInView ? { opacity: 1, x: 0 } : {}}
                                             transition={{ delay: 0.3 + index * 0.1 }}
                                         >
-                                            <Typography variant="body2" color="text.secondary">
+                                            <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                                                 {specialty}
                                             </Typography>
                                         </motion.div>
@@ -198,23 +204,51 @@ function Footer() {
                         </Grid>
 
                         {/* Contact Snippet */}
-                        <Grid item xs={12} sm={4} md={2}>
+                        <Grid item xs={12} sm={4} md={3}>
                             <motion.div variants={staggerChild}>
-                                <Typography variant="subtitle1" color="text.primary" fontWeight="bold" gutterBottom sx={{ mb: 3 }}>
-                                    Say Hello
+                                <Typography variant="subtitle2" color="text.primary" fontWeight="700" sx={{ mb: 3, textTransform: 'uppercase', letterSpacing: 1 }}>
+                                    Get In Touch
                                 </Typography>
                             </motion.div>
 
                             <motion.div variants={staggerChild}>
-                                <MuiLink href="mailto:afzalsfm@gmail.com" variant="body2" sx={{ color: 'text.secondary', textDecoration: 'none', display: 'block', mb: 1, transition: 'color 0.3s ease', '&:hover': { color: 'primary.main' } }}>
-                                    afzalsfm@gmail.com
-                                </MuiLink>
-                            </motion.div>
-
-                            <motion.div variants={staggerChild}>
-                                <Typography variant="body2" color="text.secondary">
-                                    Colombo, Sri Lanka.
-                                </Typography>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                                    <Box>
+                                        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
+                                            Email
+                                        </Typography>
+                                        <MuiLink
+                                            href="mailto:afzalsfm@gmail.com"
+                                            variant="body2"
+                                            sx={{
+                                                color: 'text.primary',
+                                                textDecoration: 'none',
+                                                fontWeight: 600,
+                                                transition: 'color 0.25s ease',
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                gap: 0.5,
+                                                '&:hover': {
+                                                    color: 'primary.main',
+                                                    '& .arrow-icon': {
+                                                        transform: 'translate(2px, -2px)',
+                                                    }
+                                                }
+                                            }}
+                                        >
+                                            afzalsfm@gmail.com
+                                            <ArrowOutwardIcon sx={{ fontSize: 14, transition: 'transform 0.2s ease' }} className="arrow-icon" />
+                                        </MuiLink>
+                                    </Box>
+                                    <Box>
+                                        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
+                                            Location
+                                        </Typography>
+                                        <Typography variant="body2" color="text.primary" fontWeight={600}>
+                                            Colombo, Sri Lanka
+                                        </Typography>
+                                    </Box>
+                                </Box>
                             </motion.div>
                         </Grid>
                     </Grid>
@@ -224,7 +258,7 @@ function Footer() {
                         animate={isInView ? { opacity: 1 } : {}}
                         transition={{ delay: 0.8 }}
                     >
-                        <Divider sx={{ borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', mb: 4 }} />
+                        <Divider sx={{ borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', mb: 4 }} />
 
                         {/* Copyright Section */}
                         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>
@@ -232,10 +266,10 @@ function Footer() {
                                 © {new Date().getFullYear()} Mohamed Afzal. All rights reserved.
                             </Typography>
                             <Box sx={{ display: 'flex', gap: 3 }}>
-                                <MuiLink href="#" variant="body2" sx={{ color: 'text.secondary', textDecoration: 'none', '&:hover': { color: 'primary.main' } }}>
+                                <MuiLink href="#" variant="body2" sx={{ color: 'text.secondary', textDecoration: 'none', transition: 'color 0.25s ease', '&:hover': { color: 'primary.main' } }}>
                                     Privacy Policy
                                 </MuiLink>
-                                <MuiLink href="#" variant="body2" sx={{ color: 'text.secondary', textDecoration: 'none', '&:hover': { color: 'primary.main' } }}>
+                                <MuiLink href="#" variant="body2" sx={{ color: 'text.secondary', textDecoration: 'none', transition: 'color 0.25s ease', '&:hover': { color: 'primary.main' } }}>
                                     Terms of Service
                                 </MuiLink>
                             </Box>

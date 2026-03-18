@@ -1,208 +1,520 @@
-import React from 'react';
-import { Box, Typography, useTheme, Container, Chip, Stack } from '@mui/material';
-import { motion } from 'framer-motion';
-import AnimatedSection from '../components/animated/AnimatedSection';
+import React, { useRef } from 'react';
+import { Box, Typography, useTheme, Container, Chip, Stack, Grid } from '@mui/material';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useScrollAnimation } from '../animations/hooks/useScrollAnimation';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import { scaleIn } from '../animations/variants/scale';
-import { staggerContainer, staggerChild } from '../animations/variants/stagger';
-import { fadeInLeft } from '../animations/variants/fade';
+import { staggerChild } from '../animations/variants/stagger';
 import meImage from '../assets/me.png';
 
-// Skills data
-const skills = [
-    'React', 'JavaScript', 'TypeScript', 'Node.js',
-    'Material UI', 'Tailwind CSS', 'Framer Motion',
-    'HTML/CSS', 'Git', 'REST APIs', 'Responsive Design',
-    'UI/UX Design', 'Node.js', 'MongoDB'
+// ─── Data ─────────────────────────────────────────────────────────────────────
+const softSkills = [
+    { label: 'UI/UX Design',        icon: '🎨' },
+    { label: 'Responsive Design',   icon: '📐' },
+    { label: 'REST APIs',           icon: '🔗' },
+    { label: 'OOP',                 icon: '🧩' },
+    { label: 'Problem Solving',     icon: '💡' },
+    { label: 'Team Collaboration',  icon: '🤝' },
+    { label: 'Git Workflow',        icon: '🌿' },
+    { label: 'Agile / Scrum',       icon: '⚡' },
+    { label: 'Clean Code',          icon: '✨' },
 ];
 
+const technologies = [
+    { name: 'React',        category: 'Frontend',  color: '#61DAFB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'JavaScript',   category: 'Language',  color: '#F7DF1E', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+    { name: 'Node.js',      category: 'Backend',   color: '#339933', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+    { name: 'Java',         category: 'Language',  color: '#ED8B00', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+    { name: 'Python',       category: 'Language',  color: '#3776AB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+    { name: 'MySQL',        category: 'Database',  color: '#4479A1', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+    { name: 'React Native', category: 'Mobile',    color: '#61DAFB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'HTML / CSS',   category: 'Frontend',  color: '#E34F26', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+    { name: 'Material UI',  category: 'UI Lib',    color: '#007FFF', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg' },
+    { name: 'Git',          category: 'DevOps',    color: '#F05032', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+    { name: 'Expo',         category: 'Mobile',    color: '#9b59b6', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/expo/expo-original.svg' },
+    { name: 'VS Code',      category: 'Tool',      color: '#007ACC', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
+];
+
+// ─── Easing ───────────────────────────────────────────────────────────────────
+const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
+
+// ─── Scroll Arrow ─────────────────────────────────────────────────────────────
+function ScrollArrow({ color }) {
+    return (
+        <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+        >
+            <Box sx={{
+                width: 32, height: 32,
+                border: `1.5px solid ${color}55`,
+                borderRadius: '50%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+                <motion.div
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 1.8, repeat: Infinity }}
+                >
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                        <path d="M6.5 2.5v8M2.5 7.5l4 4 4-4" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </motion.div>
+            </Box>
+            <Typography variant="caption" sx={{ color, opacity: 0.35, fontSize: '0.58rem', letterSpacing: 3, textTransform: 'uppercase' }}>
+                scroll
+            </Typography>
+        </motion.div>
+    );
+}
+
+// ─── Tech Card (compact) ──────────────────────────────────────────────────────
+function TechCard({ tech, index, inView, isDark, primaryColor }) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.88 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ duration: 0.5, delay: index * 0.055, ease: EASE_OUT_EXPO }}
+            whileHover={{ y: -6, scale: 1.05 }}
+            style={{ height: '100%' }}
+        >
+            <Box sx={{
+                position: 'relative',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 0.8,
+                py: 1.8,
+                px: 1,
+                borderRadius: '14px',
+                cursor: 'default',
+                background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)'}`,
+                backdropFilter: 'blur(10px)',
+                transition: 'all 0.28s ease',
+                overflow: 'hidden',
+                '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0, left: 0, right: 0,
+                    height: 2,
+                    background: `linear-gradient(90deg, transparent, ${tech.color}88, transparent)`,
+                    opacity: 0,
+                    transition: 'opacity 0.28s ease',
+                },
+                '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: 0,
+                    borderRadius: '14px',
+                    background: `radial-gradient(ellipse at 50% 0%, ${tech.color}18 0%, transparent 65%)`,
+                    opacity: 0,
+                    transition: 'opacity 0.28s ease',
+                },
+                '&:hover::before': { opacity: 1 },
+                '&:hover::after': { opacity: 1 },
+                '&:hover': {
+                    borderColor: `${tech.color}50`,
+                    boxShadow: `0 8px 28px ${tech.color}22, 0 0 0 1px ${tech.color}22`,
+                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                },
+            }}>
+                {/* Brand-color glow dot */}
+                <Box sx={{
+                    position: 'absolute', top: 8, right: 8,
+                    width: 5, height: 5, borderRadius: '50%',
+                    bgcolor: tech.color, opacity: 0.7,
+                    boxShadow: `0 0 6px ${tech.color}`,
+                    zIndex: 1,
+                }} />
+
+                <Box
+                    component="img"
+                    src={tech.logo}
+                    alt={tech.name}
+                    sx={{
+                        width: 34, height: 34,
+                        objectFit: 'contain',
+                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.25))',
+                        position: 'relative', zIndex: 1,
+                    }}
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                />
+                <Typography
+                    variant="caption"
+                    fontWeight={700}
+                    align="center"
+                    sx={{ fontSize: '0.72rem', color: 'text.primary', lineHeight: 1.2, position: 'relative', zIndex: 1 }}
+                >
+                    {tech.name}
+                </Typography>
+                <Typography
+                    variant="caption"
+                    sx={{ fontSize: '0.58rem', color: tech.color, fontWeight: 700, letterSpacing: 0.8, textTransform: 'uppercase', position: 'relative', zIndex: 1, opacity: 0.9 }}
+                >
+                    {tech.category}
+                </Typography>
+            </Box>
+        </motion.div>
+    );
+}
+
+// ─── Main Component ───────────────────────────────────────────────────────────
 function About() {
     const theme = useTheme();
     const prefersReducedMotion = useReducedMotion();
+    const isDark = theme.palette.mode === 'dark';
+    const primary = theme.palette.primary.main;
+
+    // Hero refs
     const { ref: imageRef, isInView: imageInView } = useScrollAnimation({ threshold: 0.3, once: true });
-    const { ref: textRef, isInView: textInView } = useScrollAnimation({ threshold: 0.2, once: true });
-    const { ref: skillsRef, isInView: skillsInView } = useScrollAnimation({ threshold: 0.3, once: true });
+    const { ref: textRef,  isInView: textInView  } = useScrollAnimation({ threshold: 0.2, once: true });
+
+    // Skills & Tech section ref
+    const skillsPageRef = useRef(null);
+    const skillsPageInView = useInView(skillsPageRef, { once: true, amount: 0.1 });
 
     return (
-        <Box
-            component="section"
-            id="about"
-            sx={{
-                py: { xs: 10, md: 15 },
-                backgroundColor: theme.palette.mode === 'light' ? theme.palette.background.paper : theme.palette.background.default,
-                position: 'relative',
-                overflow: 'hidden',
-            }}
-        >
-            <Container maxWidth="lg">
-                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: { xs: 6, md: 10 } }}>
-                    {/* Image Column */}
-                    <Box sx={{ flex: '1 1 50%', maxWidth: { xs: '100%', md: '45%' }, position: 'relative' }}>
-                        <motion.div
-                            ref={imageRef}
-                            initial={prefersReducedMotion ? {} : "hidden"}
-                            animate={imageInView ? "visible" : "hidden"}
-                            variants={scaleIn}
-                        >
-                            <Box
-                                sx={{
+        <Box component="div" id="about">
+
+            {/* ══════════════════════════════════════════════
+                PAGE 1 — Hero
+            ══════════════════════════════════════════════ */}
+            <Box
+                component="section"
+                sx={{
+                    minHeight: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    py: { xs: 4, md: 5 },
+                    backgroundColor: isDark ? theme.palette.background.default : theme.palette.background.paper,
+                    position: 'relative',
+                    overflow: 'hidden',
+                }}
+            >
+                {/* Ambient glows */}
+                <Box sx={{
+                    position: 'absolute', top: '-18%', right: '-8%',
+                    width: 560, height: 560, borderRadius: '50%',
+                    background: `radial-gradient(circle, ${primary}18, transparent 70%)`,
+                    pointerEvents: 'none',
+                }} />
+                <Box sx={{
+                    position: 'absolute', bottom: '-14%', left: '-6%',
+                    width: 420, height: 420, borderRadius: '50%',
+                    background: `radial-gradient(circle, ${theme.palette.secondary?.main || theme.palette.primary.dark}14, transparent 70%)`,
+                    pointerEvents: 'none',
+                }} />
+
+                <Container maxWidth="lg" sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: { xs: 'column', md: 'row' },
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: { xs: 5, md: 8 },
+                        width: '100%',
+                        maxWidth: 980,
+                        mx: 'auto',
+                    }}>
+                        {/* Photo */}
+                        <Box sx={{ flex: '1 1 0', maxWidth: { md: 420 }, width: { xs: '70%', sm: '50%', md: 'auto' }, mx: 'auto', position: 'relative' }}>
+                            <motion.div
+                                ref={imageRef}
+                                initial={prefersReducedMotion ? {} : 'hidden'}
+                                animate={imageInView ? 'visible' : 'hidden'}
+                                variants={scaleIn}
+                            >
+                                <Box sx={{
                                     position: 'relative',
                                     '&::before': {
-                                        content: '""',
-                                        position: 'absolute',
-                                        top: { xs: -15, md: -20 },
-                                        left: { xs: -15, md: -20 },
-                                        right: { xs: 15, md: 20 },
-                                        bottom: { xs: 15, md: 20 },
-                                        border: `4px solid ${theme.palette.primary.main}`,
-                                        borderRadius: '16px',
-                                        zIndex: 0,
+                                        content: '""', position: 'absolute',
+                                        top: -14, left: -14, right: 14, bottom: 14,
+                                        border: `2px solid ${primary}`,
+                                        borderRadius: '20px', zIndex: 0,
                                         transition: 'transform 0.4s ease',
                                     },
-                                    '&:hover::before': {
-                                        transform: 'translate(10px, 10px)',
-                                    }
+                                    '&:hover::before': { transform: 'translate(6px, 6px)' },
+                                    '&::after': {
+                                        content: '""', position: 'absolute',
+                                        bottom: -8, right: -8, width: 72, height: 72,
+                                        border: `2px solid ${primary}33`,
+                                        borderRadius: '12px', zIndex: 0,
+                                    },
+                                }}>
+                                    <motion.div whileHover={prefersReducedMotion ? {} : { scale: 1.03 }} transition={{ duration: 0.3 }}>
+                                        <Box
+                                            component="img"
+                                            src={meImage}
+                                            alt="Mohamed Afzal"
+                                            sx={{
+                                                width: '100%', maxHeight: { md: '54vh' },
+                                                objectFit: 'cover', objectPosition: 'top',
+                                                borderRadius: '18px', position: 'relative', zIndex: 1,
+                                                display: 'block',
+                                                boxShadow: isDark ? '0 20px 50px rgba(0,0,0,0.5)' : '0 20px 50px rgba(0,0,0,0.12)',
+                                            }}
+                                        />
+                                    </motion.div>
+                                </Box>
+                            </motion.div>
+                        </Box>
+
+                        {/* Text */}
+                        <Box sx={{ flex: '1 1 0', maxWidth: { md: 500 } }}>
+                            <motion.div
+                                ref={textRef}
+                                initial={prefersReducedMotion ? {} : 'hidden'}
+                                animate={textInView ? 'visible' : 'hidden'}
+                                variants={{
+                                    hidden: { opacity: 0 },
+                                    visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.05 } }
                                 }}
                             >
-                                <motion.div
-                                    whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
-                                    transition={{ duration: 0.3 }}
-                                >
-                                    <Box
-                                        component="img"
-                                        src={meImage}
-                                        alt="Mohamed Afzal"
-                                        sx={{
-                                            width: '100%',
-                                            height: 'auto',
-                                            borderRadius: '16px',
-                                            position: 'relative',
-                                            zIndex: 1,
-                                            boxShadow: theme.palette.mode === 'light'
-                                                ? '0 20px 40px rgba(0,0,0,0.1)'
-                                                : '0 20px 40px rgba(0,0,0,0.4)',
-                                            display: 'block',
-                                            transition: 'transform 0.4s ease',
-                                            cursor: 'default',
-                                        }}
-                                    />
+                                <motion.div variants={staggerChild}>
+                                    <Typography variant="overline" color="primary" fontWeight="bold" sx={{ letterSpacing: 3, fontSize: '0.7rem' }}>
+                                        About Me
+                                    </Typography>
                                 </motion.div>
-                            </Box>
-                        </motion.div>
+
+                                <motion.div variants={staggerChild}>
+                                    <Typography variant="h3" component="h2" fontWeight={800}
+                                        sx={{ mb: 2, mt: 0.5, fontSize: { xs: '1.8rem', md: '2.4rem' }, lineHeight: 1.15, color: 'text.primary', '& span': { color: primary } }}>
+                                        Passionate <span>Full Stack</span><br />Designer & Developer
+                                    </Typography>
+                                </motion.div>
+
+                                <motion.div variants={staggerChild}>
+                                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem', lineHeight: 1.8, mb: 1.5 }}>
+                                        Hello! I'm <strong>Mohamed Afzal</strong>, a Full Stack Developer and creative professional dedicated to building exceptional digital experiences. I bridge backend logic with intuitive front-end design to craft seamless, user-centric applications.
+                                    </Typography>
+                                </motion.div>
+
+                                <motion.div variants={staggerChild}>
+                                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem', lineHeight: 1.8, mb: 3 }}>
+                                        Whether it's developing robust web applications or designing visually stunning layouts, I deliver quality and performance — transforming complex problems into beautiful, functional solutions.
+                                    </Typography>
+                                </motion.div>
+
+                                {/* Stats */}
+                                <motion.div variants={staggerChild}>
+                                    <Stack direction="row" spacing={4}>
+                                        {[
+                                            { value: '10+', label: 'Projects' },
+                                            { value: '12+', label: 'Technologies' },
+                                            { value: '100%', label: 'Passion' },
+                                        ].map(({ value, label }, i) => (
+                                            <motion.div
+                                                key={label}
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={textInView ? { opacity: 1, y: 0 } : {}}
+                                                transition={{ delay: 0.6 + i * 0.1, ease: EASE_OUT_EXPO, duration: 0.5 }}
+                                            >
+                                                <Box sx={{ textAlign: 'center' }}>
+                                                    <Typography fontWeight={800} sx={{ fontSize: '1.6rem', color: primary, lineHeight: 1 }}>
+                                                        {value}
+                                                    </Typography>
+                                                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.68rem', letterSpacing: 1.2, textTransform: 'uppercase' }}>
+                                                        {label}
+                                                    </Typography>
+                                                </Box>
+                                            </motion.div>
+                                        ))}
+                                    </Stack>
+                                </motion.div>
+                            </motion.div>
+                        </Box>
                     </Box>
+                </Container>
 
-                    {/* Text Column */}
-                    <Box sx={{ flex: '1 1 50%' }}>
-                        <motion.div
-                            ref={textRef}
-                            initial={prefersReducedMotion ? {} : "hidden"}
-                            animate={textInView ? "visible" : "hidden"}
-                            variants={{
-                                hidden: { opacity: 0 },
-                                visible: {
-                                    opacity: 1,
-                                    transition: {
-                                        staggerChildren: 0.15,
-                                        delayChildren: 0.1,
-                                    }
-                                }
-                            }}
-                        >
-                            <motion.div variants={staggerChild}>
-                                <Typography
-                                    variant="h6"
-                                    color="primary"
-                                    fontWeight="bold"
-                                    gutterBottom
-                                    sx={{ textTransform: 'uppercase', letterSpacing: 1.5 }}
-                                >
-                                    About Me
-                                </Typography>
-                            </motion.div>
+                {/* Scroll hint */}
+                <Box sx={{ display: 'flex', justifyContent: 'center', pb: 3, mt: 'auto' }}>
+                    <ScrollArrow color={primary} />
+                </Box>
+            </Box>
 
-                            <motion.div variants={staggerChild}>
-                                <Typography
-                                    variant="h3"
-                                    component="h2"
-                                    fontWeight="800"
-                                    sx={{ mb: 3, color: 'text.primary', fontSize: { xs: '2rem', md: '2.5rem' } }}
-                                >
-                                    Passionate Designer & Developer
-                                </Typography>
-                            </motion.div>
+            {/* ══════════════════════════════════════════════
+                PAGE 2 — Skills & Technologies (single page)
+            ══════════════════════════════════════════════ */}
+            <Box
+                ref={skillsPageRef}
+                component="section"
+                sx={{
+                    minHeight: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    py: { xs: 5, md: 6 },
+                    position: 'relative',
+                    overflow: 'hidden',
+                    backgroundColor: isDark
+                        ? `color-mix(in srgb, ${theme.palette.background.default} 97%, ${primary})`
+                        : `color-mix(in srgb, ${theme.palette.background.paper} 96%, ${primary})`,
+                    borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`,
+                }}
+            >
+                {/* Dot-grid background */}
+                <Box sx={{
+                    position: 'absolute', inset: 0,
+                    backgroundImage: isDark
+                        ? 'radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px)'
+                        : 'radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px)',
+                    backgroundSize: '26px 26px',
+                    pointerEvents: 'none',
+                }} />
+                {/* Corner accent glows */}
+                <Box sx={{
+                    position: 'absolute', bottom: '-10%', right: '-5%',
+                    width: 380, height: 380, borderRadius: '50%',
+                    background: `radial-gradient(circle, ${primary}14, transparent 70%)`,
+                    pointerEvents: 'none',
+                }} />
+                <Box sx={{
+                    position: 'absolute', top: '-8%', left: '-4%',
+                    width: 300, height: 300, borderRadius: '50%',
+                    background: `radial-gradient(circle, ${theme.palette.secondary?.main || primary}10, transparent 70%)`,
+                    pointerEvents: 'none',
+                }} />
 
-                            <motion.div variants={staggerChild}>
-                                <Typography
-                                    variant="body1"
-                                    color="text.secondary"
-                                    paragraph
-                                    sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}
-                                >
-                                    Hello! I'm Mohamed Afzal, a creative professional dedicated to building exceptional digital experiences. I bring together the logical world of code and the artistic realm of design to craft intuitive, user-centric interfaces.
-                                </Typography>
-                            </motion.div>
+                <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: { xs: 4, md: 5 } }}>
 
-                            <motion.div variants={staggerChild}>
-                                <Typography
-                                    variant="body1"
-                                    color="text.secondary"
-                                    paragraph
-                                    sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 4 }}
-                                >
-                                    Whether it's developing robust web applications or designing visually stunning layouts, I focus on delivering quality and performance. My goal is to transform complex problems into simple, beautiful, and functional solutions.
-                                </Typography>
-                            </motion.div>
+                    {/* Section Header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 32 }}
+                        animate={skillsPageInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.7, ease: EASE_OUT_EXPO }}
+                    >
+                        <Box sx={{ textAlign: 'center' }}>
+                            <Typography variant="overline" color="primary" fontWeight="bold" sx={{ letterSpacing: 3, fontSize: '0.68rem' }}>
+                                What I Bring
+                            </Typography>
+                            <Typography variant="h3" fontWeight={800}
+                                sx={{ mt: 0.5, fontSize: { xs: '1.7rem', md: '2.3rem' }, color: 'text.primary', lineHeight: 1.2 }}>
+                                Skills &{' '}
+                                <Box component="span" sx={{
+                                    color: primary, position: 'relative',
+                                    '&::after': {
+                                        content: '""', position: 'absolute',
+                                        left: 0, bottom: -3, width: '100%', height: '2.5px',
+                                        background: `linear-gradient(90deg, ${primary}, ${primary}00)`,
+                                        borderRadius: 2,
+                                    },
+                                }}>
+                                    Technologies
+                                </Box>
+                            </Typography>
+                        </Box>
+                    </motion.div>
 
-                            {/* Skills Section */}
+                    {/* 2-column body */}
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: { xs: 'column', md: 'row' },
+                        gap: { xs: 4, md: 6 },
+                        alignItems: { md: 'flex-start' },
+                    }}>
+
+                        {/* ── LEFT: Core Skills ── */}
+                        <Box sx={{ flex: '0 0 auto', width: { xs: '100%', md: 260 } }}>
                             <motion.div
-                                ref={skillsRef}
-                                initial={prefersReducedMotion ? {} : "hidden"}
-                                animate={skillsInView ? "visible" : "hidden"}
-                                variants={staggerContainer}
+                                initial={{ opacity: 0, x: -28 }}
+                                animate={skillsPageInView ? { opacity: 1, x: 0 } : {}}
+                                transition={{ duration: 0.6, delay: 0.2, ease: EASE_OUT_EXPO }}
                             >
-                                <Typography
-                                    variant="subtitle1"
-                                    fontWeight="bold"
-                                    color="text.primary"
-                                    sx={{ mb: 2 }}
-                                >
-                                    Skills & Technologies
-                                </Typography>
-                                <Stack
-                                    direction="row"
-                                    spacing={1}
-                                    flexWrap="wrap"
-                                    useFlexGap
-                                    sx={{ gap: 1 }}
-                                >
-                                    {skills.map((skill, index) => (
-                                        <motion.div key={skill} variants={staggerChild}>
-                                            <Chip
-                                                label={skill}
-                                                sx={{
-                                                    bgcolor: theme.palette.mode === 'dark'
-                                                        ? 'rgba(255,255,255,0.05)'
-                                                        : 'rgba(0,0,0,0.04)',
-                                                    color: 'text.secondary',
-                                                    fontWeight: 500,
-                                                    px: 1,
-                                                    '&:hover': {
-                                                        bgcolor: theme.palette.primary.main,
-                                                        color: '#fff',
-                                                        transform: 'translateY(-2px)',
-                                                    },
-                                                    transition: 'all 0.2s ease',
-                                                }}
-                                            />
+                                {/* Label with decorative line */}
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2.5 }}>
+                                    <Box sx={{ width: 22, height: 2, borderRadius: 1, bgcolor: primary }} />
+                                    <Typography variant="caption" fontWeight={700} color="text.secondary"
+                                        sx={{ textTransform: 'uppercase', letterSpacing: 2, fontSize: '0.65rem' }}>
+                                        Core Skills
+                                    </Typography>
+                                </Box>
+
+                                <Stack direction="column" spacing={1}>
+                                    {softSkills.map((skill, i) => (
+                                        <motion.div
+                                            key={skill.label}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={skillsPageInView ? { opacity: 1, x: 0 } : {}}
+                                            transition={{ duration: 0.45, delay: 0.3 + i * 0.07, ease: EASE_OUT_EXPO }}
+                                            whileHover={{ x: 5 }}
+                                        >
+                                            <Box sx={{
+                                                display: 'flex', alignItems: 'center', gap: 1.5,
+                                                px: 2, py: 1.2,
+                                                borderRadius: '10px',
+                                                border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)'}`,
+                                                background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                                                backdropFilter: 'blur(8px)',
+                                                cursor: 'default',
+                                                transition: 'all 0.22s ease',
+                                                '&:hover': {
+                                                    borderColor: `${primary}55`,
+                                                    background: `${primary}0D`,
+                                                    boxShadow: `0 4px 16px ${primary}18`,
+                                                },
+                                            }}>
+                                                <Typography sx={{ fontSize: '1rem', lineHeight: 1 }}>{skill.icon}</Typography>
+                                                <Typography variant="body2" fontWeight={600} sx={{ fontSize: '0.82rem', color: 'text.primary' }}>
+                                                    {skill.label}
+                                                </Typography>
+                                                {/* Right chevron dot */}
+                                                <Box sx={{ ml: 'auto', width: 5, height: 5, borderRadius: '50%', bgcolor: primary, opacity: 0.4 }} />
+                                            </Box>
                                         </motion.div>
                                     ))}
                                 </Stack>
                             </motion.div>
-                        </motion.div>
+                        </Box>
+
+                        {/* Divider (md only) */}
+                        <Box sx={{
+                            display: { xs: 'none', md: 'block' },
+                            width: '1px',
+                            alignSelf: 'stretch',
+                            background: isDark
+                                ? 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent)'
+                                : 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.08), transparent)',
+                        }} />
+
+                        {/* ── RIGHT: Technologies ── */}
+                        <Box sx={{ flex: 1 }}>
+                            <motion.div
+                                initial={{ opacity: 0, x: 28 }}
+                                animate={skillsPageInView ? { opacity: 1, x: 0 } : {}}
+                                transition={{ duration: 0.6, delay: 0.25, ease: EASE_OUT_EXPO }}
+                            >
+                                {/* Label */}
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2.5 }}>
+                                    <Box sx={{ width: 22, height: 2, borderRadius: 1, bgcolor: primary }} />
+                                    <Typography variant="caption" fontWeight={700} color="text.secondary"
+                                        sx={{ textTransform: 'uppercase', letterSpacing: 2, fontSize: '0.65rem' }}>
+                                        Tools & Technologies
+                                    </Typography>
+                                </Box>
+
+                                <Grid container spacing={1.5}>
+                                    {technologies.map((tech, index) => (
+                                        <Grid item xs={4} sm={3} md={3} key={tech.name}>
+                                            <TechCard
+                                                tech={tech}
+                                                index={index}
+                                                inView={skillsPageInView}
+                                                isDark={isDark}
+                                                primaryColor={primary}
+                                            />
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </motion.div>
+                        </Box>
                     </Box>
-                </Box>
-            </Container>
+
+                </Container>
+            </Box>
         </Box>
     );
 }
