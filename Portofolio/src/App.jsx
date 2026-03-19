@@ -10,6 +10,7 @@ import { lightTheme, darkTheme } from './theme';
 import PageLoader from './components/animated/PageLoader';
 import { ScrollProgress } from './components/animated/CursorGlow';
 import { useReducedMotion } from './animations/hooks/useReducedMotion';
+import GTRTireBackground from './components/animated/GTRTireBackground';
 
 // Create a context so the header can access the toggle function
 export const ColorModeContext = createContext({ toggleColorMode: () => { } });
@@ -21,10 +22,15 @@ function MainContent() {
 
     return (
         <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-            <Header />
+            <GTRTireBackground />
+            
+            {/* Wrap the entire overlaying DOM in zIndex 1 so it sits cleanly over the fixed 3D canvas without clipping */}
+            <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', flexGrow: 1, pointerEvents: 'none' }}>
+                {/* We re-enable pointer events for the interactive DOM so the user can click buttons and links */}
+                <Box sx={{ pointerEvents: 'auto', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                    <Header />
 
-            {/* Main Content Area - All sections will stack here for single page scrolling */}
-            <Box component="main" sx={{ flexGrow: 1 }}>
+                    <Box component="main" sx={{ flexGrow: 1 }}>
                 <Home />
                 <About />
                 <Project />
@@ -34,8 +40,10 @@ function MainContent() {
             {/* Footer Area - Pinned to the very bottom */}
             <Footer />
 
-            {/* Scroll Progress Bar */}
-            {!prefersReducedMotion && <ScrollProgress color="primary" height={3} />}
+                    {/* Scroll Progress Bar */}
+                    {!prefersReducedMotion && <ScrollProgress color="primary" height={3} />}
+                </Box>
+            </Box>
         </Box>
     );
 }

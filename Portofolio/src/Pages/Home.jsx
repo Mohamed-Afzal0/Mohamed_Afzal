@@ -43,10 +43,8 @@ function Home() {
                 justifyContent: 'center',
                 position: 'relative',
                 overflow: 'hidden',
-                // Gradient background
-                background: theme.palette.mode === 'light'
-                    ? `linear-gradient(135deg, ${theme.palette.background.default} 0%, #e0e7ff 50%, ${theme.palette.background.default} 100%)`
-                    : `linear-gradient(135deg, ${theme.palette.background.default} 0%, #0f172a 50%, ${theme.palette.background.default} 100%)`,
+                // Gradient background removed so 3D Canvas shines through
+                background: 'transparent',
             }}
         >
             {/* Floating Background Orbs */}

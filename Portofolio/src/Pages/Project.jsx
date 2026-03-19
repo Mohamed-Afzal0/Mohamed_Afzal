@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Box, Typography, useTheme, Container, Grid, Card, CardMedia, CardContent, CardActionArea } from '@mui/material';
+import { Box, Typography, useTheme, Container, Grid, Card, CardMedia, CardContent, CardActionArea, Chip, Stack } from '@mui/material';
 import { motion } from 'framer-motion';
 import AnimatedGrid from '../components/animated/AnimatedGrid';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
@@ -9,39 +9,24 @@ import { staggerChild } from '../animations/variants/stagger';
 const projectData = [
     {
         id: 1,
-        title: "E-Commerce Platform",
-        description: "A full-featured online store with payment gateway integration and modern UI.",
-        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80"
+        title: "Mind Wave",
+        description: "An application which provide users with the best way to track their mood and mental health.",
+        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80",
+        techStack: ["React-Native", "Expo", "Firebase", "Superbase", "Node.js", "javascript"]
     },
     {
         id: 2,
-        title: "SaaS Dashboard",
-        description: "An analytics dashboard built for tracking SaaS metrics and user engagement.",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80"
+        title: "Portfolio Website",
+        description: "A website to showcase my skills and projects.",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80",
+        techStack: ["React", "Vite", "Framer Motion", "Material-UI", "javascript"]
     },
     {
         id: 3,
-        title: "Mobile App Redesign",
-        description: "Complete UX/UI overhaul of a fitness tracking mobile application.",
-        image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 4,
-        title: "Real Estate Portal",
-        description: "Property listing website with advanced search filters and map integration.",
-        image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 5,
-        title: "Financial AI Tool",
-        description: "An AI-driven application for personal finance management and predictions.",
-        image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 6,
-        title: "Portfolio Template",
-        description: "A sleek, customizable template for creative professionals to showcase work.",
-        image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80"
+        title: "Estate Agent Application",
+        description: "SmartMove is a simple estate listing web app that showcases featured properties with key details like location, price, and descriptions for an estate agent brand.",
+        image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80",
+        techStack: ["React", "Vite", "Material-UI", "javascript"]
     }
 ];
 
@@ -168,10 +153,35 @@ function ProjectCard({ project, index }) {
                         <Typography
                             variant="body2"
                             color="text.secondary"
-                            sx={{ lineHeight: 1.6 }}
+                            sx={{ lineHeight: 1.6, mb: 2, flexGrow: 1 }}
                         >
                             {project.description}
                         </Typography>
+
+                        {/* Tech Stack Template */}
+                        {project.techStack && project.techStack.length > 0 && (
+                            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mt: 'auto' }}>
+                                {project.techStack.map((tech, i) => (
+                                    <Chip
+                                        key={i}
+                                        label={tech}
+                                        size="small"
+                                        variant="outlined"
+                                        sx={{
+                                            borderRadius: '8px',
+                                            fontSize: '0.75rem',
+                                            fontWeight: 500,
+                                            borderColor: theme.palette.mode === 'light' ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.15)',
+                                            color: 'text.secondary',
+                                            '&:hover': {
+                                                borderColor: 'primary.main',
+                                                color: 'primary.main',
+                                            }
+                                        }}
+                                    />
+                                ))}
+                            </Stack>
+                        )}
                     </CardContent>
                 </CardActionArea>
             </Card>
@@ -189,7 +199,7 @@ function Project() {
             id="projects"
             sx={{
                 py: { xs: 10, md: 15 },
-                backgroundColor: theme.palette.mode === 'light' ? theme.palette.background.default : theme.palette.background.paper,
+                backgroundColor: 'transparent',
                 position: 'relative',
                 overflow: 'hidden',
             }}
@@ -203,15 +213,6 @@ function Project() {
                     transition={{ duration: 0.5 }}
                 >
                     <Box sx={{ mb: 8, textAlign: 'center' }}>
-                        <Typography
-                            variant="h6"
-                            color="primary"
-                            fontWeight="bold"
-                            gutterBottom
-                            sx={{ textTransform: 'uppercase', letterSpacing: 1.5 }}
-                        >
-                            Portfolio
-                        </Typography>
                         <Typography
                             variant="h3"
                             component="h2"

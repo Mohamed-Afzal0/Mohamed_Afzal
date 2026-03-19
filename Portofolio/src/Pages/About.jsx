@@ -34,6 +34,10 @@ const technologies = [
     { name: 'Github', category: 'DevOps', color: '#F05032', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
     { name: 'Expo', category: 'Mobile', color: '#9b59b6', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/expo/expo-original.svg' },
     { name: 'VS Code', category: 'Tool', color: '#007ACC', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
+    { name: 'IntelliJ IDEA', category: 'Tool', color: '#007ACC', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg' },
+    { name: 'Firebase', category: 'Backend', color: '#FFCA28', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
+    { name: 'Figma', category: 'Design', color: '#FF4081', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+    { name: 'Canva', category: 'Design', color: '#FF4081', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg' },
 ];
 
 // ─── Easing ───────────────────────────────────────────────────────────────────
@@ -190,8 +194,8 @@ function About() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    py: { xs: 4, md: 5 },
-                    backgroundColor: isDark ? theme.palette.background.default : theme.palette.background.paper,
+                    py: { xs: 10, md: 15 },
+                    backgroundColor: 'transparent',
                     position: 'relative',
                     overflow: 'hidden',
                 }}
@@ -239,12 +243,7 @@ function About() {
                                         transition: 'transform 0.4s ease',
                                     },
                                     '&:hover::before': { transform: 'translate(6px, 6px)' },
-                                    '&::after': {
-                                        content: '""', position: 'absolute',
-                                        bottom: -8, right: -8, width: 72, height: 72,
-                                        border: `2px solid ${primary}33`,
-                                        borderRadius: '12px', zIndex: 0,
-                                    },
+
                                 }}>
                                     <motion.div whileHover={prefersReducedMotion ? {} : { scale: 1.03 }} transition={{ duration: 0.3 }}>
                                         <Box
@@ -348,13 +347,10 @@ function About() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    py: { xs: 5, md: 6 },
+                    py: { xs: 10, md: 15 },
                     position: 'relative',
                     overflow: 'hidden',
-                    backgroundColor: isDark
-                        ? `color-mix(in srgb, ${theme.palette.background.default} 97%, ${primary})`
-                        : `color-mix(in srgb, ${theme.palette.background.paper} 96%, ${primary})`,
-                    borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`,
+                    backgroundColor: 'transparent',
                 }}
             >
                 {/* Dot-grid background */}

@@ -108,9 +108,7 @@ function Contact() {
                 py: { xs: 10, md: 12 },
                 position: 'relative',
                 overflow: 'hidden',
-                background: theme.palette.mode === 'light'
-                    ? `linear-gradient(180deg, ${theme.palette.background.default} 0%, #f1f5f9 50%, ${theme.palette.background.default} 100%)`
-                    : `linear-gradient(180deg, ${theme.palette.background.default} 0%, #0c1222 50%, ${theme.palette.background.default} 100%)`,
+                background: 'transparent',
             }}
         >
             {/* Floating Background Elements */}
