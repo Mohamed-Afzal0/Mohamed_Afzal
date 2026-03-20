@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import { Box, Typography, useTheme, Container, Grid, TextField, Button, Paper, IconButton, Link as MuiLink, Divider } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import EmailIcon from '@mui/icons-material/Email';
@@ -18,9 +19,15 @@ import { staggerContainer, staggerChild } from '../animations/variants/stagger';
 function Contact() {
     const theme = useTheme();
     const prefersReducedMotion = useReducedMotion();
+    const form = useRef();
     const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [error, setError] = useState(null);
+
+    const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,18 +36,29 @@ function Contact() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setError(null);
 
-        // Simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        try {
+            const result = await emailjs.sendForm(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                form.current,
+                EMAILJS_PUBLIC_KEY
+            );
 
-        setIsSubmitting(false);
-        setIsSuccess(true);
-
-        // Reset after showing success
-        setTimeout(() => {
-            setIsSuccess(false);
-            setFormData({ name: '', email: '', subject: '', message: '' });
-        }, 3000);
+            if (result.text === 'OK') {
+                setIsSuccess(true);
+                setFormData({ name: '', email: '', subject: '', message: '' });
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => setIsSuccess(false), 5000);
+            }
+        } catch (err) {
+            console.error('EmailJS Error:', err);
+            setError('Failed to send message. Please try again later.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     // Social links data
@@ -367,7 +385,7 @@ function Contact() {
                                     flex: 1,
                                     p: { xs: 3, sm: 4, md: 5 },
                                 }}>
-                                    <Box component="form" onSubmit={handleSubmit}>
+                                <Box component="form" ref={form} onSubmit={handleSubmit}>
                                         <Typography variant="h5" fontWeight="800" sx={{ mb: 3, color: 'text.primary' }}>
                                             Send a Message
                                         </Typography>
@@ -393,6 +411,13 @@ function Contact() {
                                                     <TextField required fullWidth multiline rows={4} label="Your Message" name="message" value={formData.message} onChange={handleChange} variant="outlined" sx={textFieldStyles} />
                                                 </motion.div>
                                             </Grid>
+                                            {error && (
+                                                <Grid size={12}>
+                                                    <Typography color="error" variant="body2" sx={{ textAlign: 'center', mb: 2, fontWeight: 600 }}>
+                                                        {error}
+                                                    </Typography>
+                                                </Grid>
+                                            )}
                                             <Grid size={12}>
                                                 <motion.div initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
                                                     <Button

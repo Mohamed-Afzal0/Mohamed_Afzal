@@ -124,10 +124,30 @@ function Home() {
                                     >
                                         Future
                                     </Typography>
+
+                                    {/* Text Glow Effect */}
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                            width: '100%',
+                                            height: '100%',
+                                            background: `radial-gradient(circle, ${theme.palette.primary.main}33 0%, transparent 70%)`,
+                                            filter: 'blur(60px)',
+                                            zIndex: -1,
+                                            animation: 'glowPulse 4s ease-in-out infinite',
+                                            '@keyframes glowPulse': {
+                                                '0%, 100%': { opacity: 0.5, transform: 'translate(-50%, -50%) scale(1)' },
+                                                '50%': { opacity: 0.8, transform: 'translate(-50%, -50%) scale(1.1)' },
+                                            }
+                                        }}
+                                    />
                                 </motion.div>
                             </Box>
 
-                            <Box sx={{ overflow: 'hidden', mt: { xs: 3, md: 5 }, mb: { xs: 5, md: 7 } }}>
+                            <Box sx={{ overflow: 'hidden', mt: { xs: 3, md: 5 }, mb: { xs: 2, md: 3 } }}>
                                 <motion.div variants={{
                                     hidden: { opacity: 0, y: 50 },
                                     show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.25, 1.0, 0.25, 1.0] } }
@@ -155,10 +175,60 @@ function Home() {
                                             }
                                         }}
                                     >
-                                        Turning Vision into Reality
+                                        Ever Evolving • Ever Learning
                                     </Typography>
                                 </motion.div>
                             </Box>
+
+                            {/* Passion Indicator Badge */}
+                            <motion.div
+                                variants={{
+                                    hidden: { opacity: 0, scale: 0.8 },
+                                    show: { opacity: 1, scale: 1, transition: { delay: 1, duration: 0.6 } }
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: 1.5,
+                                        px: 1.2,
+                                        py: 0.8,
+                                        borderRadius: '20px',
+                                        background: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+                                        border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                                        backdropFilter: 'blur(10px)',
+                                        mb: 3,
+                                        cursor: 'default',
+                                        transition: 'all 0.3s ease',
+                                        '&:hover': {
+                                            background: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
+                                            transform: 'translateY(-2px)',
+                                            borderColor: 'primary.main',
+                                        }
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            width: 8,
+                                            height: 8,
+                                            borderRadius: '50%',
+                                            bgcolor: 'primary.main',
+                                            boxShadow: `0 0 10px ${theme.palette.primary.main}`,
+                                            animation: 'pulse 2s infinite'
+                                        }}
+                                    />
+                                </Box>
+                                <style>
+                                    {`
+                                        @keyframes pulse {
+                                            0% { transform: scale(1); opacity: 1; }
+                                            50% { transform: scale(1.5); opacity: 0.5; }
+                                            100% { transform: scale(1); opacity: 1; }
+                                        }
+                                    `}
+                                </style>
+                            </motion.div>
 
                             <motion.div variants={{
                                 hidden: { opacity: 0, scale: 0.9, filter: 'blur(10px)' },
@@ -256,7 +326,7 @@ function Home() {
                         animate="animate"
                         style={{
                             position: 'absolute',
-                            bottom: 40,
+                            bottom: 20,
                             left: '50%',
                             transform: 'translateX(-50%)',
                             cursor: 'pointer',
@@ -275,7 +345,7 @@ function Home() {
                         >
                             <Typography
                                 variant="caption"
-                                sx={{ mb: 1, letterSpacing: 1, textTransform: 'uppercase' }}
+                                sx={{ mb: 1.5, letterSpacing: 1, textTransform: 'uppercase' }}
                             >
                                 Scroll
                             </Typography>

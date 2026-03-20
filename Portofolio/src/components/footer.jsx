@@ -71,8 +71,8 @@ function Footer() {
             ref={ref}
             sx={{
                 bgcolor: theme.palette.mode === 'dark' ? '#0a0f1a' : '#f8fafc',
-                pt: { xs: 10, md: 12 },
-                pb: 4,
+                pt: { xs: 6, md: 8 },
+                pb: 3,
                 position: 'relative',
                 overflow: 'hidden',
                 '&::before': {
@@ -94,7 +94,7 @@ function Footer() {
                     animate={isInView ? "visible" : "hidden"}
                     variants={staggerContainer}
                 >
-                    <Grid container spacing={6} sx={{ mb: 6 }}>
+                    <Grid container spacing={4} sx={{ mb: 4 }}>
                         {/* Brand & Description */}
                         <Grid item xs={12} md={4}>
                             <motion.div variants={staggerChild} style={{ marginBottom: '16px' }}>
@@ -102,7 +102,7 @@ function Footer() {
                             </motion.div>
 
                             <motion.div variants={staggerChild}>
-                                <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.8, maxWidth: '320px' }}>
+                                <Typography variant="body1" color="text.secondary" sx={{ mb: 2, lineHeight: 1.8, maxWidth: '320px' }}>
                                     A passionate digital creator crafting beautiful and scalable web applications, blurring the lines between design and engineering.
                                 </Typography>
                             </motion.div>
@@ -152,13 +152,13 @@ function Footer() {
                         {/* Quick Links */}
                         <Grid item xs={6} sm={4} md={2}>
                             <motion.div variants={staggerChild}>
-                                <Typography variant="subtitle2" color="text.primary" fontWeight="700" sx={{ mb: 3, textTransform: 'uppercase', letterSpacing: 1 }}>
+                                <Typography variant="subtitle2" color="text.primary" fontWeight="700" sx={{ mb: 2, textTransform: 'uppercase', letterSpacing: 1 }}>
                                     Explore
                                 </Typography>
                             </motion.div>
 
                             <motion.div variants={staggerChild}>
-                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                                     {quickLinks.map((link, index) => (
                                         <motion.div
                                             key={link.name}
@@ -178,13 +178,13 @@ function Footer() {
                         {/* Services/Expertise */}
                         <Grid item xs={6} sm={4} md={3}>
                             <motion.div variants={staggerChild}>
-                                <Typography variant="subtitle2" color="text.primary" fontWeight="700" sx={{ mb: 3, textTransform: 'uppercase', letterSpacing: 1 }}>
+                                <Typography variant="subtitle2" color="text.primary" fontWeight="700" sx={{ mb: 2, textTransform: 'uppercase', letterSpacing: 1 }}>
                                     Specialties
                                 </Typography>
                             </motion.div>
 
                             <motion.div variants={staggerChild}>
-                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                                     {specialties.map((specialty, index) => (
                                         <motion.div
                                             key={specialty}
@@ -204,13 +204,13 @@ function Footer() {
                         {/* Contact Snippet */}
                         <Grid item xs={12} sm={4} md={3}>
                             <motion.div variants={staggerChild}>
-                                <Typography variant="subtitle2" color="text.primary" fontWeight="700" sx={{ mb: 3, textTransform: 'uppercase', letterSpacing: 1 }}>
+                                <Typography variant="subtitle2" color="text.primary" fontWeight="700" sx={{ mb: 2, textTransform: 'uppercase', letterSpacing: 1 }}>
                                     Get In Touch
                                 </Typography>
                             </motion.div>
 
                             <motion.div variants={staggerChild}>
-                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                                     <Box>
                                         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
                                             Email
@@ -256,7 +256,7 @@ function Footer() {
                         animate={isInView ? { opacity: 1 } : {}}
                         transition={{ delay: 0.8 }}
                     >
-                        <Divider sx={{ borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', mb: 4 }} />
+                        <Divider sx={{ borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', mb: 3 }} />
 
                         {/* Copyright Section */}
                         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>

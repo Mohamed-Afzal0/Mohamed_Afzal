@@ -154,23 +154,6 @@ const Logo = ({ size = 'md', href = '#home', showSubtext = false, showName = tru
                     </div>
                 )}
 
-                {/* Optional subtext (used in large standalone contexts) */}
-                {showSubtext && (
-                    <p
-                        style={{
-                            fontSize: '10px',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.4em',
-                            marginTop: '8px',
-                            color: 'rgba(96, 165, 250, 0.6)',
-                            opacity: isLoaded ? 1 : 0,
-                            transition: 'opacity 1s ease',
-                            fontFamily: 'monospace',
-                        }}
-                    >
-                        Portfolio &bull; MMXXVI
-                    </p>
-                )}
             </div>
         </a>
     );

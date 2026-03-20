@@ -40,9 +40,9 @@ function Header() {
                         ? 'rgba(255, 255, 255, 0.92)'
                         : 'rgba(15, 23, 42, 0.92)'
                     : theme.palette.mode === 'light'
-                        ? 'rgba(255, 255, 255, 0.75)'
-                        : 'rgba(15, 23, 42, 0.75)',
-                backdropFilter: 'blur(16px)',
+                        ? 'rgba(255, 255, 255, 0.1)'
+                        : 'rgba(15, 23, 42, 0.1)',
+                backdropFilter: 'blur(30px)',
                 borderBottom: `1px solid ${theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.06)' : 'rgba(255, 255, 255, 0.06)'}`,
                 color: 'text.primary',
                 boxShadow: scrolled
@@ -56,7 +56,7 @@ function Header() {
             <Container maxWidth="xl">
                 <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', minHeight: '70px' }}>
                     {/* Logo / Brand Name */}
-                    <Logo size="sm" href="#home" showName={false} />
+                    <Logo size="sm" href="#home" showName={false} showSubtext={true} />
 
                     {/* Desktop Navigation */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, alignItems: 'center' }}>
