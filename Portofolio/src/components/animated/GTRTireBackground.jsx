@@ -1,9 +1,42 @@
 import React, { useEffect, useRef } from 'react';
 import { Box, useTheme } from '@mui/material';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+
+// High-performance background orb
+const BackgroundOrb = ({ color, size, top, left, delay = 0, opacity = 0.15 }) => (
+    <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ 
+            opacity: [opacity, opacity * 1.5, opacity],
+            x: [0, 40, 0],
+            y: [0, 50, 0],
+            scale: [1, 1.1, 1]
+        }}
+        transition={{ 
+            duration: 12, 
+            repeat: Infinity, 
+            delay,
+            ease: "easeInOut" 
+        }}
+        style={{
+            position: 'absolute',
+            top, left,
+            width: size,
+            height: size,
+            borderRadius: '50%',
+            background: color,
+            filter: 'blur(100px)',
+            pointerEvents: 'none',
+            zIndex: 1,
+            willChange: 'transform, opacity',
+        }}
+    />
+);
 
 function GTRTireBackground() {
     const theme = useTheme();
+    const isDark = theme.palette.mode === 'dark';
+    const primary = theme.palette.primary.main;
     const { scrollY } = useScroll();
     const smokeContainerRef = useRef(null);
     const lastScrollY = useRef(0);
@@ -97,22 +130,39 @@ function GTRTireBackground() {
                 background: theme.palette.mode === 'dark' ? '#050505' : '#111111', 
             }}
         >
-            {/* Highly optimized keyframes */}
-            <style>
-                {`
-                @keyframes smokeRiseFast {
-                    0%   { opacity: 0; transform: scale(0.5) translateY(0) translateX(0); }
-                    20%  { opacity: 1; }
-                    60%  { opacity: 0.8; }
-                    100% { opacity: 0; transform: scale(3.5) translateY(-350px) translateX(var(--drift, 0px)); }
-                }
-                @keyframes speedPass {
-                    0% { transform: scaleX(0) translateX(100vw); opacity: 0; }
-                    50% { opacity: 1; }
-                    100% { transform: scaleX(1) translateX(-50vw); opacity: 0; }
-                }
-                `}
-            </style>
+                {/* Global Background Orbs - Unified for all sections */}
+                <BackgroundOrb color={primary} size={600} top="-10%" left="-10%" delay={0} opacity={isDark ? 0.15 : 0.08} />
+                <BackgroundOrb color={theme.palette.secondary?.main || primary} size={500} top="30%" left="70%" delay={2} opacity={isDark ? 0.12 : 0.06} />
+                <BackgroundOrb color={primary} size={400} top="70%" left="15%" delay={4} opacity={isDark ? 0.1 : 0.05} />
+
+                {/* Unified Grid Overlay */}
+                <Box sx={{
+                    position: 'absolute', inset: 0,
+                    backgroundImage: isDark
+                        ? 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)'
+                        : 'linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)',
+                    backgroundSize: '50px 50px',
+                    maskImage: 'radial-gradient(circle at center, black, transparent 90%)',
+                    pointerEvents: 'none',
+                    zIndex: 2,
+                }} />
+
+                {/* Highly optimized keyframes */}
+                <style>
+                    {`
+                    @keyframes smokeRiseFast {
+                        0%   { opacity: 0; transform: scale(0.5) translateY(0) translateX(0); }
+                        20%  { opacity: 1; }
+                        60%  { opacity: 0.8; }
+                        100% { opacity: 0; transform: scale(3.5) translateY(-350px) translateX(var(--drift, 0px)); }
+                    }
+                    @keyframes speedPass {
+                        0% { transform: scaleX(0) translateX(100vw); opacity: 0; }
+                        50% { opacity: 1; }
+                        100% { transform: scaleX(1) translateX(-50vw); opacity: 0; }
+                    }
+                    `}
+                </style>
 
             {/* Hardware Accelerated Speed Lines */}
             <Box
@@ -379,15 +429,17 @@ function GTRTireBackground() {
                     left: 0,
                     width: '100vw',
                     height: '100vh',
-                    zIndex: 15, // Protects text contrast instantly
+                    zIndex: 15,
                     pointerEvents: 'none',
-                    background: theme.palette.mode === 'dark' 
-                        ? 'linear-gradient(135deg, rgba(8,8,8,0.75) 0%, rgba(15,23,42,0.88) 100%)' 
-                        : 'linear-gradient(135deg, rgba(230,230,230,0.85) 0%, rgba(255,255,255,0.95) 100%)',
+                    background: isDark 
+                        ? 'linear-gradient(135deg, rgba(8,8,8,0.7) 0%, rgba(15,23,42,0.85) 100%)' 
+                        : 'linear-gradient(135deg, rgba(248,250,252,0.85) 0%, rgba(255,255,255,0.95) 100%)',
                 }}
             />
         </Box>
     );
 }
+
+const primary = "#3b82f6"; // Fallback primary color for the definition
 
 export default GTRTireBackground;

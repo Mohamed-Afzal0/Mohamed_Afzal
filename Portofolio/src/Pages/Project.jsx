@@ -74,9 +74,9 @@ function ProjectCard({ project, index }) {
                     borderRadius: '16px',
                     overflow: 'hidden',
                     background: theme.palette.mode === 'light'
-                        ? 'rgba(255,255,255,0.8)'
-                        : 'rgba(15,23,42,0.8)',
-                    backdropFilter: 'blur(10px)',
+                        ? 'rgba(255,255,255,0.9)'
+                        : 'rgba(15,23,42,0.85)',
+                    backdropFilter: 'blur(8px)',
                     border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)'}`,
                     boxShadow: theme.palette.mode === 'light'
                         ? '0 10px 30px rgba(0,0,0,0.05)'

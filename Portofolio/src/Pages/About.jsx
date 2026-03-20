@@ -40,7 +40,6 @@ const technologies = [
     { name: 'Canva', category: 'Design', color: '#FF4081', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg' },
 ];
 
-// ─── Easing ───────────────────────────────────────────────────────────────────
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
 
 // ─── Scroll Arrow ─────────────────────────────────────────────────────────────
@@ -77,11 +76,21 @@ function ScrollArrow({ color }) {
 function TechCard({ tech, index, inView, isDark, primaryColor }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.88 }}
-            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: index * 0.055, ease: EASE_OUT_EXPO }}
-            whileHover={{ y: -6, scale: 1.05 }}
-            style={{ height: '100%' }}
+            initial={{ opacity: 0, y: 30, scale: 0.9, rotateY: 15 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1, rotateY: 0 } : {}}
+            transition={{
+                duration: 0.8,
+                delay: index * 0.04,
+                ease: EASE_OUT_EXPO
+            }}
+            whileHover={{
+                y: -10,
+                scale: 1.05,
+                rotateY: 12,
+                rotateX: -5,
+                transition: { duration: 0.3 }
+            }}
+            style={{ height: '100%', perspective: '1000px' }}
         >
             <Box sx={{
                 position: 'relative',
@@ -90,48 +99,39 @@ function TechCard({ tech, index, inView, isDark, primaryColor }) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 0.8,
-                py: 1.8,
+                gap: 1,
+                py: 2.5,
                 px: 1,
-                borderRadius: '14px',
-                cursor: 'default',
-                background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
-                border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)'}`,
-                backdropFilter: 'blur(10px)',
-                transition: 'all 0.28s ease',
+                borderRadius: '20px',
+                cursor: 'pointer',
+                background: isDark
+                    ? 'linear-gradient(135deg, rgba(30,41,59,0.7), rgba(15,23,42,0.8))'
+                    : 'linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.85))',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
+                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                boxShadow: isDark ? '0 10px 30px rgba(0,0,0,0.3)' : '0 10px 30px rgba(0,0,0,0.05)',
                 overflow: 'hidden',
                 '&::before': {
                     content: '""',
                     position: 'absolute',
                     top: 0, left: 0, right: 0,
-                    height: 2,
-                    background: `linear-gradient(90deg, transparent, ${tech.color}88, transparent)`,
+                    height: 3,
+                    background: `linear-gradient(90deg, transparent, ${tech.color}, transparent)`,
                     opacity: 0,
-                    transition: 'opacity 0.28s ease',
+                    transition: 'opacity 0.3s ease',
                 },
-                '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    inset: 0,
-                    borderRadius: '14px',
-                    background: `radial-gradient(ellipse at 50% 0%, ${tech.color}18 0%, transparent 65%)`,
-                    opacity: 0,
-                    transition: 'opacity 0.28s ease',
-                },
-                '&:hover::before': { opacity: 1 },
-                '&:hover::after': { opacity: 1 },
                 '&:hover': {
-                    borderColor: `${tech.color}50`,
-                    boxShadow: `0 8px 28px ${tech.color}22, 0 0 0 1px ${tech.color}22`,
-                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                    borderColor: `${tech.color}66`,
+                    boxShadow: `0 20px 40px ${tech.color}15, 0 0 0 1px ${tech.color}15`,
+                    '&::before': { opacity: 1 },
                 },
             }}>
                 {/* Brand-color glow dot */}
                 <Box sx={{
-                    position: 'absolute', top: 8, right: 8,
-                    width: 5, height: 5, borderRadius: '50%',
-                    bgcolor: tech.color, opacity: 0.7,
-                    boxShadow: `0 0 6px ${tech.color}`,
+                    position: 'absolute', top: 12, right: 12,
+                    width: 6, height: 6, borderRadius: '50%',
+                    bgcolor: tech.color, opacity: 0.8,
+                    boxShadow: `0 0 10px ${tech.color}`,
                     zIndex: 1,
                 }} />
 
@@ -140,27 +140,48 @@ function TechCard({ tech, index, inView, isDark, primaryColor }) {
                     src={tech.logo}
                     alt={tech.name}
                     sx={{
-                        width: 34, height: 34,
+                        width: 40, height: 40,
+                        mb: 0.5,
                         objectFit: 'contain',
-                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.25))',
+                        filter: `drop-shadow(0 4px 8px ${tech.color}33)`,
                         position: 'relative', zIndex: 1,
+                        transition: 'transform 0.3s ease',
                     }}
                     onError={(e) => { e.target.style.display = 'none'; }}
                 />
                 <Typography
                     variant="caption"
-                    fontWeight={700}
+                    fontWeight={800}
                     align="center"
-                    sx={{ fontSize: '0.72rem', color: 'text.primary', lineHeight: 1.2, position: 'relative', zIndex: 1 }}
+                    sx={{ fontSize: '0.75rem', color: 'text.primary', lineHeight: 1.2, position: 'relative', zIndex: 1 }}
                 >
                     {tech.name}
                 </Typography>
                 <Typography
                     variant="caption"
-                    sx={{ fontSize: '0.58rem', color: tech.color, fontWeight: 700, letterSpacing: 0.8, textTransform: 'uppercase', position: 'relative', zIndex: 1, opacity: 0.9 }}
+                    sx={{
+                        fontSize: '0.6rem',
+                        color: tech.color,
+                        fontWeight: 900,
+                        letterSpacing: 1,
+                        textTransform: 'uppercase',
+                        position: 'relative',
+                        zIndex: 1,
+                        opacity: 0.85
+                    }}
                 >
                     {tech.category}
                 </Typography>
+
+                {/* Background radial glow on hover */}
+                <Box sx={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: `radial-gradient(circle at 50% 120%, ${tech.color}15, transparent 70%)`,
+                    opacity: 0,
+                    transition: 'opacity 0.3s ease',
+                    '.MuiBox-root:hover &': { opacity: 1 }
+                }} />
             </Box>
         </motion.div>
     );
@@ -200,20 +221,6 @@ function About() {
                     overflow: 'hidden',
                 }}
             >
-                {/* Ambient glows */}
-                <Box sx={{
-                    position: 'absolute', top: '-18%', right: '-8%',
-                    width: 560, height: 560, borderRadius: '50%',
-                    background: `radial-gradient(circle, ${primary}18, transparent 70%)`,
-                    pointerEvents: 'none',
-                }} />
-                <Box sx={{
-                    position: 'absolute', bottom: '-14%', left: '-6%',
-                    width: 420, height: 420, borderRadius: '50%',
-                    background: `radial-gradient(circle, ${theme.palette.secondary?.main || theme.palette.primary.dark}14, transparent 70%)`,
-                    pointerEvents: 'none',
-                }} />
-
                 <Container maxWidth="lg" sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Box sx={{
                         display: 'flex',
@@ -225,8 +232,8 @@ function About() {
                         maxWidth: 980,
                         mx: 'auto',
                     }}>
-                        {/* Photo */}
-                        <Box sx={{ flex: '1 1 0', maxWidth: { md: 420 }, width: { xs: '70%', sm: '50%', md: 'auto' }, mx: 'auto', position: 'relative' }}>
+                        {/* Photo Container */}
+                        <Box sx={{ flex: '1 1 0', maxWidth: { md: 450 }, width: { xs: '85%', sm: '60%', md: 'auto' }, mx: 'auto', position: 'relative' }}>
                             <motion.div
                                 ref={imageRef}
                                 initial={prefersReducedMotion ? {} : 'hidden'}
@@ -235,30 +242,51 @@ function About() {
                             >
                                 <Box sx={{
                                     position: 'relative',
+                                    p: 1.5,
+                                    borderRadius: '30px',
+                                    background: isDark ? 'rgba(15,23,42,0.8)' : 'rgba(255,255,255,0.9)',
+                                    border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)'}`,
+                                    backdropFilter: 'blur(10px)',
+                                    boxShadow: isDark ? '0 30px 60px rgba(0,0,0,0.6)' : '0 30px 60px rgba(0,0,0,0.15)',
                                     '&::before': {
                                         content: '""', position: 'absolute',
-                                        top: -14, left: -14, right: 14, bottom: 14,
-                                        border: `2px solid ${primary}`,
-                                        borderRadius: '20px', zIndex: 0,
-                                        transition: 'transform 0.4s ease',
+                                        inset: -2,
+                                        borderRadius: '32px',
+                                        padding: '2px',
+                                        background: `linear-gradient(135deg, ${primary}, transparent, ${primary}44)`,
+                                        mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                                        maskComposite: 'exclude',
+                                        opacity: 0.5,
                                     },
-                                    '&:hover::before': { transform: 'translate(6px, 6px)' },
-
                                 }}>
-                                    <motion.div whileHover={prefersReducedMotion ? {} : { scale: 1.03 }} transition={{ duration: 0.3 }}>
+                                    <motion.div
+                                        whileHover={{ scale: 1.02, rotate: -1 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                                    >
                                         <Box
                                             component="img"
                                             src={meImage}
                                             alt="Mohamed Afzal"
                                             sx={{
-                                                width: '100%', maxHeight: { md: '54vh' },
-                                                objectFit: 'cover', objectPosition: 'top',
-                                                borderRadius: '18px', position: 'relative', zIndex: 1,
+                                                width: '100%',
+                                                height: 'auto',
+                                                maxHeight: { md: '56vh' },
+                                                objectFit: 'cover',
+                                                borderRadius: '22px',
+                                                position: 'relative',
+                                                zIndex: 1,
                                                 display: 'block',
-                                                boxShadow: isDark ? '0 20px 50px rgba(0,0,0,0.5)' : '0 20px 50px rgba(0,0,0,0.12)',
                                             }}
                                         />
                                     </motion.div>
+
+                                    {/* Decorative Elements */}
+                                    <Box sx={{
+                                        position: 'absolute', bottom: -20, right: -20,
+                                        width: 80, height: 80, borderRadius: '20px',
+                                        background: primary, opacity: 0.1, zIndex: 0,
+                                        filter: 'blur(15px)',
+                                    }} />
                                 </Box>
                             </motion.div>
                         </Box>
@@ -281,8 +309,19 @@ function About() {
                                 </motion.div>
 
                                 <motion.div variants={staggerChild}>
-                                    <Typography variant="h3" component="h2" fontWeight={800}
-                                        sx={{ mb: 2, mt: 0.5, fontSize: { xs: '1.8rem', md: '2.4rem' }, lineHeight: 1.15, color: 'text.primary', '& span': { color: primary } }}>
+                                    <Typography variant="h3" component="h2" fontWeight={900}
+                                        sx={{
+                                            mb: 2, mt: 0.5,
+                                            fontSize: { xs: '2rem', md: '3rem' },
+                                            lineHeight: 1.1,
+                                            color: 'text.primary',
+                                            letterSpacing: '-0.02em',
+                                            '& span': {
+                                                background: `linear-gradient(135deg, ${primary} 30%, ${theme.palette.secondary?.main || '#60a5fa'} 90%)`,
+                                                WebkitBackgroundClip: 'text',
+                                                WebkitTextFillColor: 'transparent',
+                                            }
+                                        }}>
                                         Passionate <span>Full Stack</span><br />Designer & Developer
                                     </Typography>
                                 </motion.div>
@@ -301,39 +340,50 @@ function About() {
 
                                 {/* Stats */}
                                 <motion.div variants={staggerChild}>
-                                    <Stack direction="row" spacing={4}>
+                                    <Grid container spacing={2} sx={{ mt: 1 }}>
                                         {[
-                                            { value: '10+', label: 'Projects' },
-                                            { value: '12+', label: 'Technologies' },
-                                            { value: '100%', label: 'Passion' },
-                                        ].map(({ value, label }, i) => (
-                                            <motion.div
-                                                key={label}
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={textInView ? { opacity: 1, y: 0 } : {}}
-                                                transition={{ delay: 0.6 + i * 0.1, ease: EASE_OUT_EXPO, duration: 0.5 }}
-                                            >
-                                                <Box sx={{ textAlign: 'center' }}>
-                                                    <Typography fontWeight={800} sx={{ fontSize: '1.6rem', color: primary, lineHeight: 1 }}>
-                                                        {value}
-                                                    </Typography>
-                                                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.68rem', letterSpacing: 1.2, textTransform: 'uppercase' }}>
-                                                        {label}
-                                                    </Typography>
-                                                </Box>
-                                            </motion.div>
+                                            { value: '5+', label: 'Projects', icon: '🚀' },
+                                            { value: '12+', label: 'Tech Stack', icon: '🛠️' },
+                                            { value: '100%', label: 'Passion', icon: '🔥' },
+                                        ].map(({ value, label, icon }, i) => (
+                                            <Grid item xs={4} key={label}>
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: 20 }}
+                                                    animate={textInView ? { opacity: 1, y: 0 } : {}}
+                                                    transition={{ delay: 0.6 + i * 0.1, ease: EASE_OUT_EXPO, duration: 0.5 }}
+                                                    whileHover={{ y: -5 }}
+                                                >
+                                                    <Box sx={{
+                                                        textAlign: 'center',
+                                                        p: 1.5,
+                                                        borderRadius: '16px',
+                                                        background: isDark ? 'rgba(30,41,59,0.7)' : 'rgba(255,255,255,0.9)',
+                                                        border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
+                                                        transition: 'all 0.3s ease',
+                                                        '&:hover': {
+                                                            borderColor: `${primary}44`,
+                                                            background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                                                            boxShadow: `0 10px 20px ${primary}11`,
+                                                        }
+                                                    }}>
+                                                        <Typography sx={{ fontSize: '1.2rem', mb: 0.5 }}>{icon}</Typography>
+                                                        <Typography fontWeight={900} sx={{ fontSize: { xs: '1.2rem', md: '1.5rem' }, color: primary, lineHeight: 1 }}>
+                                                            {value}
+                                                        </Typography>
+                                                        <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase' }}>
+                                                            {label}
+                                                        </Typography>
+                                                    </Box>
+                                                </motion.div>
+                                            </Grid>
                                         ))}
-                                    </Stack>
+                                    </Grid>
                                 </motion.div>
                             </motion.div>
                         </Box>
                     </Box>
                 </Container>
 
-                {/* Scroll hint */}
-                <Box sx={{ display: 'flex', justifyContent: 'center', pb: 3, mt: 'auto' }}>
-                    <ScrollArrow color={primary} />
-                </Box>
             </Box>
 
             {/* ══════════════════════════════════════════════
@@ -385,18 +435,27 @@ function About() {
                         transition={{ duration: 0.7, ease: EASE_OUT_EXPO }}
                     >
                         <Box sx={{ textAlign: 'center' }}>
-                            <Typography variant="overline" color="primary" fontWeight="bold" sx={{ letterSpacing: 3, fontSize: '0.68rem' }}>
-                                What I Bring
+                            <Typography variant="overline" color="primary" fontWeight="800" sx={{ letterSpacing: 3, fontSize: '0.75rem' }}>
+                                My Toolkit
                             </Typography>
-                            <Typography variant="h3" fontWeight={800}
-                                sx={{ mt: 0.5, fontSize: { xs: '1.7rem', md: '2.3rem' }, color: 'text.primary', lineHeight: 1.2 }}>
+                            <Typography variant="h3" fontWeight={900}
+                                sx={{
+                                    mt: 0.5,
+                                    fontSize: { xs: '2.2rem', md: '3.2rem' },
+                                    color: 'text.primary',
+                                    lineHeight: 1.1,
+                                    letterSpacing: '-0.02em'
+                                }}>
                                 Skills &{' '}
                                 <Box component="span" sx={{
-                                    color: primary, position: 'relative',
+                                    background: `linear-gradient(135deg, ${primary} 30%, ${theme.palette.secondary?.main || '#60a5fa'} 90%)`,
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    position: 'relative',
                                     '&::after': {
                                         content: '""', position: 'absolute',
-                                        left: 0, bottom: -3, width: '100%', height: '2.5px',
-                                        background: `linear-gradient(90deg, ${primary}, ${primary}00)`,
+                                        left: 0, bottom: -5, width: '100%', height: '4px',
+                                        background: `linear-gradient(90deg, ${primary}, transparent)`,
                                         borderRadius: 2,
                                     },
                                 }}>
@@ -430,36 +489,35 @@ function About() {
                                     </Typography>
                                 </Box>
 
-                                <Stack direction="column" spacing={1}>
+                                <Stack direction="column" spacing={1.5}>
                                     {softSkills.map((skill, i) => (
                                         <motion.div
                                             key={skill.label}
-                                            initial={{ opacity: 0, x: -20 }}
+                                            initial={{ opacity: 0, x: -30 }}
                                             animate={skillsPageInView ? { opacity: 1, x: 0 } : {}}
-                                            transition={{ duration: 0.45, delay: 0.3 + i * 0.07, ease: EASE_OUT_EXPO }}
-                                            whileHover={{ x: 5 }}
+                                            transition={{ duration: 0.5, delay: 0.3 + i * 0.08, ease: EASE_OUT_EXPO }}
+                                            whileHover={{ x: 10 }}
                                         >
                                             <Box sx={{
-                                                display: 'flex', alignItems: 'center', gap: 1.5,
-                                                px: 2, py: 1.2,
-                                                borderRadius: '10px',
-                                                border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)'}`,
-                                                background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
-                                                backdropFilter: 'blur(8px)',
-                                                cursor: 'default',
-                                                transition: 'all 0.22s ease',
+                                                display: 'flex', alignItems: 'center', gap: 2,
+                                                px: 2.5, py: 1.5,
+                                                borderRadius: '16px',
+                                                background: isDark ? 'rgba(30,41,59,0.7)' : 'rgba(255,255,255,0.9)',
+                                                cursor: 'pointer',
+                                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                                                 '&:hover': {
-                                                    borderColor: `${primary}55`,
-                                                    background: `${primary}0D`,
-                                                    boxShadow: `0 4px 16px ${primary}18`,
+                                                    borderColor: `${primary}66`,
+                                                    background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.9)',
+                                                    boxShadow: `0 10px 20px ${primary}15`,
+                                                    '& .skill-dot': { opacity: 1, scale: 1.5 }
                                                 },
                                             }}>
-                                                <Typography sx={{ fontSize: '1rem', lineHeight: 1 }}>{skill.icon}</Typography>
-                                                <Typography variant="body2" fontWeight={600} sx={{ fontSize: '0.82rem', color: 'text.primary' }}>
+                                                <Typography sx={{ fontSize: '1.2rem', lineHeight: 1, transition: 'transform 0.3s' }}>{skill.icon}</Typography>
+                                                <Typography variant="body2" fontWeight={700} sx={{ fontSize: '0.85rem', color: 'text.primary', letterSpacing: 0.5 }}>
                                                     {skill.label}
                                                 </Typography>
-                                                {/* Right chevron dot */}
-                                                <Box sx={{ ml: 'auto', width: 5, height: 5, borderRadius: '50%', bgcolor: primary, opacity: 0.4 }} />
+                                                {/* Right decorative dot */}
+                                                <Box className="skill-dot" sx={{ ml: 'auto', width: 6, height: 6, borderRadius: '50%', bgcolor: primary, opacity: 0.4, transition: 'all 0.3s' }} />
                                             </Box>
                                         </motion.div>
                                     ))}

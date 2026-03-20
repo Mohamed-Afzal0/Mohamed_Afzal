@@ -11,7 +11,6 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import AnimatedSection from '../components/animated/AnimatedSection';
-import { FloatingOrb } from '../components/animated/FloatingElement';
 import { MagneticIcon } from '../components/animated/MagneticButton';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import { staggerContainer, staggerChild } from '../animations/variants/stagger';
@@ -111,28 +110,6 @@ function Contact() {
                 background: 'transparent',
             }}
         >
-            {/* Floating Background Elements */}
-            <FloatingOrb
-                color="primary"
-                size={500}
-                blur={180}
-                opacity={0.12}
-                position={{ top: '-15%', left: '-10%' }}
-                duration={8}
-                delay={0}
-                theme={theme}
-            />
-            <FloatingOrb
-                color="secondary"
-                size={400}
-                blur={150}
-                opacity={0.1}
-                position={{ bottom: '-10%', right: '-5%' }}
-                duration={10}
-                delay={2}
-                theme={theme}
-            />
-
             <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
                 {/* Section Header */}
                 <AnimatedSection>

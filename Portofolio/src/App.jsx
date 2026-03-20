@@ -11,6 +11,7 @@ import PageLoader from './components/animated/PageLoader';
 import { ScrollProgress } from './components/animated/CursorGlow';
 import { useReducedMotion } from './animations/hooks/useReducedMotion';
 import GTRTireBackground from './components/animated/GTRTireBackground';
+import ScrollToTopTire from './components/animated/ScrollToTopTire';
 
 // Create a context so the header can access the toggle function
 export const ColorModeContext = createContext({ toggleColorMode: () => { } });
@@ -42,6 +43,7 @@ function MainContent() {
 
                     {/* Scroll Progress Bar */}
                     {!prefersReducedMotion && <ScrollProgress color="primary" height={3} />}
+                    <ScrollToTopTire />
                 </Box>
             </Box>
         </Box>
