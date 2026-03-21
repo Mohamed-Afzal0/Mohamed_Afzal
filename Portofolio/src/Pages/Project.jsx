@@ -1,32 +1,45 @@
 import React, { useRef, useState } from 'react';
-import { Box, Typography, useTheme, Container, Grid, Card, CardMedia, CardContent, CardActionArea, Chip, Stack } from '@mui/material';
+import { Box, Typography, useTheme, Container, Grid, Card, CardMedia, CardContent, CardActionArea, Chip, Stack, IconButton, Tooltip } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LanguageIcon from '@mui/icons-material/Language';
 import { motion } from 'framer-motion';
+
+// Import local images
+import MindWaveImg from '../assets/Mindwave.png';
+import PortfolioImg from '../assets/Protfolio.png';
+import EstateImg from '../assets/estateAgentApp.png';
 import AnimatedGrid from '../components/animated/AnimatedGrid';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import { staggerChild } from '../animations/variants/stagger';
 
-// Sample data for projects, can be replaced with real data later
+// Project data with local images and links
 const projectData = [
     {
         id: 1,
         title: "Mind Wave",
         description: "An application which provide users with the best way to track their mood and mental health.",
-        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80",
-        techStack: ["React-Native", "Expo", "Firebase", "Superbase", "Node.js", "javascript"]
+        image: MindWaveImg,
+        techStack: ["React-Native", "Expo", "Firebase", "Superbase", "Node.js", "javascript"],
+        github: "https://github.com/Mohamed-Afzal0", // Placeholder
+        demo: "#" // Placeholder
     },
     {
         id: 2,
         title: "Portfolio Website",
         description: "A website to showcase my skills and projects.",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80",
-        techStack: ["React", "Vite", "Framer Motion", "Material-UI", "javascript"]
+        image: PortfolioImg,
+        techStack: ["React", "Vite", "Framer Motion", "Material-UI", "javascript"],
+        github: "https://github.com/Mohamed-Afzal0", // Placeholder
+        demo: "#" // Placeholder
     },
     {
         id: 3,
         title: "Estate Agent Application",
         description: "SmartMove is a simple estate listing web app that showcases featured properties with key details like location, price, and descriptions for an estate agent brand.",
-        image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80",
-        techStack: ["React", "Vite", "Material-UI", "javascript"]
+        image: EstateImg,
+        techStack: ["React", "Vite", "Material-UI", "javascript"],
+        github: "https://github.com/Mohamed-Afzal0", // Placeholder
+        demo: "#" // Placeholder
     }
 ];
 
@@ -113,28 +126,57 @@ function ProjectCard({ project, index }) {
                                 left: 0,
                                 right: 0,
                                 bottom: 0,
-                                background: `linear-gradient(135deg, ${theme.palette.primary.main}80, transparent)`,
+                                background: `linear-gradient(135deg, ${theme.palette.primary.main}BF, ${theme.palette.background.paper}BF)`,
                                 opacity: isHovered ? 1 : 0,
                                 transition: 'opacity 0.3s ease',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
+                                gap: 2,
+                                pointerEvents: isHovered ? 'auto' : 'none',
+                                zIndex: 2,
                             }}
                         >
-                            <Typography
-                                variant="button"
-                                sx={{
-                                    color: '#fff',
-                                    fontWeight: 600,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: 1,
-                                    opacity: isHovered ? 1 : 0,
-                                    transform: isHovered ? 'translateY(0)' : 'translateY(10px)',
-                                    transition: 'all 0.3s ease 0.1s',
-                                }}
-                            >
-                                View Project
-                            </Typography>
+                            <Tooltip title="View GitHub Repo">
+                                <IconButton
+                                    component="a"
+                                    href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    sx={{
+                                        color: '#fff',
+                                        backgroundColor: 'rgba(0,0,0,0.5)',
+                                        '&:hover': {
+                                            backgroundColor: 'primary.main',
+                                            transform: 'scale(1.1)',
+                                        },
+                                        transition: 'all 0.2s ease',
+                                        transform: isHovered ? 'translateY(0)' : 'translateY(20px)',
+                                    }}
+                                >
+                                    <GitHubIcon />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Live Website">
+                                <IconButton
+                                    component="a"
+                                    href={project.demo}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    sx={{
+                                        color: '#fff',
+                                        backgroundColor: 'rgba(0,0,0,0.5)',
+                                        '&:hover': {
+                                            backgroundColor: 'primary.main',
+                                            transform: 'scale(1.1)',
+                                        },
+                                        transition: 'all 0.2s ease 0.1s',
+                                        transform: isHovered ? 'translateY(0)' : 'translateY(20px)',
+                                    }}
+                                >
+                                    <LanguageIcon />
+                                </IconButton>
+                            </Tooltip>
                         </Box>
                     </Box>
                     <CardContent sx={{ flexGrow: 1, p: 3 }}>
