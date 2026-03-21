@@ -30,7 +30,7 @@ const projectData = [
         image: PortfolioImg,
         techStack: ["React", "Vite", "Framer Motion", "Material-UI", "javascript"],
         github: "https://github.com/Mohamed-Afzal0/Mohamed_Afzal.git", // Placeholder
-        demo: "#" // Placeholder
+        demo: "https://mohamed-afzal-lovat.vercel.app/" // Placeholder
     },
     {
         id: 3,
