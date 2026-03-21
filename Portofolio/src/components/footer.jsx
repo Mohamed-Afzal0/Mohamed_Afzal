@@ -71,8 +71,8 @@ function Footer() {
             ref={ref}
             sx={{
                 bgcolor: theme.palette.mode === 'dark' ? '#0a0f1a' : '#f8fafc',
-                pt: { xs: 6, md: 8 },
-                pb: 3,
+                pt: { xs: 4, md: 5 },
+                pb: 2,
                 position: 'relative',
                 overflow: 'hidden',
                 '&::before': {
@@ -94,7 +94,7 @@ function Footer() {
                     animate={isInView ? "visible" : "hidden"}
                     variants={staggerContainer}
                 >
-                    <Grid container spacing={4} sx={{ mb: 4 }}>
+                    <Grid container spacing={3} sx={{ mb: 3 }}>
                         {/* Brand & Description */}
                         <Grid item xs={12} md={4}>
                             <motion.div variants={staggerChild} style={{ marginBottom: '16px' }}>
@@ -107,46 +107,6 @@ function Footer() {
                                 </Typography>
                             </motion.div>
 
-                            {/* Social Icons */}
-                            <motion.div variants={staggerChild}>
-                                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
-                                    Follow Me
-                                </Typography>
-                                <Box sx={{ display: 'flex', gap: 1.5 }}>
-                                    {socialLinks.map((social, index) => (
-                                        <motion.div
-                                            key={social.label}
-                                            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                                            animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                            transition={{ delay: 0.5 + index * 0.1 }}
-                                        >
-                                            <MagneticIcon strength={0.1} radius={50}>
-                                                <IconButton
-                                                    href={social.href}
-                                                    target="_blank"
-                                                    aria-label={social.label}
-                                                    sx={{
-                                                        color: 'text.secondary',
-                                                        bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
-                                                        transition: 'all 0.25s ease',
-                                                        borderRadius: '12px',
-                                                        border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)'}`,
-                                                        '&:hover': {
-                                                            bgcolor: 'primary.main',
-                                                            color: '#fff',
-                                                            transform: prefersReducedMotion ? 'none' : 'translateY(-3px)',
-                                                            boxShadow: `0 6px 20px ${theme.palette.primary.main}30`,
-                                                            borderColor: 'primary.main',
-                                                        }
-                                                    }}
-                                                >
-                                                    {social.icon}
-                                                </IconButton>
-                                            </MagneticIcon>
-                                        </motion.div>
-                                    ))}
-                                </Box>
-                            </motion.div>
                         </Grid>
 
                         {/* Quick Links */}
@@ -256,20 +216,45 @@ function Footer() {
                         animate={isInView ? { opacity: 1 } : {}}
                         transition={{ delay: 0.8 }}
                     >
-                        <Divider sx={{ borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', mb: 3 }} />
+                        <Divider sx={{ borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', mb: 2 }} />
 
                         {/* Copyright Section */}
                         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>
                             <Typography variant="body2" color="text.secondary">
                                 © {new Date().getFullYear()} Mohamed Afzal. All rights reserved.
                             </Typography>
-                            <Box sx={{ display: 'flex', gap: 3 }}>
-                                <MuiLink href="#" variant="body2" sx={{ color: 'text.secondary', textDecoration: 'none', transition: 'color 0.25s ease', '&:hover': { color: 'primary.main' } }}>
-                                    Privacy Policy
-                                </MuiLink>
-                                <MuiLink href="#" variant="body2" sx={{ color: 'text.secondary', textDecoration: 'none', transition: 'color 0.25s ease', '&:hover': { color: 'primary.main' } }}>
-                                    Terms of Service
-                                </MuiLink>
+                            
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <Box sx={{ display: 'flex', gap: 1 }}>
+                                    {socialLinks.map((social, index) => (
+                                        <IconButton
+                                            key={social.label}
+                                            href={social.href}
+                                            target="_blank"
+                                            size="small"
+                                            aria-label={social.label}
+                                            sx={{
+                                                color: 'text.secondary',
+                                                transition: 'all 0.25s ease',
+                                                '&:hover': {
+                                                    color: 'primary.main',
+                                                    transform: 'translateY(-2px)',
+                                                }
+                                            }}
+                                        >
+                                            {social.icon}
+                                        </IconButton>
+                                    ))}
+                                </Box>
+
+                                <Box sx={{ display: 'flex', gap: 3 }}>
+                                    <MuiLink href="#" variant="body2" sx={{ color: 'text.secondary', textDecoration: 'none', transition: 'color 0.25s ease', '&:hover': { color: 'primary.main' } }}>
+                                        Privacy Policy
+                                    </MuiLink>
+                                    <MuiLink href="#" variant="body2" sx={{ color: 'text.secondary', textDecoration: 'none', transition: 'color 0.25s ease', '&:hover': { color: 'primary.main' } }}>
+                                        Terms of Service
+                                    </MuiLink>
+                                </Box>
                             </Box>
                         </Box>
                     </motion.div>
