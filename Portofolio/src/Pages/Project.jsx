@@ -21,7 +21,7 @@ const projectData = [
         image: MindWaveImg,
         techStack: ["React-Native", "Expo", "Firebase", "Superbase", "Node.js", "javascript"],
         github: "https://github.com/Mohamed-Afzal0", // Placeholder
-        demo: "#" // Placeholder
+        demo: "https://mindwave-app.com/" // Placeholder
     },
     {
         id: 2,
@@ -29,7 +29,7 @@ const projectData = [
         description: "A website to showcase my skills and projects.",
         image: PortfolioImg,
         techStack: ["React", "Vite", "Framer Motion", "Material-UI", "javascript"],
-        github: "https://github.com/Mohamed-Afzal0", // Placeholder
+        github: "https://github.com/Mohamed-Afzal0/Mohamed_Afzal.git", // Placeholder
         demo: "#" // Placeholder
     },
     {
@@ -38,8 +38,8 @@ const projectData = [
         description: "SmartMove is a simple estate listing web app that showcases featured properties with key details like location, price, and descriptions for an estate agent brand.",
         image: EstateImg,
         techStack: ["React", "Vite", "Material-UI", "javascript"],
-        github: "https://github.com/Mohamed-Afzal0", // Placeholder
-        demo: "#" // Placeholder
+        github: "https://github.com/Mohamed-Afzal0/estate-agent-app.git", // Placeholder
+        demo: "https://mohamed-afzal0.github.io/estate-agent-app/" // Placeholder
     }
 ];
 
