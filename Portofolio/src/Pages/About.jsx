@@ -39,6 +39,7 @@ const technologies = [
     { name: 'Figma', category: 'Design', color: '#FF4081', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
     { name: 'Canva', category: 'Design', color: '#FF4081', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg' },
     { name: 'Docker', category: 'DevOps', color: '#2496ED', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+    { name: 'Linux', category: 'OS', color: '#2496ED', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' },
 ];
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
