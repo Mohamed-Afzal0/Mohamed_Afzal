@@ -13,7 +13,7 @@ function DownloadCVButton({ variant = "contained", sx = {}, ...props }) {
             <Button
                 variant={variant}
                 color="primary"
-                href="../../public/CV.pdf"
+                href="/CV.pdf"
                 download="S.F.M.Afzal_CV.pdf"
                 startIcon={<FileDownloadIcon />}
                 sx={{
