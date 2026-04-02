@@ -15,7 +15,7 @@ const softSkills = [
     { label: 'OOP', icon: '🧩' },
     { label: 'Problem Solving', icon: '💡' },
     { label: 'Team Collaboration', icon: '🤝' },
-    { label: 'Git Workflow', icon: '🌿' },
+    { label: 'Git & Version Control', icon: '🌿' },
     { label: 'Agile / Scrum', icon: '⚡' },
     { label: 'Clean Code', icon: '✨' },
 ];
@@ -38,6 +38,7 @@ const technologies = [
     { name: 'Firebase', category: 'Backend', color: '#FFCA28', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
     { name: 'Figma', category: 'Design', color: '#FF4081', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
     { name: 'Canva', category: 'Design', color: '#FF4081', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg' },
+    { name: 'Docker', category: 'DevOps', color: '#2496ED', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
 ];
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];

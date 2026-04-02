@@ -19,7 +19,7 @@ const projectData = [
         title: "Mind Wave",
         description: "An application which provide users with the best way to track their mood and mental health.",
         image: MindWaveImg,
-        techStack: ["React-Native", "Expo", "Firebase", "Superbase", "Node.js", "javascript"],
+        techStack: ["React", "vite", "React-Native", "Expo", "Firebase", "Node.js", "javascript"],
         github: "https://github.com/Mohamed-Afzal0", // Placeholder
         demo: "https://mindwave-app.com/" // Placeholder
     },

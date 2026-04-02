@@ -7,6 +7,7 @@ import { ColorModeContext } from '../App';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import MagneticButton from '../components/animated/MagneticButton';
 import Logo from '../components/Logo';
+import DownloadCVButton from './DownloadCVButton';
 
 function Header() {
     const theme = useTheme();
@@ -145,52 +146,14 @@ function Header() {
                             </IconButton>
                         </motion.div>
 
-                        {/* Hire Me Button */}
+                        {/* Download CV Button */}
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                             <motion.div
                                 initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.3, delay: 0.5 }}
                             >
-                                <MagneticButton strength={0.15} radius={100}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        href="#contact"
-                                        sx={{
-                                            borderRadius: '14px',
-                                            textTransform: 'none',
-                                            fontWeight: 600,
-                                            px: 3,
-                                            py: 1,
-                                            fontSize: '0.9rem',
-                                            background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
-                                            boxShadow: `0 4px 20px ${theme.palette.primary.main}30`,
-                                            position: 'relative',
-                                            overflow: 'hidden',
-                                            transition: 'all 0.3s ease',
-                                            '&::before': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: '-100%',
-                                                width: '100%',
-                                                height: '100%',
-                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)',
-                                                transition: prefersReducedMotion ? 'none' : 'left 0.5s ease',
-                                            },
-                                            '&:hover': {
-                                                boxShadow: `0 6px 25px ${theme.palette.primary.main}45`,
-                                                transform: prefersReducedMotion ? 'none' : 'translateY(-1px)',
-                                                '&::before': {
-                                                    left: '100%',
-                                                },
-                                            },
-                                        }}
-                                    >
-                                        Hire Me
-                                    </Button>
-                                </MagneticButton>
+                                <DownloadCVButton />
                             </motion.div>
                         </Box>
                     </Box>

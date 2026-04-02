@@ -175,60 +175,11 @@ function Home() {
                                             }
                                         }}
                                     >
-                                        Ever Evolving • Ever Learning
+                                        Ever Evolving Ever Learning
                                     </Typography>
                                 </motion.div>
                             </Box>
 
-                            {/* Passion Indicator Badge */}
-                            <motion.div
-                                variants={{
-                                    hidden: { opacity: 0, scale: 0.8 },
-                                    show: { opacity: 1, scale: 1, transition: { delay: 1, duration: 0.6 } }
-                                }}
-                            >
-                                <Box
-                                    sx={{
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: 1.5,
-                                        px: 1.2,
-                                        py: 0.8,
-                                        borderRadius: '20px',
-                                        background: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-                                        border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                                        backdropFilter: 'blur(10px)',
-                                        mb: 3,
-                                        cursor: 'default',
-                                        transition: 'all 0.3s ease',
-                                        '&:hover': {
-                                            background: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
-                                            transform: 'translateY(-2px)',
-                                            borderColor: 'primary.main',
-                                        }
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            width: 8,
-                                            height: 8,
-                                            borderRadius: '50%',
-                                            bgcolor: 'primary.main',
-                                            boxShadow: `0 0 10px ${theme.palette.primary.main}`,
-                                            animation: 'pulse 2s infinite'
-                                        }}
-                                    />
-                                </Box>
-                                <style>
-                                    {`
-                                        @keyframes pulse {
-                                            0% { transform: scale(1); opacity: 1; }
-                                            50% { transform: scale(1.5); opacity: 0.5; }
-                                            100% { transform: scale(1); opacity: 1; }
-                                        }
-                                    `}
-                                </style>
-                            </motion.div>
 
                             <motion.div variants={{
                                 hidden: { opacity: 0, scale: 0.9, filter: 'blur(10px)' },

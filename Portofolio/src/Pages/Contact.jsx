@@ -15,6 +15,7 @@ import AnimatedSection from '../components/animated/AnimatedSection';
 import { MagneticIcon } from '../components/animated/MagneticButton';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import { staggerContainer, staggerChild } from '../animations/variants/stagger';
+import DownloadCVButton from '../components/DownloadCVButton';
 
 function Contact() {
     const theme = useTheme();
@@ -264,6 +265,11 @@ function Contact() {
                                         <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
                                             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                                         </Typography>
+                                        
+                                        {/* Download CV Button */}
+                                        <Box sx={{ mt: 3 }}>
+                                            <DownloadCVButton sx={{ width: { xs: '100%', sm: 'auto' } }} />
+                                        </Box>
                                     </Box>
 
                                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, flexGrow: 1 }}>
