@@ -70,7 +70,7 @@ npm run dev
 I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
 
 - **GitHub**: [github.com/Mohamed-Afzal0](https://github.com/Mohamed-Afzal0)
-- **Portfolio**: [mohamed-afzal.vercel.app](https://mohamed-afzal.vercel.app/) (Placeholder)
+- **Portfolio**: [mohamed-afzal.vercel.app](https://mohamed-afzal-lovat.vercel.app/) (Placeholder)
 - **Email**: [Contact Me](mailto:afzal.mohamed@example.com) (Placeholder)
 
 ---
