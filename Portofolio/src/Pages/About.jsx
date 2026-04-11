@@ -40,6 +40,11 @@ const technologies = [
     { name: 'Canva', category: 'Design', color: '#FF4081', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg' },
     { name: 'Docker', category: 'DevOps', color: '#2496ED', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
     { name: 'Linux', category: 'OS', color: '#2496ED', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' },
+    { name: 'Railway', category: 'DevOps', color: '#b2b2b2', logo: 'https://railway.app/favicon.ico' },
+    { name: 'Postman', category: 'Tool', color: '#FF6C37', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg' },
+    { name: 'flask', category: 'Backend', color: '#b2b2b2', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg' },
+    { name: 'psutil', category: 'Tool', color: '#b2b2b2', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+    { name: 'Chart.js', category: 'Tool', color: '#b2b2b2', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chartjs/chartjs-original.svg' },
 ];
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];

@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import MindWaveImg from '../assets/Mindwave.png';
 import PortfolioImg from '../assets/Protfolio.png';
 import EstateImg from '../assets/estateAgentApp.png';
+import ServerMonitorImg from '../assets/Server_Monitor.png';
 import AnimatedGrid from '../components/animated/AnimatedGrid';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import { staggerChild } from '../animations/variants/stagger';
@@ -19,7 +20,7 @@ const projectData = [
         title: "Mind Wave",
         description: "An application which provide users with the best way to track their mood and mental health.",
         image: MindWaveImg,
-        techStack: ["React", "vite", "React-Native", "Expo", "Firebase", "Node.js", "javascript"],
+        techStack: ["React", "vite", "React-Native", "Expo", "Firebase", "Node.js", "javascript", "Github Actions", "Docker"],
         github: "https://github.com/Mohamed-Afzal0", // Placeholder
         demo: "https://mindwave-app.com/" // Placeholder
     },
@@ -40,6 +41,14 @@ const projectData = [
         techStack: ["React", "Vite", "Material-UI", "javascript"],
         github: "https://github.com/Mohamed-Afzal0/estate-agent-app.git", // Placeholder
         demo: "https://mohamed-afzal0.github.io/estate-agent-app/" // Placeholder
+    },
+    {
+        id: 4,
+        title: "Server Monitor Dashboard",
+        description: "A full-stack real-time system monitoring tool built independently to explore DevOps and SRE practices.",
+        image: ServerMonitorImg,
+        techStack: ["Python", "psutil", "Flask", "Docker", "JavaScript", "Chart.js", "HTML", "CSS", "GitHub Actions"],
+        github: "https://github.com/Mohamed-Afzal0/Server-Monitor.git",
     }
 ];
 
