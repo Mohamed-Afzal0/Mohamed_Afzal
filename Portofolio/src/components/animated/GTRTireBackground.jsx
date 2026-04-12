@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Box, useTheme } from '@mui/material';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { useIsMobilePerformance } from '../../animations/hooks/useIsMobilePerformance';
 
 // High-performance background orb
 const BackgroundOrb = ({ color, size, top, left, delay = 0, opacity = 0.15 }) => (
@@ -37,6 +38,7 @@ function GTRTireBackground() {
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
     const primary = theme.palette.primary.main;
+    const isMobile = useIsMobilePerformance();
     const { scrollY } = useScroll();
     const smokeContainerRef = useRef(null);
     const lastScrollY = useRef(0);
@@ -45,11 +47,13 @@ function GTRTireBackground() {
     // Direct 1:1 scroll mapping (no useSpring) to eliminate any "lag" or "bounce" feeling.
     // Syncs perfectly with the user's scrollbar frame-by-frame.
     const tireRotate = useTransform(scrollY, [0, 3000], [0, 2500]);
-    const speedLinesOpacity = useTransform(scrollY, [0, 100, 300], [0, 0.4, 0.6]);
+    const speedLinesOpacity = useTransform(scrollY, [0, 100, 300], [0, isMobile ? 0 : 0.4, isMobile ? 0 : 0.6]);
     const tireOpacity = useTransform(scrollY, [0, 800], [1, 0.4]); // Fades slightly heavily so it acts as a subtle watermark on other pages
 
     // Ultra-optimized CSS-based DOM smoke emission.
     useEffect(() => {
+        if (isMobile) return; // Disable smoke on mobile for performance
+        
         let raf;
         const handleScroll = () => {
             const currentScroll = window.scrollY;
@@ -75,7 +79,7 @@ function GTRTireBackground() {
 
         raf = requestAnimationFrame(handleScroll);
         return () => cancelAnimationFrame(raf);
-    }, []);
+    }, [isMobile]);
 
     const emitSmoke = (isAmbient = false) => {
         if (!smokeContainerRef.current) return;
@@ -131,9 +135,9 @@ function GTRTireBackground() {
             }}
         >
                 {/* Global Background Orbs - Unified for all sections */}
-                <BackgroundOrb color={primary} size={600} top="-10%" left="-10%" delay={0} opacity={isDark ? 0.15 : 0.08} />
-                <BackgroundOrb color={theme.palette.secondary?.main || primary} size={500} top="30%" left="70%" delay={2} opacity={isDark ? 0.12 : 0.06} />
-                <BackgroundOrb color={primary} size={400} top="70%" left="15%" delay={4} opacity={isDark ? 0.1 : 0.05} />
+                <BackgroundOrb color={primary} size={isMobile ? 300 : 600} top="-10%" left="-10%" delay={0} opacity={isDark ? (isMobile ? 0.08 : 0.15) : (isMobile ? 0.04 : 0.08)} />
+                <BackgroundOrb color={theme.palette.secondary?.main || primary} size={isMobile ? 250 : 500} top="30%" left="70%" delay={2} opacity={isDark ? (isMobile ? 0.06 : 0.12) : (isMobile ? 0.03 : 0.06)} />
+                <BackgroundOrb color={primary} size={isMobile ? 200 : 400} top="70%" left="15%" delay={4} opacity={isDark ? (isMobile ? 0.05 : 0.1) : (isMobile ? 0.025 : 0.05)} />
 
                 {/* Unified Grid Overlay */}
                 <Box sx={{

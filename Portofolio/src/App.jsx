@@ -42,7 +42,7 @@ function MainContent() {
             <Footer />
 
                     {/* Scroll Progress Bar */}
-                    {!prefersReducedMotion && <ScrollProgress color="primary" height={3} />}
+                    {!prefersReducedMotion && (window.innerWidth >= 768) && <ScrollProgress color="primary" height={3} />}
                     <ScrollToTopTire />
                 </Box>
             </Box>

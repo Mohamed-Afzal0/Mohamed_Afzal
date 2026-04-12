@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Box, IconButton } from '@mui/material';
 import { motion, useScroll, useAnimation, AnimatePresence } from 'framer-motion';
+import { useIsMobilePerformance } from '../../animations/hooks/useIsMobilePerformance';
 
 function ScrollToTopTire() {
     const { scrollY } = useScroll();
@@ -9,6 +10,7 @@ function ScrollToTopTire() {
     const [isHovered, setIsHovered] = useState(false);
     const smokeContainerRef = useRef(null);
     const spinSpeedControls = useAnimation();
+    const isMobile = useIsMobilePerformance();
 
     // Monitor scroll position
     useEffect(() => {
@@ -28,11 +30,13 @@ function ScrollToTopTire() {
             // Spin infinitely and extremely fast
             spinSpeedControls.start({
                 rotate: 360,
-                transition: { repeat: Infinity, duration: 0.1, ease: 'linear' } // 10 rotations per second (super fast!)
+                transition: { repeat: Infinity, duration: isMobile ? 0.5 : 0.1, ease: 'linear' }
             });
             
-            // Emit intensive smoke
-            smokeInterval = setInterval(() => emitSmoke(), 30);
+            // Emit intensive smoke (only on desktop)
+            if (!isMobile) {
+                smokeInterval = setInterval(() => emitSmoke(), 30);
+            }
         } else {
             // Stop spin and slowly return or just stop
             spinSpeedControls.stop();
@@ -46,7 +50,7 @@ function ScrollToTopTire() {
         return () => {
             if (smokeInterval) clearInterval(smokeInterval);
         };
-    }, [isHovered, spinSpeedControls]);
+    }, [isHovered, spinSpeedControls, isMobile]);
 
     const emitSmoke = () => {
         if (!smokeContainerRef.current) return;

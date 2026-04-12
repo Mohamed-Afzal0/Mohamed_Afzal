@@ -81,6 +81,11 @@ function ProjectCard({ project, index }) {
         setIsHovered(false);
     };
 
+    // Check if on mobile/touch device
+    const isTouchDevice = () => {
+        return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent) || window.innerWidth < 768;
+    };
+
     return (
         <motion.div
             variants={staggerChild}
@@ -103,21 +108,21 @@ function ProjectCard({ project, index }) {
                     boxShadow: theme.palette.mode === 'light'
                         ? '0 10px 30px rgba(0,0,0,0.05)'
                         : '0 10px 30px rgba(0,0,0,0.3)',
-                    transform: prefersReducedMotion
+                    transform: prefersReducedMotion || isTouchDevice()
                         ? 'none'
                         : `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
                     transition: 'transform 0.2s ease-out, box-shadow 0.3s ease',
                 }}
-                onMouseMove={handleMouseMove}
+                onMouseMove={!isTouchDevice() ? handleMouseMove : undefined}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={handleMouseLeave}
-                whileHover={!prefersReducedMotion ? { y: -8 } : {}}
+                whileHover={!prefersReducedMotion && !isTouchDevice() ? { y: -8 } : {}}
             >
                 <CardActionArea sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                     <Box sx={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
                         <CardMedia
                             component="img"
-                            height="220"
+                            height={{ xs: 160, sm: 200, md: 220 }}
                             image={project.image}
                             alt={project.title}
                             sx={{
@@ -279,7 +284,7 @@ function Project() {
                 <AnimatedGrid
                     staggerDelay={0.1}
                     delay={0.2}
-                    style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}
+                    style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}
                 >
                     {projectData.map((project, index) => (
                         <ProjectCard key={project.id} project={project} index={index} />
