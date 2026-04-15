@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { Box, Typography, useTheme, Container, Grid, TextField, Button, Paper, IconButton, Link as MuiLink, Divider } from '@mui/material';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -14,7 +14,6 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import AnimatedSection from '../components/animated/AnimatedSection';
 import { MagneticIcon } from '../components/animated/MagneticButton';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
-import { staggerContainer, staggerChild } from '../animations/variants/stagger';
 import DownloadCVButton from '../components/DownloadCVButton';
 
 function Contact() {

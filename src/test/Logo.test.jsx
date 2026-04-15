@@ -15,7 +15,7 @@ describe('Logo Component', () => {
     try {
       const logoModule = await import('../components/Logo')
       expect(logoModule.default).toBeDefined()
-    } catch (e) {
+    } catch {
       // Component exists but may have complex dependencies
       expect(true).toBe(true)
     }

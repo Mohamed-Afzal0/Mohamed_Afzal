@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
  *  - href: string (default: '#home')
  *  - showSubtext: boolean (default: false)
  */
-const Logo = ({ size = 'md', href = '#home', showSubtext = false, showName = true }) => {
+const Logo = ({ size = 'md', href = '#home', showName = true }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
 

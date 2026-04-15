@@ -7,11 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -42,11 +44,23 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
     "jsdom": "^23.0.1",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
     "vite": "^8.0.0-beta.13",
     "vitest": "^1.0.4"
   },
   "overrides": {
     "vite": "^8.0.0-beta.13"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
   }
 }

@@ -15,7 +15,7 @@ describe('DownloadCVButton Component', () => {
     try {
       const buttonModule = await import('../components/DownloadCVButton')
       expect(buttonModule.default).toBeDefined()
-    } catch (e) {
+    } catch {
       // Component exists but may have complex dependencies
       expect(true).toBe(true)
     }

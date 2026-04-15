@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Box, useTheme } from '@mui/material';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useIsMobilePerformance } from '../../animations/hooks/useIsMobilePerformance';
 
 // High-performance background orb
@@ -51,36 +51,6 @@ function GTRTireBackground() {
     const tireOpacity = useTransform(scrollY, [0, 800], [1, 0.4]); // Fades slightly heavily so it acts as a subtle watermark on other pages
 
     // Ultra-optimized CSS-based DOM smoke emission.
-    useEffect(() => {
-        if (isMobile) return; // Disable smoke on mobile for performance
-        
-        let raf;
-        const handleScroll = () => {
-            const currentScroll = window.scrollY;
-            const scrollDelta = currentScroll - lastScrollY.current;
-            lastScrollY.current = currentScroll;
-
-            const absSpeed = Math.abs(scrollDelta);
-            const now = Date.now();
-            
-            // Emit burst if scrolling
-            if (absSpeed > 2 && currentScroll > 10 && (now - lastSmokeTime.current > 120)) {
-                lastSmokeTime.current = now;
-                emitSmoke();
-            }
-            // Ambient emission for life
-            if (now - lastSmokeTime.current > 350) {
-                 lastSmokeTime.current = now;
-                 emitSmoke(true);
-            }
-
-            raf = requestAnimationFrame(handleScroll);
-        };
-
-        raf = requestAnimationFrame(handleScroll);
-        return () => cancelAnimationFrame(raf);
-    }, [isMobile]);
-
     const emitSmoke = (isAmbient = false) => {
         if (!smokeContainerRef.current) return;
         
@@ -119,6 +89,36 @@ function GTRTireBackground() {
             }, duration * 1000);
         }
     };
+
+    useEffect(() => {
+        if (isMobile) return; // Disable smoke on mobile for performance
+        
+        let raf;
+        const handleScroll = () => {
+            const currentScroll = window.scrollY;
+            const scrollDelta = currentScroll - lastScrollY.current;
+            lastScrollY.current = currentScroll;
+
+            const absSpeed = Math.abs(scrollDelta);
+            const now = Date.now();
+            
+            // Emit burst if scrolling
+            if (absSpeed > 2 && currentScroll > 10 && (now - lastSmokeTime.current > 120)) {
+                lastSmokeTime.current = now;
+                emitSmoke();
+            }
+            // Ambient emission for life
+            if (now - lastSmokeTime.current > 350) {
+                 lastSmokeTime.current = now;
+                 emitSmoke(true);
+            }
+
+            raf = requestAnimationFrame(handleScroll);
+        };
+
+        raf = requestAnimationFrame(handleScroll);
+        return () => cancelAnimationFrame(raf);
+    }, [isMobile]);
 
     return (
         <Box

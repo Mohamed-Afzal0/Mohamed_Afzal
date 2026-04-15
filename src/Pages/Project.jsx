@@ -246,7 +246,6 @@ function ProjectCard({ project, index }) {
 }
 
 function Project() {
-    const theme = useTheme();
     const prefersReducedMotion = useReducedMotion();
 
     return (

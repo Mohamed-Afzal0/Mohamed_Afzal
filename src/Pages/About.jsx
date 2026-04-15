@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Box, Typography, useTheme, Container, Chip, Stack, Grid } from '@mui/material';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useInView, AnimatePresence } from 'framer-motion';
 import { useScrollAnimation } from '../animations/hooks/useScrollAnimation';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import { scaleIn } from '../animations/variants/scale';
@@ -80,7 +80,7 @@ function ScrollArrow({ color }) {
 }
 
 // ─── Tech Card (compact) ──────────────────────────────────────────────────────
-function TechCard({ tech, index, inView, isDark, primaryColor }) {
+function TechCard({ tech, index, inView, isDark }) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.9, rotateY: 15 }}
