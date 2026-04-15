@@ -1,13 +1,16 @@
 # Stage 1: Build the React application
-FROM node:18-alpine AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /app
+
+# Copy .npmrc to handle peer dependencies
+COPY .npmrc ./
 
 # Copy package.json and package-lock.json (if exists)
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production && npm ci --only=dev
+# Install dependencies (legacy-peer-deps from .npmrc will handle conflicts)
+RUN npm ci
 
 # Copy the entire application
 COPY . .
