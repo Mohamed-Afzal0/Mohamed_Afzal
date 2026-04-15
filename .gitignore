@@ -25,3 +25,21 @@ dist-ssr
 
 
 .env
+.env.local
+.env.*.local
+
+# Docker
+.docker
+docker-compose.override.yml
+
+# Test coverage
+coverage
+*.lcov
+.nyc_output
+
+# IDE and OS
+.vscode
+.idea
+.DS_Store
+*.swp
+*.swo
