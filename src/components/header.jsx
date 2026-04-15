@@ -5,7 +5,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { ColorModeContext } from '../App';
+import { ColorModeContext } from '../context/ColorModeContext';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import MagneticButton from '../components/animated/MagneticButton';
 import Logo from '../components/Logo';
