@@ -54,6 +54,11 @@ A modern real estate listing application for managing and displaying properties 
 - **Tech Stack**: React, Vite, Material-UI.
 - **Key Features**: Responsive listing grid, property detail views, sleek glassmorphic containers.
 
+### [Server Monitor Dashboard](#projects)
+A full-stack real-time system monitoring tool built independently to explore DevOps and SRE practices. Monitor CPU, memory, disk usage, and network activity with interactive charts.
+- **Tech Stack**: Python, psutil, Flask, JavaScript, Chart.js, Docker, GitHub Actions, HTML, CSS.
+- **Key Features**: Real-time metrics, interactive dashboards, system health alerts, containerized deployment.
+
 ---
 
 ## 📦 Production Features
