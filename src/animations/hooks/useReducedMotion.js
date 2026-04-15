@@ -7,7 +7,11 @@ import { useLayoutEffect, useState } from 'react';
  * @returns {boolean} - true if user prefers reduced motion
  */
 export function useReducedMotion() {
-    const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+    const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+        // Initialize state from media query on mount
+        if (typeof window === 'undefined') return false;
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    });
 
     useLayoutEffect(() => {
         // Check if window is available (SSR safety)
@@ -15,9 +19,6 @@ export function useReducedMotion() {
 
         // Create media query for prefers-reduced-motion
         const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-        // Set initial value
-        setPrefersReducedMotion(mediaQuery.matches);
 
         // Listen for changes
         const handleChange = (event) => {

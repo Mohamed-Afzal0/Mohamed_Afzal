@@ -22,35 +22,7 @@ function ScrollToTopTire() {
         });
     }, [scrollY]);
 
-    // Handle high speed rotation and smoke on hover
-    useEffect(() => {
-        let smokeInterval;
-        if (isHovered) {
-            // Spin infinitely and extremely fast
-            spinSpeedControls.start({
-                rotate: 360,
-                transition: { repeat: Infinity, duration: isMobile ? 0.5 : 0.1, ease: 'linear' }
-            });
-            
-            // Emit intensive smoke (only on desktop)
-            if (!isMobile) {
-                smokeInterval = setInterval(() => emitSmoke(), 30);
-            }
-        } else {
-            // Stop spin and slowly return or just stop
-            spinSpeedControls.stop();
-            // Just slightly rotate to simulate it slowing down
-            spinSpeedControls.start({
-                rotate: 0,
-                transition: { type: 'spring', stiffness: 200, damping: 40, mass: 2 }
-            });
-        }
-        
-        return () => {
-            if (smokeInterval) clearInterval(smokeInterval);
-        };
-    }, [isHovered, spinSpeedControls, isMobile]);
-
+    // Emit smoke particles - must be before useEffect that calls it
     function emitSmoke() {
         if (!smokeContainerRef.current) return;
         
@@ -83,6 +55,35 @@ function ScrollToTopTire() {
             }
         }, duration * 1000);
     }
+
+    // Handle high speed rotation and smoke on hover
+    useEffect(() => {
+        let smokeInterval;
+        if (isHovered) {
+            // Spin infinitely and extremely fast
+            spinSpeedControls.start({
+                rotate: 360,
+                transition: { repeat: Infinity, duration: isMobile ? 0.5 : 0.1, ease: 'linear' }
+            });
+            
+            // Emit intensive smoke (only on desktop)
+            if (!isMobile) {
+                smokeInterval = setInterval(() => emitSmoke(), 30);
+            }
+        } else {
+            // Stop spin and slowly return or just stop
+            spinSpeedControls.stop();
+            // Just slightly rotate to simulate it slowing down
+            spinSpeedControls.start({
+                rotate: 0,
+                transition: { type: 'spring', stiffness: 200, damping: 40, mass: 2 }
+            });
+        }
+        
+        return () => {
+            if (smokeInterval) clearInterval(smokeInterval);
+        };
+    }, [isHovered, spinSpeedControls, isMobile]);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
