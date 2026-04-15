@@ -53,7 +53,7 @@ const projectData = [
 ];
 
 // Project Card Component with 3D tilt effect
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, _index }) {
     const theme = useTheme();
     const prefersReducedMotion = useReducedMotion();
     const cardRef = useRef(null);

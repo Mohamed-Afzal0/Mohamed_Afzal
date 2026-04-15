@@ -444,6 +444,4 @@ function GTRTireBackground() {
     );
 }
 
-const primary = "#3b82f6"; // Fallback primary color for the definition
-
 export default GTRTireBackground;

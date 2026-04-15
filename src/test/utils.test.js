@@ -17,10 +17,12 @@ describe('Utility Functions', () => {
 
     it('should handle conditional classes', () => {
       const mergeClasses = (...inputs) => inputs.filter(Boolean).join(' ')
+      const shouldAdd = true
+      const shouldNotAdd = false
       const result = mergeClasses(
         'px-2',
-        true && 'py-1',
-        false && 'hidden'
+        shouldAdd && 'py-1',
+        shouldNotAdd && 'hidden'
       )
       expect(result).toBe('px-2 py-1')
     })

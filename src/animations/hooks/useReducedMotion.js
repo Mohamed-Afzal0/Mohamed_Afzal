@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 /**
  * Custom hook to detect if user prefers reduced motion
@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 export function useReducedMotion() {
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         // Check if window is available (SSR safety)
         if (typeof window === 'undefined') return;
 

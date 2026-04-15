@@ -5,7 +5,6 @@ import { useIsMobilePerformance } from '../../animations/hooks/useIsMobilePerfor
 
 function ScrollToTopTire() {
     const { scrollY } = useScroll();
-    const controls = useAnimation();
     const [isVisible, setIsVisible] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const smokeContainerRef = useRef(null);
@@ -52,7 +51,7 @@ function ScrollToTopTire() {
         };
     }, [isHovered, spinSpeedControls, isMobile]);
 
-    const emitSmoke = () => {
+    function emitSmoke() {
         if (!smokeContainerRef.current) return;
         
         const p = document.createElement('div');
@@ -83,7 +82,7 @@ function ScrollToTopTire() {
                 smokeContainerRef.current.removeChild(p);
             }
         }, duration * 1000);
-    };
+    }
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });

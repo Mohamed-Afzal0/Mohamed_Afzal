@@ -1,4 +1,4 @@
-import React, { useState, useMemo, createContext, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Header from './components/header';
 import Home from './Pages/Home';
 import About from './Pages/About';
@@ -12,9 +12,7 @@ import { ScrollProgress } from './components/animated/CursorGlow';
 import { useReducedMotion } from './animations/hooks/useReducedMotion';
 import GTRTireBackground from './components/animated/GTRTireBackground';
 import ScrollToTopTire from './components/animated/ScrollToTopTire';
-
-// Create a context so the header can access the toggle function
-export const ColorModeContext = createContext({ toggleColorMode: () => { } });
+import { ColorModeContext } from './context/ColorModeContext';
 
 // We break the App into two components to use useTheme inside the inner one
 function MainContent() {

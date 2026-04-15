@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars, no-undef */
 import '@testing-library/jest-dom'
 
 // Mock window.matchMedia for responsive design tests

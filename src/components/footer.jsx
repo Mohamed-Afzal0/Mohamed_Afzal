@@ -226,7 +226,7 @@ function Footer() {
                             
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                                 <Box sx={{ display: 'flex', gap: 1 }}>
-                                    {socialLinks.map((social, index) => (
+                                    {socialLinks.map((social, _index) => (
                                         <IconButton
                                             key={social.label}
                                             href={social.href}
