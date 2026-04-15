@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, useTheme, Button } from '@mui/material';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import MagneticButton from '../components/animated/MagneticButton';
