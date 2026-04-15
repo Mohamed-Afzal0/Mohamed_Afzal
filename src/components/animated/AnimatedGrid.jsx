@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { useScrollAnimation } from '../../animations/hooks/useScrollAnimation';
 import { useReducedMotion } from '../../animations/hooks/useReducedMotion';
 import { staggerContainer, staggerChild } from '../../animations/variants/stagger';
