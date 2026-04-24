@@ -9,6 +9,7 @@ import MindWaveImg from '../assets/Mindwave.png';
 import PortfolioImg from '../assets/Protfolio.png';
 import EstateImg from '../assets/estateAgentApp.png';
 import ServerMonitorImg from '../assets/Server_Monitor.png';
+import SmartCampusImg from '../assets/postman-for-api-testing.png';
 import AnimatedGrid from '../components/animated/AnimatedGrid';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import { staggerChild } from '../animations/variants/stagger';
@@ -17,6 +18,22 @@ import { staggerChild } from '../animations/variants/stagger';
 const projectData = [
     {
         id: 1,
+        title: "Smart-Campus-Sensor-Room-Management-API",
+        description: "A RESTful API built with Flask to manage and monitor smart campus sensor rooms, providing endpoints for device management, data retrieval, and real-time monitoring.",
+        image: SmartCampusImg,
+        techStack: ["Java", "Postman", "REST API", "JAX-RS", "Maven", "Jersey", "GlassFish", "Netbeans"],
+        github: "https://github.com/Mohamed-Afzal0/Smart-Campus-Sensor-Room-Management-API.git"
+    },
+    {
+        id: 2,
+        title: "Server Monitor Dashboard",
+        description: "A full-stack real-time system monitoring tool built independently to explore DevOps and SRE practices.",
+        image: ServerMonitorImg,
+        techStack: ["Python", "psutil", "Flask", "Docker", "JavaScript", "Chart.js", "HTML", "CSS", "GitHub Actions"],
+        github: "https://github.com/Mohamed-Afzal0/Server-Monitor.git",
+    },
+    {
+        id: 3,
         title: "Mind Wave",
         description: "An application which provide users with the best way to track their mood and mental health.",
         image: MindWaveImg,
@@ -25,7 +42,7 @@ const projectData = [
         demo: "https://mindwave-app.com/" // Placeholder
     },
     {
-        id: 2,
+        id: 4,
         title: "Portfolio Website",
         description: "A website to showcase my skills and projects.",
         image: PortfolioImg,
@@ -34,7 +51,7 @@ const projectData = [
         demo: "https://mohamed-afzal-lovat.vercel.app/" // Placeholder
     },
     {
-        id: 3,
+        id: 5,
         title: "Estate Agent Application",
         description: "SmartMove is a simple estate listing web app that showcases featured properties with key details like location, price, and descriptions for an estate agent brand.",
         image: EstateImg,
@@ -42,14 +59,6 @@ const projectData = [
         github: "https://github.com/Mohamed-Afzal0/estate-agent-app.git", // Placeholder
         demo: "https://mohamed-afzal0.github.io/estate-agent-app/" // Placeholder
     },
-    {
-        id: 4,
-        title: "Server Monitor Dashboard",
-        description: "A full-stack real-time system monitoring tool built independently to explore DevOps and SRE practices.",
-        image: ServerMonitorImg,
-        techStack: ["Python", "psutil", "Flask", "Docker", "JavaScript", "Chart.js", "HTML", "CSS", "GitHub Actions"],
-        github: "https://github.com/Mohamed-Afzal0/Server-Monitor.git",
-    }
 ];
 
 // Project Card Component with 3D tilt effect

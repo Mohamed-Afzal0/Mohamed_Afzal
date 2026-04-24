@@ -42,9 +42,13 @@ const technologies = [
     { name: 'Linux', category: 'OS', color: '#2496ED', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' },
     { name: 'Railway', category: 'DevOps', color: '#b2b2b2', logo: 'https://railway.app/favicon.ico' },
     { name: 'Postman', category: 'Tool', color: '#FF6C37', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg' },
-    { name: 'flask', category: 'Backend', color: '#b2b2b2', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg' },
-    { name: 'psutil', category: 'Tool', color: '#b2b2b2', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-    { name: 'Chart.js', category: 'Tool', color: '#b2b2b2', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chartjs/chartjs-original.svg' },
+    { name: 'flask', category: 'Backend', color: '#FF6B6B', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg' },
+    { name: 'psutil', category: 'Tool', color: '#8B5CF6', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+    { name: 'Chart.js', category: 'Tool', color: '#EC4899', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chartjs/chartjs-original.svg' },
+    { name: 'JAX-RS', category: 'Backend', color: '#F7931E', logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="5" fill="%23F7931E"/><circle cx="50" cy="50" r="8" fill="white"/><rect x="30" y="40" width="8" height="20" fill="%23F7931E"/><rect x="62" y="40" width="8" height="20" fill="%23F7931E"/></svg>' },
+    { name: 'Jersey', category: 'Backend', color: '#00A8E8', logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 15 L85 35 L85 75 Q85 85 75 85 L25 85 Q15 85 15 75 L15 35 Z" fill="%2300A8E8"/><circle cx="50" cy="55" r="12" fill="white"/><path d="M50 45 L55 50 L50 55 L45 50 Z" fill="%2300A8E8"/></svg>' },
+    { name: 'GlassFish', category: 'Backend', color: '#6A994E', logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="%236A994E" opacity="0.3"/><path d="M30 50 Q30 35 50 30 Q70 35 70 50 Q70 65 50 70 Q30 65 30 50" fill="%236A994E"/><circle cx="45" cy="48" r="5" fill="white"/><circle cx="55" cy="52" r="5" fill="white"/></svg>' },
+    { name: 'Maven', category: 'Tool', color: '#06B6D4', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg' },
 ];
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
