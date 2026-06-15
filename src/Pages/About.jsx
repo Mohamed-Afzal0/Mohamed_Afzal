@@ -50,6 +50,7 @@ const technologies = [
     { name: 'Jersey', category: 'Backend', color: '#00A8E8', logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 15 L85 35 L85 75 Q85 85 75 85 L25 85 Q15 85 15 75 L15 35 Z" fill="%2300A8E8"/><circle cx="50" cy="55" r="12" fill="white"/><path d="M50 45 L55 50 L50 55 L45 50 Z" fill="%2300A8E8"/></svg>' },
     { name: 'GlassFish', category: 'Backend', color: '#6A994E', logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="%236A994E" opacity="0.3"/><path d="M30 50 Q30 35 50 30 Q70 35 70 50 Q70 65 50 70 Q30 65 30 50" fill="%236A994E"/><circle cx="45" cy="48" r="5" fill="white"/><circle cx="55" cy="52" r="5" fill="white"/></svg>' },
     { name: 'Maven', category: 'Tool', color: '#06B6D4', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg' },
+    { name: 'GitHub Copilot', category: 'Tool', color: '#F05032', logo: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' },
 ];
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];

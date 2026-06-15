@@ -46,7 +46,7 @@ const projectData = [
         title: "Portfolio Website",
         description: "A website to showcase my skills and projects.",
         image: PortfolioImg,
-        techStack: ["React", "Vite", "Framer Motion", "Material-UI", "javascript", "Docker", "GitHub Actions", "Vercel"],
+        techStack: ["React", "Vite", "Framer Motion", "Material-UI", "javascript", "Docker", "GitHub Actions", "Vercel", "GitHub Copilot"],
         github: "https://github.com/Mohamed-Afzal0/Mohamed_Afzal.git", // Placeholder
         demo: "https://mohamed-afzal-lovat.vercel.app/" // Placeholder
     },
