@@ -4,12 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import MagneticButton from '../components/animated/MagneticButton';
-import { useReducedMotion } from '../animations/hooks/useReducedMotion';
 import { heroContent } from '../lib/heroContent';
 
 function Home() {
     const theme = useTheme();
-    const prefersReducedMotion = useReducedMotion();
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
