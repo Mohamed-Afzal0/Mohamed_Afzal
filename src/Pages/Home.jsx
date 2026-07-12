@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Typography, useTheme, Button } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import MagneticButton from '../components/animated/MagneticButton';
 import { useReducedMotion } from '../animations/hooks/useReducedMotion';
+import { heroContent } from '../lib/heroContent';
 
 function Home() {
     const theme = useTheme();
@@ -12,23 +13,21 @@ function Home() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        // Small delay to trigger entrance animations
-        const timer = setTimeout(() => setIsLoaded(true), 100);
-        return () => clearTimeout(timer);
+        const timer = window.setTimeout(() => setIsLoaded(true), 80);
+        return () => window.clearTimeout(timer);
     }, []);
 
-    // Scroll indicator animation variants
-    const scrollIndicatorVariants = {
+    const scrollIndicatorVariants = useMemo(() => ({
         initial: { opacity: 0, y: 0 },
         animate: {
             opacity: 1,
             y: [0, 8, 0],
             transition: {
-                opacity: { duration: 0.5 },
-                y: { duration: 1.5, repeat: Infinity, ease: 'easeInOut' },
+                opacity: { duration: 0.35 },
+                y: { duration: 1.2, repeat: Infinity, ease: 'easeInOut' },
             },
         },
-    };
+    }), []);
 
     return (
         <Box
@@ -41,226 +40,162 @@ function Home() {
                 justifyContent: 'center',
                 position: 'relative',
                 overflow: 'hidden',
-                // Gradient background removed so 3D Canvas shines through
                 background: 'transparent',
+                py: { xs: 8, md: 10 },
             }}
         >
-            {/* Main Content */}
             <Box
                 sx={{
-                    maxWidth: '1200px',
-                    mx: 'auto',
-                    textAlign: 'center',
-                    px: { xs: 2, md: 4, lg: 6 },
+                    maxWidth: '1180px',
+                    width: '100%',
+                    px: { xs: 2.5, md: 4, lg: 6 },
                     position: 'relative',
                     zIndex: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    textAlign: 'center',
                 }}
             >
                 <AnimatePresence>
                     {isLoaded && (
                         <motion.div
-                            initial="hidden"
-                            animate="show"
-                            variants={{
-                                hidden: { opacity: 0 },
-                                show: {
-                                    opacity: 1,
-                                    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
-                                }
-                            }}
-                            style={{ perspective: '1000px' }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.45 }}
+                            style={{ width: '100%' }}
                         >
-                            <Box sx={{ overflow: 'hidden', pb: 1, mb: { xs: -1, md: -2 } }}>
-                                <motion.div variants={{
-                                    hidden: { opacity: 0, y: 100, rotateX: -20 },
-                                    show: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 1.2, ease: [0.19, 1.0, 0.22, 1.0] } }
-                                }}>
-                                    <Typography
-                                        sx={{
-                                            fontWeight: 900,
-                                            fontSize: { xs: '3.5rem', sm: '5.5rem', md: '7.5rem', lg: '9rem' },
-                                            lineHeight: 0.9,
-                                            letterSpacing: '-0.03em',
-                                            color: 'text.primary',
-                                            textTransform: 'uppercase',
-                                            cursor: 'default',
-                                        }}
-                                    >
-                                        Building
-                                    </Typography>
-                                </motion.div>
-                            </Box>
+                            <motion.div
+                                initial={{ opacity: 0, y: 24 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.55, ease: 'easeOut' }}
+                            >
+                                <Typography
+                                    variant="overline"
+                                    sx={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: 1,
+                                        mb: 2.5,
+                                        px: 1.5,
+                                        py: 0.75,
+                                        borderRadius: '999px',
+                                        border: '1px solid',
+                                        borderColor: 'divider',
+                                        color: 'text.secondary',
+                                        letterSpacing: '0.28em',
+                                        fontWeight: 700,
+                                        backdropFilter: 'blur(14px)',
+                                        backgroundColor: 'rgba(255,255,255,0.04)',
+                                    }}
+                                >
+                                    <Box component="span" sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main' }} />
+                                    {heroContent.eyebrow}
+                                </Typography>
+                            </motion.div>
 
-                            <Box sx={{ overflow: 'hidden', pb: 1, mb: { xs: -1, md: -2 } }}>
-                                <motion.div variants={{
-                                    hidden: { opacity: 0, y: 100, rotateX: -20 },
-                                    show: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 1.2, ease: [0.19, 1.0, 0.22, 1.0] } }
-                                }}>
-                                    <Typography
-                                        sx={{
-                                            fontWeight: 900,
-                                            fontSize: { xs: '3.5rem', sm: '5.5rem', md: '7.5rem', lg: '9rem' },
-                                            lineHeight: 0.9,
-                                            letterSpacing: '-0.03em',
-                                            textTransform: 'uppercase',
-                                            background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #2e2be2ff 50%, ${theme.palette.secondary?.main || '#000000ff'} 100%)`,
-                                            backgroundSize: '200% auto',
-                                            WebkitBackgroundClip: 'text',
-                                            WebkitTextFillColor: 'transparent',
-                                            color: 'transparent',
-                                            display: 'inline-block',
-                                            cursor: 'default',
-                                            animation: 'gradientReveal 8s ease infinite',
-                                            '@keyframes gradientReveal': {
-                                                '0%': { backgroundPosition: '0% 50%' },
-                                                '50%': { backgroundPosition: '100% 50%' },
-                                                '100%': { backgroundPosition: '0% 50%' },
-                                            }
-                                        }}
-                                    >
-                                        Future
-                                    </Typography>
+                            <motion.div
+                                initial={{ opacity: 0, y: 24 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.7, delay: 0.08, ease: 'easeOut' }}
+                                sx={{ mb: 2.5 }}
+                            >
+                                <Typography
+                                    sx={{
+                                        fontWeight: 800,
+                                        fontSize: { xs: '2.6rem', sm: '4rem', md: '5.4rem', lg: '6.3rem' },
+                                        lineHeight: 0.95,
+                                        letterSpacing: '-0.03em',
+                                        color: 'text.primary',
+                                        maxWidth: '980px',
+                                        mx: 'auto',
+                                        textWrap: 'balance',
+                                    }}
+                                >
+                                    {heroContent.headline}
+                                </Typography>
+                            </motion.div>
 
-                                    {/* Text Glow Effect */}
-                                    <Box
-                                        sx={{
-                                            position: 'absolute',
-                                            top: '50%',
-                                            left: '50%',
-                                            transform: 'translate(-50%, -50%)',
-                                            width: '100%',
-                                            height: '100%',
-                                            background: `radial-gradient(circle, ${theme.palette.primary.main}33 0%, transparent 70%)`,
-                                            filter: 'blur(60px)',
-                                            zIndex: -1,
-                                            animation: 'glowPulse 4s ease-in-out infinite',
-                                            '@keyframes glowPulse': {
-                                                '0%, 100%': { opacity: 0.5, transform: 'translate(-50%, -50%) scale(1)' },
-                                                '50%': { opacity: 0.8, transform: 'translate(-50%, -50%) scale(1.1)' },
-                                            }
-                                        }}
-                                    />
-                                </motion.div>
-                            </Box>
+                            <motion.div
+                                initial={{ opacity: 0, y: 18 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.7, delay: 0.16, ease: 'easeOut' }}
+                            >
+                                <Typography
+                                    sx={{
+                                        maxWidth: '760px',
+                                        mx: 'auto',
+                                        mb: 4,
+                                        fontSize: { xs: '1rem', md: '1.15rem' },
+                                        lineHeight: 1.7,
+                                        color: 'text.secondary',
+                                    }}
+                                >
+                                    {heroContent.description}
+                                </Typography>
+                            </motion.div>
 
-                            <Box sx={{ overflow: 'hidden', mt: { xs: 3, md: 5 }, mb: { xs: 2, md: 3 } }}>
-                                <motion.div variants={{
-                                    hidden: { opacity: 0, y: 50 },
-                                    show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.25, 1.0, 0.25, 1.0] } }
-                                }}>
-                                    <Typography
-                                        sx={{
-                                            fontSize: { xs: '0.8rem', sm: '1rem', md: '1.2rem' },
-                                            fontWeight: 500,
-                                            letterSpacing: '0.4em',
-                                            textTransform: 'uppercase',
-                                            color: 'text.secondary',
-                                            opacity: 0.9,
-                                            fontFamily: "'Space Grotesk', 'Inter', sans-serif",
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            gap: 2,
-                                            '&::before, &::after': {
-                                                content: '""',
-                                                display: { xs: 'none', sm: 'block' },
-                                                height: '1px',
-                                                width: '50px',
-                                                backgroundColor: 'text.secondary',
-                                                opacity: 0.5
-                                            }
-                                        }}
-                                    >
-                                        Ever Evolving Ever Learning
-                                    </Typography>
-                                </motion.div>
-                            </Box>
-
-
-                            <motion.div variants={{
-                                hidden: { opacity: 0, scale: 0.9, filter: 'blur(10px)' },
-                                show: { opacity: 1, scale: 1, filter: 'blur(0px)', transition: { duration: 0.8, ease: [0.25, 1.0, 0.25, 1.0] } }
-                            }}>
-                                <Box sx={{ display: 'flex', gap: { xs: 2, sm: 3 }, justifyContent: 'center', flexWrap: 'wrap' }}>
-                                    <MagneticButton strength={0.3} radius={150}>
+                            <motion.div
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.22, ease: 'easeOut' }}
+                            >
+                                <Box sx={{ display: 'flex', gap: { xs: 1.5, sm: 2.2 }, justifyContent: 'center', flexWrap: 'wrap' }}>
+                                    <MagneticButton strength={0.24} radius={140}>
                                         <Button
+                                            component="a"
+                                            href="#contact"
                                             variant="contained"
                                             size="large"
-                                            href="#contact"
                                             sx={{
-                                                borderRadius: '50px',
-                                                textTransform: 'uppercase',
-                                                letterSpacing: '0.15em',
-                                                fontWeight: 800,
-                                                px: { xs: 4, sm: 5 },
-                                                py: { xs: 1.5, sm: 2 },
-                                                fontSize: { xs: '0.85rem', sm: '0.95rem' },
+                                                borderRadius: '999px',
+                                                textTransform: 'none',
+                                                letterSpacing: '0.02em',
+                                                fontWeight: 700,
+                                                px: { xs: 3.2, sm: 4.2 },
+                                                py: { xs: 1.2, sm: 1.4 },
+                                                fontSize: { xs: '0.95rem', sm: '1rem' },
                                                 color: '#fff',
-                                                background: `linear-gradient(45deg, ${theme.palette.primary.main}, #2b37e2ff)`,
-                                                boxShadow: `0 10px 30px -10px ${theme.palette.primary.main}`,
-                                                overflow: 'hidden',
-                                                position: 'relative',
-                                                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                                                zIndex: 1,
-                                                '&::before': {
-                                                    content: '""',
-                                                    position: 'absolute',
-                                                    top: 0, left: '-100%', width: '100%', height: '100%',
-                                                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
-                                                    transition: 'all 0.6s ease',
-                                                    zIndex: -1,
-                                                },
-                                                '&:hover::before': {
-                                                    left: '100%'
-                                                },
+                                                background: `linear-gradient(135deg, ${theme.palette.primary.main}, #4f46e5)`,
+                                                boxShadow: `0 16px 34px -16px ${theme.palette.primary.main}`,
+                                                transition: 'transform 180ms ease, box-shadow 180ms ease',
                                                 '&:hover': {
-                                                    boxShadow: `0 15px 40px -5px ${theme.palette.primary.main}`,
-                                                    transform: 'translateY(-3px) scale(1.02)'
+                                                    transform: 'translateY(-2px)',
+                                                    boxShadow: `0 18px 38px -14px ${theme.palette.primary.main}`,
                                                 },
                                             }}
                                         >
-                                            Let's Talk
+                                            {heroContent.primaryCta}
                                         </Button>
                                     </MagneticButton>
 
-                                    <motion.div
-                                        whileHover={!prefersReducedMotion ? { scale: 1.05 } : {}}
-                                        whileTap={!prefersReducedMotion ? { scale: 0.95 } : {}}
+                                    <Button
+                                        component="a"
+                                        href="#projects"
+                                        variant="outlined"
+                                        size="large"
+                                        sx={{
+                                            borderRadius: '999px',
+                                            textTransform: 'none',
+                                            letterSpacing: '0.02em',
+                                            fontWeight: 700,
+                                            px: { xs: 3.2, sm: 4.2 },
+                                            py: { xs: 1.2, sm: 1.4 },
+                                            fontSize: { xs: '0.95rem', sm: '1rem' },
+                                            borderColor: 'divider',
+                                            color: 'text.primary',
+                                            backgroundColor: 'rgba(255,255,255,0.03)',
+                                            backdropFilter: 'blur(10px)',
+                                            '&:hover': {
+                                                borderColor: 'primary.main',
+                                                color: 'primary.main',
+                                                backgroundColor: 'rgba(37, 99, 235, 0.06)',
+                                            },
+                                        }}
                                     >
-                                        <Button
-                                            variant="outlined"
-                                            size="large"
-                                            href="#projects"
-                                            sx={{
-                                                borderRadius: '50px',
-                                                textTransform: 'uppercase',
-                                                letterSpacing: '0.15em',
-                                                fontWeight: 800,
-                                                px: { xs: 4, sm: 5 },
-                                                py: { xs: 1.5, sm: 2 },
-                                                fontSize: { xs: '0.85rem', sm: '0.95rem' },
-                                                borderWidth: '2px',
-                                                borderColor: 'text.primary',
-                                                color: 'text.primary',
-                                                backdropFilter: 'blur(10px)',
-                                                backgroundColor: 'rgba(255,255,255,0.02)',
-                                                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                                                '&:hover': {
-                                                    borderWidth: '2px',
-                                                    borderColor: 'text.primary',
-                                                    backgroundColor: 'text.primary',
-                                                    color: 'background.default',
-                                                    transform: 'translateY(-3px)'
-                                                },
-                                            }}
-                                        >
-                                            Explore Work
-                                        </Button>
-                                    </motion.div>
+                                        {heroContent.secondaryCta}
+                                    </Button>
                                 </Box>
                             </motion.div>
                         </motion.div>
@@ -268,7 +203,6 @@ function Home() {
                 </AnimatePresence>
             </Box>
 
-            {/* Scroll Indicator */}
             <AnimatePresence>
                 {isLoaded && (
                     <motion.div
@@ -277,7 +211,7 @@ function Home() {
                         animate="animate"
                         style={{
                             position: 'absolute',
-                            bottom: 20,
+                            bottom: 18,
                             left: '50%',
                             transform: 'translateX(-50%)',
                             cursor: 'pointer',
@@ -294,10 +228,7 @@ function Home() {
                                 color: 'text.secondary',
                             }}
                         >
-                            <Typography
-                                variant="caption"
-                                sx={{ mb: 1.5, letterSpacing: 1, textTransform: 'uppercase' }}
-                            >
+                            <Typography variant="caption" sx={{ mb: 1.2, letterSpacing: 0.24, textTransform: 'uppercase' }}>
                                 Scroll
                             </Typography>
                             <KeyboardArrowDownIcon />

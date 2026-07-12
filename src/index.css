@@ -1,9 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -13,7 +9,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Enable smooth scrolling across the entire site */
 html {
   scroll-behavior: smooth;
 }
@@ -23,34 +18,29 @@ body {
   padding: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #f8fafc;
+  background: #f8fafc;
 }
 
-/* Base link styles */
+* {
+  box-sizing: border-box;
+}
+
 a {
-  font-weight: 500;
-  color: #2563eb;
-  text-decoration: inherit;
-  transition: all 0.2s ease-in-out;
-}
-a:hover {
-  text-decoration: underline;
+  color: inherit;
+  text-decoration: none;
 }
 
-/* Custom selection color */
 ::selection {
-  background-color: rgba(37, 99, 235, 0.2);
+  background: rgba(37, 99, 235, 0.24);
   color: inherit;
 }
 
-/* Smooth focus transitions for form elements */
 input:focus,
 textarea:focus,
 button:focus {
   outline: none;
 }
 
-/* Custom scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -61,24 +51,19 @@ button:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(128, 128, 128, 0.3);
-  border-radius: 4px;
+  background: rgba(100, 116, 139, 0.35);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(128, 128, 128, 0.5);
+  background: rgba(100, 116, 139, 0.55);
 }
 
-/* Dark mode scrollbar */
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+[data-theme='dark'] body {
+  background: #020617;
 }
 
-[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.35);
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
 }
 
-/* Prevent layout shift during font load */
-body {
-  font-display: swap;
-}

@@ -1,10 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, lazy, Suspense } from 'react';
 import Header from './components/header';
 import Home from './Pages/Home';
-import About from './Pages/About';
-import Project from './Pages/Project';
-import Contact from './Pages/Contact';
-import Footer from './components/footer';
 import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 import { lightTheme, darkTheme } from './theme';
 import PageLoader from './components/animated/PageLoader';
@@ -13,6 +9,11 @@ import { useReducedMotion } from './animations/hooks/useReducedMotion';
 import GTRTireBackground from './components/animated/GTRTireBackground';
 import ScrollToTopTire from './components/animated/ScrollToTopTire';
 import { ColorModeContext } from './context/ColorModeContext';
+
+const About = lazy(() => import('./Pages/About'));
+const Project = lazy(() => import('./Pages/Project'));
+const Contact = lazy(() => import('./Pages/Contact'));
+const Footer = lazy(() => import('./components/footer'));
 
 // We break the App into two components to use useTheme inside the inner one
 function MainContent() {
@@ -29,14 +30,22 @@ function MainContent() {
                     <Header />
 
                     <Box component="main" sx={{ flexGrow: 1 }}>
-                <Home />
-                <About />
-                <Project />
-                <Contact />
-            </Box>
+                        <Home />
+                        <Suspense fallback={null}>
+                            <About />
+                        </Suspense>
+                        <Suspense fallback={null}>
+                            <Project />
+                        </Suspense>
+                        <Suspense fallback={null}>
+                            <Contact />
+                        </Suspense>
+                    </Box>
 
-            {/* Footer Area - Pinned to the very bottom */}
-            <Footer />
+                    {/* Footer Area - Pinned to the very bottom */}
+                    <Suspense fallback={null}>
+                        <Footer />
+                    </Suspense>
 
                     {/* Scroll Progress Bar */}
                     {!prefersReducedMotion && (window.innerWidth >= 768) && <ScrollProgress color="primary" height={3} />}
