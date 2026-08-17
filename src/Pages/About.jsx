@@ -7,6 +7,10 @@ import { scaleIn } from '../animations/variants/scale';
 import { staggerChild } from '../animations/variants/stagger';
 import meImage from '../assets/me.png';
 
+// Certificate Images
+import dockerCert from '../assets/Certificates/Docker Training Course for the Absolute Beginner.jpg';
+import linuxCert from '../assets/Certificates/Lab_Linux Tutorial.jpg';
+
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const softSkills = [
     { label: 'UI/UX Design', icon: '🎨' },
@@ -51,6 +55,36 @@ const technologies = [
     { name: 'GlassFish', category: 'Backend', color: '#6A994E', logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="%236A994E" opacity="0.3"/><path d="M30 50 Q30 35 50 30 Q70 35 70 50 Q70 65 50 70 Q30 65 30 50" fill="%236A994E"/><circle cx="45" cy="48" r="5" fill="white"/><circle cx="55" cy="52" r="5" fill="white"/></svg>' },
     { name: 'Maven', category: 'Tool', color: '#06B6D4', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg' },
     { name: 'GitHub Copilot', category: 'Tool', color: '#F05032', logo: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' },
+];
+
+const certifications = [
+    {
+        title: 'Docker Training Course for the Absolute Beginner',
+        issuer: 'KodeKloud',
+        skills: ['Docker', 'YAML'],
+        year: 2026,
+        image: dockerCert,
+        link: 'https://learn.kodekloud.com/learn/certificate/faf7fa2d-cc0b-44f6-91cc-d999f439b9f7',
+        color: '#2496ED' // Docker color
+    },
+    {
+        title: 'Lab: Linux Tutorial',
+        issuer: 'KodeKloud',
+        skills: ['Linux'],
+        year: 2026,
+        image: linuxCert,
+        link: 'https://learn.kodekloud.com/learn/certificate/da47bace-aa5d-4b4d-9fdd-9a8b67349dc3',
+        color: '#FCC624' // Linux-like color
+    },
+    {
+        title: 'Oracle SQL - A Complete Introduction',
+        issuer: 'Udemy',
+        skills: ['Oracle SQL', 'SQL'],
+        image: null, // No image provided for this one
+        year: 2026,
+        link: 'https://www.udemy.com/course/introduction-to-oracle-sql/learn/lecture/6459562#overview',
+        color: '#F80000' // Oracle color
+    }
 ];
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
@@ -214,6 +248,20 @@ function About() {
     // Skills & Tech section ref
     const skillsPageRef = useRef(null);
     const skillsPageInView = useInView(skillsPageRef, { once: true, amount: 0.1 });
+
+    // Certifications section ref
+    const certsRef = useRef(null);
+    const certsInView = useInView(certsRef, { once: true, amount: 0.1 });
+
+    // Define the desired order of categories
+    const categoryOrder = ['Frontend', 'Backend', 'Language', 'Mobile', 'Database', 'DevOps', 'Design', 'Tool', 'OS'];
+
+    // Sort technologies based on the categoryOrder to group them visually in the grid
+    const sortedTechnologies = [...technologies].sort((a, b) => {
+        const indexA = categoryOrder.indexOf(a.category);
+        const indexB = categoryOrder.indexOf(b.category);
+        return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
+    });
 
     return (
         <Box component="div" id="about">
@@ -565,14 +613,13 @@ function About() {
                                 </Box>
 
                                 <Grid container spacing={1.5}>
-                                    {technologies.map((tech, index) => (
+                                    {sortedTechnologies.map((tech, index) => (
                                         <Grid item xs={4} sm={3} md={3} key={tech.name}>
                                             <TechCard
                                                 tech={tech}
                                                 index={index}
                                                 inView={skillsPageInView}
                                                 isDark={isDark}
-                                                primaryColor={primary}
                                             />
                                         </Grid>
                                     ))}
@@ -581,6 +628,147 @@ function About() {
                         </Box>
                     </Box>
 
+                </Container>
+            </Box>
+
+            {/* ══════════════════════════════════════════════
+                PAGE 3 — Certifications
+            ══════════════════════════════════════════════ */}
+            <Box
+                ref={certsRef}
+                component="section"
+                sx={{
+                    py: { xs: 10, md: 15 },
+                    position: 'relative',
+                    overflow: 'hidden',
+                    backgroundColor: isDark ? 'transparent' : 'action.hover',
+                }}
+            >
+                <Container maxWidth="lg">
+                    {/* Section Header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 32 }}
+                        animate={certsInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.7, ease: EASE_OUT_EXPO }}
+                    >
+                        <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 8 } }}>
+                            <Typography variant="overline" color="primary" fontWeight="800" sx={{ letterSpacing: 3, fontSize: '0.75rem' }}>
+                                My Credentials
+                            </Typography>
+                            <Typography variant="h3" fontWeight={900}
+                                sx={{
+                                    mt: 0.5,
+                                    fontSize: { xs: '2.2rem', md: '3.2rem' },
+                                    color: 'text.primary',
+                                    lineHeight: 1.1,
+                                    letterSpacing: '-0.02em'
+                                }}>
+                                Certifications
+                            </Typography>
+                        </Box>
+                    </motion.div>
+
+                    {/* Certifications Grid */}
+                    <Grid container spacing={3}>
+                        {certifications.map((cert, index) => (
+                            <Grid item xs={12} sm={6} md={4} key={index}>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                                    animate={certsInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                                    transition={{ duration: 0.6, delay: 0.1 + index * 0.1, ease: EASE_OUT_EXPO }}
+                                    style={{ height: '100%' }}
+                                >
+                                    <Box
+                                        component="a"
+                                        href={cert.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        sx={{
+                                            display: 'flex',
+                                            flexDirection: { xs: 'column', sm: 'row' },
+                                            gap: 2.5,
+                                            height: '100%',
+                                            textDecoration: 'none',
+                                            position: 'relative',
+                                            p: { xs: 2, sm: 2.5 },
+                                            borderRadius: '20px',
+                                            background: isDark
+                                                ? 'linear-gradient(135deg, rgba(30,41,59,0.7), rgba(15,23,42,0.8))'
+                                                : 'linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.85))',
+                                            border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
+                                            transition: 'all 0.3s ease',
+                                            boxShadow: isDark ? '0 10px 30px rgba(0,0,0,0.3)' : '0 10px 30px rgba(0,0,0,0.05)',
+                                            '&::before': {
+                                                content: '""',
+                                                position: 'absolute',
+                                                top: 0, left: 0, right: 0,
+                                                height: 3,
+                                                background: `linear-gradient(90deg, transparent, ${cert.color}, transparent)`,
+                                                opacity: 0,
+                                                transition: 'opacity 0.3s ease',
+                                            },
+                                            '&:hover': {
+                                                transform: 'translateY(-8px)',
+                                                borderColor: `${cert.color}66`,
+                                                boxShadow: `0 20px 40px ${cert.color}15`,
+                                                '&::before': { opacity: 1 },
+                                                '& .cert-image': {
+                                                    transform: 'scale(1.05)',
+                                                }
+                                            },
+                                        }}
+                                    >
+                                        {cert.image && (
+                                            <Box sx={{
+                                                flex: '0 0 auto',
+                                                width: { xs: '100%', sm: 130 },
+                                                alignSelf: 'stretch',
+                                                borderRadius: '12px',
+                                                overflow: 'hidden',
+                                                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                                            }}>
+                                                <Box
+                                                    className="cert-image"
+                                                    component="img"
+                                                    src={cert.image}
+                                                    alt={`${cert.title} certificate`}
+                                                    sx={{
+                                                        width: '100%', height: '100%', objectFit: 'cover',
+                                                        transition: 'transform 0.4s ease-in-out',
+                                                    }}
+                                                />
+                                            </Box>
+                                        )}
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                                            <Typography variant="h6" component="h4" fontWeight="800" sx={{ color: 'text.primary', mb: 1, lineHeight: 1.3, fontSize: '1.05rem' }}>
+                                                {cert.title}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                                                Issued by <Box component="span" sx={{ fontWeight: 'bold', color: 'text.primary' }}>{cert.issuer}</Box> &bull; {cert.year}
+                                            </Typography>
+                                            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mt: 'auto' }}>
+                                                {cert.skills.map((skill, i) => (
+                                                    <Chip
+                                                        key={i}
+                                                        label={skill}
+                                                        size="small"
+                                                        sx={{
+                                                            borderRadius: '8px',
+                                                            fontSize: '0.75rem',
+                                                            fontWeight: 600,
+                                                            bgcolor: `${cert.color}20`,
+                                                            color: cert.color,
+                                                            border: `1px solid ${cert.color}50`,
+                                                        }}
+                                                    />
+                                                ))}
+                                            </Stack>
+                                        </Box>
+                                    </Box>
+                                </motion.div>
+                            </Grid>
+                        ))}
+                    </Grid>
                 </Container>
             </Box>
         </Box>
