@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 // Import local images
 import MindWaveImg from '../assets/Mindwave.png';
-import PortfolioImg from '../assets/Protfolio.png';
+import PortfolioImg from '../assets/Portfolio.png';
 import EstateImg from '../assets/estateAgentApp.png';
 import ServerMonitorImg from '../assets/Server_Monitor.png';
 import SmartCampusImg from '../assets/postman-for-api-testing.png';
