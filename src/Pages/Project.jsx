@@ -27,9 +27,9 @@ const projectData = [
     {
         id: 2,
         title: "Server Monitor Dashboard",
-        description: "A full-stack real-time system monitoring tool built independently to explore DevOps and SRE practices.",
+        description: "A full-stack real-time system monitoring tool built independently to explore DevOps and SRE practices. Along side to improve my skills in Python, Flask, Docker, and front-end development.",
         image: ServerMonitorImg,
-        techStack: ["Python", "psutil", "Flask", "Docker", "JavaScript", "Chart.js", "HTML", "CSS", "GitHub Actions"],
+        techStack: ["Python", "psutil", "Flask", "Docker", "Docker compose", "JavaScript", "Chart.js", "HTML", "CSS", "GitHub Actions"],
         github: "https://github.com/Mohamed-Afzal0/Server-Monitor.git",
     },
     {
@@ -46,7 +46,7 @@ const projectData = [
         title: "Portfolio Website",
         description: "A website to showcase my skills and projects.",
         image: PortfolioImg,
-        techStack: ["React", "Vite", "Framer Motion", "Material-UI", "javascript", "Docker", "GitHub Actions", "Vercel", "GitHub Copilot"],
+        techStack: ["React", "Vite", "Framer Motion", "Material-UI", "javascript", "Docker", "Docker Compose", "GitHub Actions", "Vercel", "GitHub Copilot"],
         github: "https://github.com/Mohamed-Afzal0/Mohamed_Afzal.git", // Placeholder
         demo: "https://mohamed-afzal-lovat.vercel.app/" // Placeholder
     },
