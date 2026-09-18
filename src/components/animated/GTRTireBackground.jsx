@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, useTheme } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useIsMobilePerformance } from '../../animations/hooks/useIsMobilePerformance';
+import { useIsMobilePerformance } from '../../animations/hooks/useIsMobilePerformance.js';
+import { getBackgroundTireRotation } from '../../lib/scrollTireRotation.js';
 
 // High-performance background orb
 const BackgroundOrb = ({ color, size, top, left, delay = 0, opacity = 0.15 }) => (
@@ -43,10 +44,32 @@ function GTRTireBackground() {
     const smokeContainerRef = useRef(null);
     const lastScrollY = useRef(0);
     const lastSmokeTime = useRef(0);
+    const previousScrollYRef = useRef(0);
+    const [tireRotation, setTireRotation] = useState(0);
+
+    useEffect(() => {
+        const updateBackgroundRotation = () => {
+            const currentScroll = window.scrollY || 0;
+            const nextRotation = getBackgroundTireRotation({
+                scrollY: currentScroll,
+                previousScrollY: previousScrollYRef.current,
+                freezeThreshold: 1200,
+                maxScroll: 3000,
+                maxRotation: 2500,
+            });
+
+            setTireRotation(nextRotation);
+            previousScrollYRef.current = currentScroll;
+        };
+
+        updateBackgroundRotation();
+        window.addEventListener('scroll', updateBackgroundRotation, { passive: true });
+
+        return () => window.removeEventListener('scroll', updateBackgroundRotation);
+    }, []);
     
     // Direct 1:1 scroll mapping (no useSpring) to eliminate any "lag" or "bounce" feeling.
     // Syncs perfectly with the user's scrollbar frame-by-frame.
-    const tireRotate = useTransform(scrollY, [0, 3000], [0, 2500]);
     const speedLinesOpacity = useTransform(scrollY, [0, 100, 300], [0, isMobile ? 0 : 0.4, isMobile ? 0 : 0.6]);
     const tireOpacity = useTransform(scrollY, [0, 800], [1, 0.4]); // Fades slightly heavily so it acts as a subtle watermark on other pages
 
@@ -228,7 +251,7 @@ function GTRTireBackground() {
 
                 <Box
                     component={motion.div}
-                    style={{ rotate: tireRotate }}
+                    style={{ rotate: tireRotation }}
                     sx={{
                         width: '100%',
                         height: '100%',

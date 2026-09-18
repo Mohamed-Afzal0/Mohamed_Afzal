@@ -44,7 +44,7 @@ const projectData = [
     {
         id: 4,
         title: "Portfolio Website",
-        description: "A website to showcase my skills and projects.",
+        description: "A self-initiated React portfolio website designed to showcase my skills, projects, and experience through a clean, responsive interface.",
         image: PortfolioImg,
         techStack: ["React", "Vite", "Framer Motion", "Material-UI", "javascript", "Docker", "Docker Compose", "GitHub Actions", "Vercel", "GitHub Copilot"],
         github: "https://github.com/Mohamed-Afzal0/Mohamed_Afzal.git", // Placeholder
